@@ -1,0 +1,8 @@
+.appNav {
+    grid-area: app-n;
+    background-color: rgb(51, 255, 0);
+  }
+  
+.item {
+    color: whitesmoke;
+}  

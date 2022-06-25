@@ -1,0 +1,5 @@
+.appContent {
+    grid-area: app-c;
+    background-color: rgb(228, 215, 207);
+  }
+
