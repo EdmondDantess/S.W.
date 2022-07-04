@@ -1,25 +1,34 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import obc from "./Nav.module.css";
-
-console.log(obc)
 
 export const Nav = () => {
   return (
     <nav className={obc.appNav}>
       <div className={obc.item}>
-        <a>Profile</a>
+        <NavLink to="/profile" activeClassName={obc.activeLink}>
+          Profile
+        </NavLink>
       </div>
       <div className={obc.item}>
-        <a>Messages</a>
+        <NavLink to="/dialogs" activeClassName={obc.activeLink}>
+          Messages
+        </NavLink>
       </div>
       <div className={obc.item}>
-        <a>News</a>
+        <NavLink to="/news" activeClassName={obc.activeLink}>
+          News
+        </NavLink>
       </div>
       <div className={obc.item}>
-        <a>Music</a>
+        <NavLink to="/music" activeClassName={obc.activeLink}>
+          Music
+        </NavLink>
       </div>
       <div className={obc.item}>
-        <a>Settings</a>
+        <NavLink to="/settingz" activeClassName={obc.activeLink}>
+          Settings
+        </NavLink>
       </div>
     </nav>
   );

@@ -2,18 +2,38 @@ import React from "react";
 import obc from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
 
-export const MyPosts = () => {
+type postsDataPropsType = {
+  id: number;
+  message: string;
+  Likes: number;
+};
+
+type MyPostsPropsType = {
+  postsData: postsDataPropsType[]
+}
+
+export const MyPosts  = (props: MyPostsPropsType) => {
+
+  let posts = props.postsData.map((el) => {
+    return (
+      <div className={obc.posts} key={el.id}>
+        <Post message={el.message} Likes={el.Likes} />
+      </div>
+    );
+  });
+
   return (
-    <div>
-      My posts
+    <div className={obc.postsBlock}>
+      <h3>My Posts</h3>
       <div>
-        <textarea></textarea>
-        <button>Send</button>
+        <div>
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Send</button>
+        </div>
       </div>
-      <div className={obc.posts}>
-        <Post message='Hello World' Likes={15}  />
-        <Post message="Hi im new Post" Likes={20} />
-      </div>
+      {posts}
     </div>
   );
 };

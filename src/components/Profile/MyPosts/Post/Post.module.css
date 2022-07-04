@@ -1,10 +1,26 @@
+.item {
+  color: rgb(185, 35, 35);
+}
 
+.item img {
+  height: 70px;
+  border-radius: 50%;
+}
 
-  .item {
-    color: rgb(185, 35, 35);
-  }
-
-  .item img {
-    height: 70px;
-    border-radius: 50%;
-  }
+textarea {
+  resize: none;
+  background: #85e468;
+  /* Цвет фона */
+  border: 2px solid #71c358;
+  /* Параметры рамки */
+  padding: 10px;
+  /* Поля */
+  width: 100%;
+  /* Ширина */
+  height: 100px;
+  /* Высота */
+  box-sizing: border-box;
+  /* Алгоритм расчёта ширины */
+  font-size: 14px;
+  /* Размер шрифта */
+}

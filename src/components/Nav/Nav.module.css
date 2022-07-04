@@ -1,8 +1,25 @@
 .appNav {
     grid-area: app-n;
-    background-color: rgb(51, 255, 0);
+    background-color: #00d084;
+    padding: 30px;
+    text-align: left;
+  
   }
   
-.item {
-    color: whitesmoke;
+.item a {
+
+    color: rgb(245, 245, 245);
+    text-decoration-line: none;
+}  
+
+.item a.activeLink {
+  color: red;
+  box-shadow: 1px 1px 5px red;
+  background-color: gray;
+}  
+
+.item:hover {
+  background-color: rgb(13, 156, 90);
+  color: gray;
+  box-shadow: 1px 1px 5px red;
 }  

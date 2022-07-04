@@ -1,0 +1,40 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-template-areas: "names messages";
+}
+
+.dialogsItems a {
+    
+    padding: 10px;
+    color: whitesmoke;
+    text-decoration-line: none;
+}
+
+.parentDialogsItem {
+    grid-area: names;
+}
+
+.dialogsItems .activeLink {
+    color: red;
+}
+
+.dialogsItems:hover  {
+    background-color: rgb(13, 156, 90);
+    color: gray;
+  }  
+
+.messages {
+    color: rgb(67, 0, 190);
+    background-color: aquamarine;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+   
+}
+
+.parentMessages {
+    grid-area: messages;
+    height: fit-content;
+}

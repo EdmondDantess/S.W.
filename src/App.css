@@ -1,4 +1,8 @@
-.app-wrapper {
+body {
+background-color: aquamarine;
+}
+
+.appWrapper {
   display: grid;
   width: 1200px;
   margin: 0 auto;
@@ -6,7 +10,13 @@
     "app-h app-h "
     "app-n app-c ";
   grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 1fr 10fr;
   grid-gap: 10px; 
+}
+
+.appWrapperContent { 
+    grid-area: app-c;
+    background-color: #00d084;
+   
 }
 

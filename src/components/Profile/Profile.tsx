@@ -1,18 +1,24 @@
 import React from "react";
 import { MyPosts } from "./MyPosts/MyPosts";
 import obc from "./Profile.module.css";
+import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
-export const Profile = () => {
+
+type postsDataPropsType = {
+  id: number;
+  message: string;
+  Likes: number;
+};
+
+type  ProfilePropsType ={
+  postsData: postsDataPropsType[]
+}
+
+export const Profile = (props:ProfilePropsType) => {
   return (
-    <div className={obc.appContent}>
-      <div>
-        <img
-          src="https://ic.pics.livejournal.com/dergachev_va/58474394/4085016/4085016_original.png"
-          alt="Fail"
-        />
-      </div>
-      <div>ava i description</div>
-      <MyPosts/>
+    <div className={obc.INfo}>
+      <ProfileInfo />
+      <MyPosts postsData={props.postsData}/>
     </div>
   );
 };
