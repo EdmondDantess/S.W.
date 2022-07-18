@@ -12,13 +12,20 @@ type postsDataPropsType = {
 
 type  ProfilePropsType ={
   postsData: postsDataPropsType[]
+  postTextValue: string
 }
 
-export const Profile = (props:ProfilePropsType) => {
+type stateProfilePagePropsType={
+  state: ProfilePropsType
+  addPosts: (textPost: string)=>void
+  postsTextValueArea: (text: string)=>void
+}
+
+export const Profile = (props:stateProfilePagePropsType) => {
   return (
     <div className={obc.INfo}>
       <ProfileInfo />
-      <MyPosts postsData={props.postsData}/>
+      <MyPosts postsData={props.state.postsData} addPosts={props.addPosts} postTextValue={props.state.postTextValue} postsTextValueArea={props.postsTextValueArea}/>
     </div>
   );
 };

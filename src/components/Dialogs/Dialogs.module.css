@@ -1,18 +1,21 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
-    grid-template-areas: "names messages";
+    grid-template-areas: "names messages"
+                        "names  textAreaInput"
+                        "name Button"
+                       
 }
 
-.dialogsItems a {
-    
+.dialogsItems a { 
     padding: 10px;
     color: whitesmoke;
     text-decoration-line: none;
-}
+    }
 
 .parentDialogsItem {
     grid-area: names;
+
 }
 
 .dialogsItems .activeLink {
@@ -26,7 +29,7 @@
 
 .messages {
     color: rgb(67, 0, 190);
-    background-color: aquamarine;
+    background-color: rgb(255, 255, 255);
     margin-top: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -37,4 +40,36 @@
 .parentMessages {
     grid-area: messages;
     height: fit-content;
+}
+.avatarka {
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 30px;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+
+.textAreaInput {
+    grid-area: textAreaInput;
+    resize: none;
+    background: #ffffffcc;
+    /* Цвет фона */
+    border: 2px solid #71c358;
+    /* Параметры рамки */
+    padding: 10px;
+    /* Поля */
+    width: 100%;
+    /* Ширина */
+    height: 100px;
+    /* Высота */
+    box-sizing: border-box;
+    /* Алгоритм расчёта ширины */
+    font-size: 14px;
+    /* Размер шрифта */
+
+}
+
+.dialogs button {
+    grid-area: Button;
+    margin-left: 90%;
 }

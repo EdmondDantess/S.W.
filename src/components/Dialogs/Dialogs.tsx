@@ -6,28 +6,36 @@ import { Message } from "./Message/Message";
 type dialogsDataPropsType = {
   id: number;
   name: string;
+  urlAvatar: string;
 };
 type messageDataPropsType = {
   id: number;
   message: string;
 };
 
-type DialogPropsType = {
+type stateDialogsPropsType = {
   dialogsData: dialogsDataPropsType[];
   messageData: messageDataPropsType[];
 };
 
-export const Dialogs = (props: DialogPropsType) => {
-  
-  let usersName = props.dialogsData.map((el) => {
+type DialogPropsTypePage = {
+  state: stateDialogsPropsType;
+};
+
+export const Dialogs = (props: DialogPropsTypePage) => {
+  let usersName = props.state.dialogsData.map((el) => {
     return (
       <div className={obc.dialogsItems} key={el.id}>
-        <DialogItem name={el.name} id={el.id} />
+        <DialogItem
+          name={el.name}
+          id={el.id}
+          urlAvatar={el.urlAvatar}
+        />
       </div>
     );
   });
 
-  let messages = props.messageData.map((el) => {
+  let messages = props.state.messageData.map((el) => {
     return (
       <div className={obc.messages} key={el.id}>
         <Message text={el.message} />
@@ -35,10 +43,18 @@ export const Dialogs = (props: DialogPropsType) => {
     );
   });
 
+  const dialogRef = React.createRef<HTMLTextAreaElement>()
+
+const inputTextAreaDialog=()=>{
+  alert(dialogRef.current?.value)
+}
+
   return (
     <div className={obc.dialogs}>
       <div className={obc.parentDialogsItem}>{usersName}</div>
       <div className={obc.parentMessages}>{messages}</div>
+      <textarea ref={dialogRef} className={obc.textAreaInput}></textarea>
+     <button onClick={inputTextAreaDialog}>Send</button> 
     </div>
   );
 };

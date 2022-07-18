@@ -1,0 +1,28 @@
+.friendsObj {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 4px;
+}
+
+p {
+    margin-top: 0%;
+}
+
+.friensBlockParent {
+    font-size: 12px;
+}
+
+.blockImgName:hover {
+    color: red;
+
+}
+
+
+.friendsAvatars {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.friendsAvatars:hover {
+    box-shadow: 0px 0px 10px red;
+}
