@@ -1,6 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent } from "react";
 import obc from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
+import {addNewPostType, valuePostTextAreaType} from "../../../redux/state";
 
 type postsDataPropsType = {
   id: number;
@@ -11,8 +12,7 @@ type postsDataPropsType = {
 type MyPostsPropsType = {
   postTextValue: string;
   postsData: postsDataPropsType[];
-  addPosts: (textPosts: string) => void;
-  postsTextValueArea: (text: string) => void;
+  dispatch: (action: addNewPostType | valuePostTextAreaType) => void
 };
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -25,14 +25,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
   });
 
   const changeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.postsTextValueArea(e.currentTarget.value);
+    props.dispatch({type: "textareaValuePost", text: e.currentTarget.value});
   };
   const sendPostHadler = () => {
-    props.addPosts(props.postTextValue);
+    props.dispatch({type: "addPost", postText: props.postTextValue});
    };
 
    const keyPressHandlerText=(e: KeyboardEvent<HTMLTextAreaElement>)=>{
-    if (e.key === "Enter") { props.addPosts(props.postTextValue);}
+    if (e.key === "Enter") { props.dispatch({type: "addPost", postText: props.postTextValue})}
    }
 
   return (

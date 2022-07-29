@@ -1,7 +1,19 @@
 import "./index.css";
-import  state  from "./redux/state";
-import { renderTree } from "./render";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import store from "./redux/state";
+import {BrowserRouter} from "react-router-dom";
 
-renderTree(state);
+const renderTree = () => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App store={store}/>,
+        </BrowserRouter>,
+        document.getElementById("root")
+    );
+}
 
+renderTree()
 
+store.subscribe(renderTree)

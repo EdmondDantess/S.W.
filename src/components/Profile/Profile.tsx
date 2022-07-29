@@ -2,6 +2,7 @@ import React from "react";
 import { MyPosts } from "./MyPosts/MyPosts";
 import obc from "./Profile.module.css";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+import {addNewPostType, valuePostTextAreaType} from "../../redux/state";
 
 
 type postsDataPropsType = {
@@ -17,15 +18,18 @@ type  ProfilePropsType ={
 
 type stateProfilePagePropsType={
   state: ProfilePropsType
-  addPosts: (textPost: string)=>void
-  postsTextValueArea: (text: string)=>void
+  dispatch: (action: addNewPostType | valuePostTextAreaType) => void
 }
 
 export const Profile = (props:stateProfilePagePropsType) => {
   return (
     <div className={obc.INfo}>
       <ProfileInfo />
-      <MyPosts postsData={props.state.postsData} addPosts={props.addPosts} postTextValue={props.state.postTextValue} postsTextValueArea={props.postsTextValueArea}/>
+      <MyPosts
+          postsData={props.state.postsData}
+          postTextValue={props.state.postTextValue}
+          dispatch={props.dispatch.bind(props.state)}
+      />
     </div>
   );
 };
