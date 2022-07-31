@@ -1,4 +1,6 @@
-import {v1} from "uuid";
+import dialogsPageReducer, {addMessageInDialogsAC, textAreaValueMessageAC} from "./dialogsPage-reducer";
+import profilePageReducer, {addPostAC, changeTextValuePostAC} from "./profilePage-reducer";
+import sidebarPageReducer from "./sidebarPage-reducer";
 
 type dialogsDataPropsType = {
     id: number;
@@ -14,20 +16,21 @@ type postsDataPropsType = {
     message: string;
     Likes: number;
 };
-type profilePagePropsType = {
+export type profilePagePropsType = {
     postsData: postsDataPropsType[];
     postTextValue: string;
 };
-type dialogsPagePropsType = {
+export type dialogsPagePropsType = {
     dialogsData: dialogsDataPropsType[];
     messageData: messageDataPropsType[];
+    messageValueTextarea: string
 };
 type friendsNavPropsType = {
     id: number;
     name: string;
     urlAvatar: string;
 };
-type friendsNavPagePropsType = {
+export type friendsNavPagePropsType = {
     friendsNav: friendsNavPropsType[];
 };
 export type allStateProps = {
@@ -36,21 +39,19 @@ export type allStateProps = {
     sidebarPage: friendsNavPagePropsType;
 };
 
-export type addNewPostType = {
-    type: "addPost"
-    postText: string
-}
-export type valuePostTextAreaType = {
-    type: "textareaValuePost"
-    text: string
-}
+export type ActionsType =
+    ReturnType<typeof changeTextValuePostAC> |
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof addMessageInDialogsAC> |
+    ReturnType<typeof textAreaValueMessageAC>
+
 
 export type StoreType = {
     _state: allStateProps;
     _callbackRenderTree: () => void;
     subscribe: (observer: () => void) => void;
     getState: () => allStateProps;
-    dispatch: (action: addNewPostType | valuePostTextAreaType) => void
+    dispatch: (action: ActionsType) => void
 };
 export type StoreRootType = {
     store: StoreType
@@ -106,6 +107,7 @@ export const store: StoreType = {
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem animi earum eveniet voluptatibus qui, reiciendis labore nobis illo dolor neque porro dolore soluta non quo molestias? Aliquid corrupti fugiat animi?",
                 },
             ],
+            messageValueTextarea: "",
             dialogsData: [
                 {
                     id: 1,
@@ -232,19 +234,11 @@ export const store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if (action.type === "addPost") {
-            action.postText = this._state.profilePage.postTextValue;
-            this._state.profilePage.postsData.unshift({
-                id: new Date().getTime(),
-                message: action.postText,
-                Likes: new Date().getTime(),
-            });
-            this._state.profilePage.postTextValue = "";
-            this._callbackRenderTree();
-        } else if (action.type === "textareaValuePost") {
-            this._state.profilePage.postTextValue = action.text;
-            this._callbackRenderTree();
-        }
+
+        this._state.dialogsPage = dialogsPageReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action)
+        this._state.sidebarPage = sidebarPageReducer(this._state.sidebarPage, action)
+        this._callbackRenderTree();
     }
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { MyPosts } from "./MyPosts/MyPosts";
 import obc from "./Profile.module.css";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import {addNewPostType, valuePostTextAreaType} from "../../redux/state";
+import {ActionsType} from "../../redux/state";
 
 
 type postsDataPropsType = {
@@ -18,7 +18,7 @@ type  ProfilePropsType ={
 
 type stateProfilePagePropsType={
   state: ProfilePropsType
-  dispatch: (action: addNewPostType | valuePostTextAreaType) => void
+  dispatch: (action: ActionsType) => void
 }
 
 export const Profile = (props:stateProfilePagePropsType) => {

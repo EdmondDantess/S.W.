@@ -20,8 +20,9 @@ const App = (props: StoreRootType) => {
                 <div className="appWrapperContent">
                     <Route
                         path={"/dialogs"}
-                        render={() => <Dialogs state={state.dialogsPage}/>}
-                    />
+                        render={() => <Dialogs state={state.dialogsPage}
+                                               dispatch={props.store.dispatch.bind(props.store)}/>}
+                        />
                     <Route
                         path={"/profile"}
                         render={() => (
