@@ -2,8 +2,6 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import obc from "./Dialogs.module.css";
 import {Message} from "./Message/Message";
-import { addMessageInDialogsAC,textAreaValueMessageAC} from "../../redux/dialogsPage-reducer";
-import {ActionsType} from "../../redux/state";
 
 type dialogsDataPropsType = {
     id: number;
@@ -23,11 +21,14 @@ type stateDialogsPropsType = {
 
 type DialogPropsTypePage = {
     state: stateDialogsPropsType;
-    dispatch: (action: ActionsType) => void
+    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => any
+    addMessage: () => any
+    addTextinTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => any
 };
 
 export const Dialogs = (props: DialogPropsTypePage) => {
-    let usersName = props.state.dialogsData.map((el) => {
+    let state = props.state.dialogsData
+    let usersName = state.map((el) => {
         return (
             <div className={obc.dialogsItems} key={el.id}>
                 <DialogItem
@@ -47,17 +48,16 @@ export const Dialogs = (props: DialogPropsTypePage) => {
         );
     });
 
+    const addMessageHandler = () => {
+        props.addMessage()
+    }
 
-    const addMessage = () => {
-        props.dispatch(addMessageInDialogsAC(props.state.messageValueTextarea))
+    const addTextinTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement> ) => {
+        props.addTextinTextArea(e)
     }
-    const addTextinTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(textAreaValueMessageAC(e.currentTarget.value))
-    }
+
     const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === "Enter") {
-            props.dispatch(addMessageInDialogsAC(props.state.messageValueTextarea))
-        }
+        props.keyPressHandlerText(e)
     }
 
     return (
@@ -66,11 +66,11 @@ export const Dialogs = (props: DialogPropsTypePage) => {
             <div className={obc.parentMessages}>{messages}</div>
             <textarea value={props.state.messageValueTextarea}
                       className={obc.textAreaInput}
-                      onChange={addTextinTextArea}
+                      onChange={addTextinTextAreaHandler}
                       onKeyPress={keyPressHandlerText}
                       placeholder={"Enter your message"}
             ></textarea>
-            <button onClick={addMessage}>Send</button>
+            <button onClick={addMessageHandler}>Send</button>
         </div>
     );
 };

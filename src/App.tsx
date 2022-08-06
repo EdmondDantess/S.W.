@@ -8,27 +8,35 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settingz/Settings";
-import {StoreRootType} from "./redux/state";
+import {Store} from "redux";
+import {ActionsType, AppReducersReduxType} from "./redux/redux-store";
+import {NavContainer} from "./components/Nav/NavContainer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-const App = (props: StoreRootType) => {
-    let state = props.store.getState();
-       return (
+
+type AppType = {
+    store: Store
+}
+
+const App = (props: AppType) => {
+    //const state = useSelector(state => state)
+    return (
         <BrowserRouter>
             <div className="appWrapper">
                 <Header/>
-                <Nav state={state.sidebarPage}/>
+                <NavContainer state={props.store}/>
                 <div className="appWrapperContent">
                     <Route
                         path={"/dialogs"}
-                        render={() => <Dialogs state={state.dialogsPage}
-                                               dispatch={props.store.dispatch.bind(props.store)}/>}
-                        />
+                        render={() => <DialogsContainer
+                            state={props.store}
+                        />}
+                    />
                     <Route
                         path={"/profile"}
                         render={() => (
                             <Profile
-                                state={state.profilePage}
-                                dispatch={props.store.dispatch.bind(props.store)}
+                                state={props.store}
                             />
                         )}
                     />

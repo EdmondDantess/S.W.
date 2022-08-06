@@ -1,35 +1,20 @@
 import React from "react";
-import { MyPosts } from "./MyPosts/MyPosts";
 import obc from "./Profile.module.css";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import {ActionsType} from "../../redux/state";
-
-
-type postsDataPropsType = {
-  id: number;
-  message: string;
-  Likes: number;
-};
-
-type  ProfilePropsType ={
-  postsData: postsDataPropsType[]
-  postTextValue: string
-}
+import {Store} from "redux";
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 type stateProfilePagePropsType={
-  state: ProfilePropsType
-  dispatch: (action: ActionsType) => void
+  state: Store
 }
 
-export const Profile = (props:stateProfilePagePropsType) => {
+export const Profile = (props: stateProfilePagePropsType) => {
   return (
     <div className={obc.INfo}>
       <ProfileInfo />
-      <MyPosts
-          postsData={props.state.postsData}
-          postTextValue={props.state.postTextValue}
-          dispatch={props.dispatch.bind(props.state)}
+      <MyPostsContainer
+          state={props.state}
       />
-    </div>
+     </div>
   );
 };

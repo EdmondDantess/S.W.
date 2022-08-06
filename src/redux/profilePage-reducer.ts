@@ -1,8 +1,27 @@
-import {ActionsType, profilePagePropsType} from "./state";
+import {ActionsType} from "./redux-store";
 
+type postsDataPropsType = {
+    id: number;
+    message: string;
+    Likes: number;
+};
+export type profilePagePropsType = {
+    postsData: postsDataPropsType[];
+    postTextValue: string;
+};
+let initialState: profilePagePropsType = {
+    postTextValue: "",
+    postsData: [
+        {id: 1, message: "Hello World", Likes: 22},
+        {id: 2, message: "Nice site", Likes: 2},
+        {id: 3, message: "Hey hey", Likes: 12},
+        {id: 4, message: "New World", Likes: 52},
+        {id: 5, message: "Test message", Likes: 3},
+    ],
+}
 
-const profilePageReducer = (state: profilePagePropsType, action: ActionsType) => {
-    switch (action.type) {
+const profilePageReducer = (state=initialState, action: ActionsType): profilePagePropsType => {
+       switch (action.type) {
         case "ADD_POST":
             state.postsData.unshift({
                 id: 309,

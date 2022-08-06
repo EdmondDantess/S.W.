@@ -1,24 +1,19 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import obc from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {addPostAC, changeTextValuePostAC} from "../../../redux/profilePage-reducer";
-import {ActionsType} from "../../../redux/state";
+import {profilePagePropsType} from "../../../redux/profilePage-reducer";
 
-
-type postsDataPropsType = {
-    id: number;
-    message: string;
-    Likes: number;
-};
 
 type MyPostsPropsType = {
-    postTextValue: string;
-    postsData: postsDataPropsType[];
-    dispatch: (action: ActionsType) => void
+     state: profilePagePropsType
+    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>)=> any
+    sendPostHadler:()=>any
+    keyPressHandlerText:(e: KeyboardEvent<HTMLTextAreaElement>)=>any
 };
 
 export const MyPosts = (props: MyPostsPropsType) => {
-    let posts = props.postsData.map((el) => {
+
+    let posts = props.state.postsData.map((el) => {
         return (
             <div className={obc.posts} key={el.id}>
                 <Post message={el.message} Likes={el.Likes}/>
@@ -26,17 +21,16 @@ export const MyPosts = (props: MyPostsPropsType) => {
         );
     });
 
-    const changeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeTextValuePostAC(e.currentTarget.value))
-    };
-    const sendPostHadler = () => {
-        props.dispatch(addPostAC(props.postTextValue))
-    };
+    const onSendPostHadler =()=> {
+        props.sendPostHadler()
+    }
 
-    const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === "Enter") {
-            props.dispatch(addPostAC(props.postTextValue))
-        }
+    const onChangeTextHandler=(e:ChangeEvent<HTMLTextAreaElement>)=>{
+        props.changeTextHandler(e)
+    }
+
+    const onKeyPressHandlerText =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
+        props.keyPressHandlerText(e)
     }
 
     return (
@@ -45,14 +39,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div>
                 <div>
           <textarea
-              value={props.postTextValue}
+              value={props.state.postTextValue}
               className={obc.textareaPosts}
-              onChange={changeTextHandler}
-              onKeyPress={keyPressHandlerText}
+              onChange={onChangeTextHandler}
+              onKeyPress={onKeyPressHandlerText}
           ></textarea>
                 </div>
                 <div>
-                    <button onClick={sendPostHadler}>Send</button>
+                    <button onClick={onSendPostHadler}>Send</button>
                 </div>
             </div>
             {posts}

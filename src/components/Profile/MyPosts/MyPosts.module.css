@@ -1,27 +1,27 @@
 
- .postsBlock {
+.postsBlock {
     padding: 10px;
- }
+}
 
- .posts {
+.posts {
     margin-top: 20px;
     background-color: aquamarine;
- }
+}
 
 .textareaPosts {
-   resize: none;
-   background: #85e468;
-   /* Цвет фона */
-   border: 2px solid #71c358;
-   /* Параметры рамки */
-   padding: 10px;
-   /* Поля */
-   width: 100%;
-   /* Ширина */
-   height: 100px;
-   /* Высота */
-   box-sizing: border-box;
-   /* Алгоритм расчёта ширины */
-   font-size: 14px;
-   /* Размер шрифта */
- }
+    resize: none;
+    background: #85e468;
+    /* Цвет фона */
+    border: 2px solid #71c358;
+    /* Параметры рамки */
+    padding: 10px;
+    /* Поля */
+    width: 100%;
+    /* Ширина */
+    height: 100px;
+    /* Высота */
+    box-sizing: border-box;
+    /* Алгоритм расчёта ширины */
+    font-size: 14px;
+    /* Размер шрифта */
+}
