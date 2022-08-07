@@ -15,8 +15,7 @@
 
 .parentDialogsItem {
     grid-area: names;
-
-}
+   }
 
 .dialogsItems .activeLink {
     color: red;
@@ -39,7 +38,7 @@
 
 .parentMessages {
     grid-area: messages;
-    height: fit-content;
+    background-color: gray;
 }
 .avatarka {
     margin-top: 10px;

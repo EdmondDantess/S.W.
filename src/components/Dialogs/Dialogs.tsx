@@ -21,9 +21,9 @@ type stateDialogsPropsType = {
 
 type DialogPropsTypePage = {
     state: stateDialogsPropsType;
-    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => any
-    addMessage: () => any
-    addTextinTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => any
+    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => void
+    addMessage: () => void
+    addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void
 };
 
 export const Dialogs = (props: DialogPropsTypePage) => {
@@ -52,8 +52,8 @@ export const Dialogs = (props: DialogPropsTypePage) => {
         props.addMessage()
     }
 
-    const addTextinTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement> ) => {
-        props.addTextinTextArea(e)
+    const addTextInTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement> ) => {
+        props.addTextInTextArea(e)
     }
 
     const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -66,7 +66,7 @@ export const Dialogs = (props: DialogPropsTypePage) => {
             <div className={obc.parentMessages}>{messages}</div>
             <textarea value={props.state.messageValueTextarea}
                       className={obc.textAreaInput}
-                      onChange={addTextinTextAreaHandler}
+                      onChange={addTextInTextAreaHandler}
                       onKeyPress={keyPressHandlerText}
                       placeholder={"Enter your message"}
             ></textarea>

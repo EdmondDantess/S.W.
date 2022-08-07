@@ -24,14 +24,14 @@ const profilePageReducer = (state=initialState, action: ActionsType): profilePag
        switch (action.type) {
         case "ADD_POST":
             state.postsData.unshift({
-                id: 309,
+                id: new Date().getTime(),
                 message: action.postText,
                 Likes: 0,
             });
             state.postTextValue = "";
             return state;
         case "TEXTAREA_VALUE_POST":
-            state.postTextValue = action.text;
+            state.postTextValue = action.text.trim();
             return state;
         default:
             return state

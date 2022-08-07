@@ -3,41 +3,33 @@ import {BrowserRouter, Route} from "react-router-dom";
 import "./App.css";
 import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
-import {Nav} from "./components/Nav/Nav";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settingz/Settings";
 import {Store} from "redux";
-import {ActionsType, AppReducersReduxType} from "./redux/redux-store";
 import {NavContainer} from "./components/Nav/NavContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {StoreType} from "./redux/redux-store";
 
 
-type AppType = {
-    store: Store
-}
 
-const App = (props: AppType) => {
+
+const App = () => {
     //const state = useSelector(state => state)
     return (
         <BrowserRouter>
             <div className="appWrapper">
                 <Header/>
-                <NavContainer state={props.store}/>
+                <NavContainer/>
                 <div className="appWrapperContent">
                     <Route
                         path={"/dialogs"}
-                        render={() => <DialogsContainer
-                            state={props.store}
-                        />}
+                        render={() => <DialogsContainer/>}
                     />
                     <Route
                         path={"/profile"}
                         render={() => (
-                            <Profile
-                                state={props.store}
-                            />
+                            <Profile/>
                         )}
                     />
                     <Route path={"/news"} render={() => <News/>}/>

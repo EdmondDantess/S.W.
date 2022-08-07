@@ -1,39 +1,35 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import obc from "./MyPosts.module.css";
-import {Post} from "./Post/Post";
-import {addPostAC, changeTextValuePostAC, profilePagePropsType} from "../../../redux/profilePage-reducer";
-import {ActionsType} from "../../../redux/redux-store";
-import {Store} from "redux";
+import {addPostAC, changeTextValuePostAC} from "../../../redux/profilePage-reducer";
 import {MyPosts} from "./MyPosts";
+import {StoreContext} from "../../../StoreContext";
 
+export const MyPostsContainer = () => {
+    return <StoreContext.Consumer>
+        {(store) => {
+            let state = store.getState().profilePage
 
-type MyPostsPropsType = {
-    state: Store;
-};
+            const changeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+                store.dispatch(changeTextValuePostAC(e.currentTarget.value))
+            };
+            const sendPostHandler = () => {
+                store.dispatch(addPostAC(state.postTextValue))
+            };
 
-export const MyPostsContainer = (props: MyPostsPropsType) => {
+            const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+                if (e.key === "Enter") {
+                    store.dispatch(addPostAC(state.postTextValue))
+                }
+            }
 
-    let state = props.state.getState().profilePage
+            return (
+                <MyPosts state={state}
+                         changeTextHandler={changeTextHandler}
+                         sendPostHandler={sendPostHandler}
+                         keyPressHandlerText={keyPressHandlerText}
 
-    const changeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.state.dispatch(changeTextValuePostAC(e.currentTarget.value))
-    };
-    const sendPostHadler = () => {
-        props.state.dispatch(addPostAC(state.postTextValue))
-    };
-
-    const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === "Enter") {
-            props.state.dispatch(addPostAC(state.postTextValue))
+                />
+            )
         }
-    }
-
-    return (
-       <MyPosts state={state}
-                changeTextHandler={changeTextHandler}
-                sendPostHadler={sendPostHadler}
-                keyPressHandlerText={keyPressHandlerText}
-
-       />
-    );
+        }
+    </StoreContext.Consumer>
 };

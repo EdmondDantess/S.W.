@@ -3,12 +3,11 @@ import obc from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {profilePagePropsType} from "../../../redux/profilePage-reducer";
 
-
 type MyPostsPropsType = {
-     state: profilePagePropsType
-    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>)=> any
-    sendPostHadler:()=>any
-    keyPressHandlerText:(e: KeyboardEvent<HTMLTextAreaElement>)=>any
+    state: profilePagePropsType
+    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    sendPostHandler: () => void
+    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => void
 };
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -21,15 +20,15 @@ export const MyPosts = (props: MyPostsPropsType) => {
         );
     });
 
-    const onSendPostHadler =()=> {
-        props.sendPostHadler()
+    const onSendPostHandler = () => {
+        props.sendPostHandler()
     }
 
-    const onChangeTextHandler=(e:ChangeEvent<HTMLTextAreaElement>)=>{
+    const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeTextHandler(e)
     }
 
-    const onKeyPressHandlerText =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
+    const onKeyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         props.keyPressHandlerText(e)
     }
 
@@ -38,15 +37,15 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <h3>My Posts</h3>
             <div>
                 <div>
-          <textarea
-              value={props.state.postTextValue}
-              className={obc.textareaPosts}
-              onChange={onChangeTextHandler}
-              onKeyPress={onKeyPressHandlerText}
-          ></textarea>
+          <textarea className={obc.textareaPosts}
+                    value={props.state.postTextValue}
+                    onChange={onChangeTextHandler}
+                    onKeyPress={onKeyPressHandlerText}>
+
+          </textarea>
                 </div>
                 <div>
-                    <button onClick={onSendPostHadler}>Send</button>
+                    <button onClick={onSendPostHandler}>Send</button>
                 </div>
             </div>
             {posts}

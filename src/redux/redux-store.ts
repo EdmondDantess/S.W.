@@ -11,7 +11,10 @@ export type ActionsType =
     | ReturnType<typeof textAreaValueMessageAC>
 
 
-export type AppReducersReduxType = ReturnType<typeof reducers>
+export type RootState = typeof reducers
+export type ReduxStateType = ReturnType<RootState>
+
+export type StoreType = Store<ReduxStateType, ActionsType>
 
 export let reducers = combineReducers({
     dialogsPage: dialogsPageReducer,
@@ -19,4 +22,4 @@ export let reducers = combineReducers({
     sidebarPage: sidebarPageReducer}
 )
 
-export let store: Store = createStore(reducers)
+export let store: StoreType = createStore(reducers)
