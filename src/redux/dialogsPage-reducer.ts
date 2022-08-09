@@ -113,7 +113,7 @@ let initialState: dialogsPagePropsType = {
     ],
 }
 
-const dialogsPageReducer = (state = initialState, action: ActionsType): dialogsPagePropsType => {
+const dialogsPageReducer = (state:dialogsPagePropsType = initialState, action: ActionsType): dialogsPagePropsType => {
      switch (action.type) {
         case "TEXTAREA_VALUE_MESSAGE":
             state.messageValueTextarea = action.text.trim();

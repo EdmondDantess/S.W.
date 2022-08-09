@@ -2,22 +2,9 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {FriendsNav} from "./FriendsNav/FriendsNav";
 import obc from "./Nav.module.css";
+import {MapStateToPropsType} from "./NavContainer";
 
-type friendsNavPropsType = {
-    id: number;
-    name: string;
-    urlAvatar: string;
-}
-type friendsNavPagePropsType = {
-    friendsNav: friendsNavPropsType[]
-};
-
-type NavPagePropsType = {
-    state: friendsNavPagePropsType
-}
-
-
-export const Nav = (props: NavPagePropsType) => {
+export const Nav = (props: MapStateToPropsType) => {
     return (
         <nav className={obc.appNav}>
             <div className={obc.item}>

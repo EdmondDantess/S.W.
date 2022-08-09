@@ -6,10 +6,8 @@ import {Header} from "./components/Header/Header";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settingz/Settings";
-import {Store} from "redux";
 import {NavContainer} from "./components/Nav/NavContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {StoreType} from "./redux/redux-store";
 
 
 

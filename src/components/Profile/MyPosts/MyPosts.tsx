@@ -1,16 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import obc from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {profilePagePropsType} from "../../../redux/profilePage-reducer";
+import {typeMyPostsProps} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-    state: profilePagePropsType
-    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    sendPostHandler: () => void
-    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => void
-};
-
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = (props: typeMyPostsProps) => {
 
     let posts = props.state.postsData.map((el) => {
         return (
@@ -21,7 +14,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     });
 
     const onSendPostHandler = () => {
-        props.sendPostHandler()
+        props.sendPostHandler(props.state.postTextValue)
     }
 
     const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,7 +22,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     }
 
     const onKeyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        props.keyPressHandlerText(e)
+        props.keyPressHandlerText(e, props.state.postTextValue)
     }
 
     return (

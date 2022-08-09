@@ -68,7 +68,7 @@ let initialState: friendsNavPagePropsType = {
         ],
     }
 
-const sidebarPageReducer = (state= initialState, action: ActionsType): friendsNavPagePropsType => {
+const sidebarPageReducer = (state: friendsNavPagePropsType= initialState, action: ActionsType): friendsNavPagePropsType => {
 
     return state
 }

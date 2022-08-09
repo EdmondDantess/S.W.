@@ -1,36 +1,41 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {addMessageInDialogsAC, textAreaValueMessageAC} from "../../redux/dialogsPage-reducer";
+import {addMessageInDialogsAC, dialogsPagePropsType, textAreaValueMessageAC} from "../../redux/dialogsPage-reducer";
 import {Dialogs} from "./Dialogs";
-import {Store} from "redux";
-import {StoreType} from "../../redux/redux-store";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {ReduxStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
-export const DialogsContainer = () => {
+type MapStateProps = {
+    state: dialogsPagePropsType
+}
+type MapDispatchProps = {
+    addMessage: (value: string) => void
+    addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, valueText: string) => void
+}
 
-    return <StoreContext.Consumer>
-        {(store) => {
+export type  typeDialogProps = MapStateProps & MapDispatchProps
 
-            let state = store.getState().dialogsPage
+const mapStateToProps = (state: ReduxStateType): MapStateProps => {
+    return {
+        state: state.dialogsPage
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
 
-            const addMessage = () => {
-                store.dispatch(addMessageInDialogsAC(state.messageValueTextarea))
+    return {
+        addMessage: (messageValueTextarea: string) => {
+            dispatch(addMessageInDialogsAC(messageValueTextarea))
+        },
+        addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => {
+            dispatch(textAreaValueMessageAC(e.currentTarget.value))
+        },
+        keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, messageValueTextarea:string) => {
+            if (e.key === "Enter") {
+               dispatch(addMessageInDialogsAC(messageValueTextarea))
             }
-            const addTextInTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-                store.dispatch(textAreaValueMessageAC(e.currentTarget.value))
-            }
-            const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-                if (e.key === "Enter") {
-                    store.dispatch(addMessageInDialogsAC(state.messageValueTextarea))
-                }
-            }
-
-            return <Dialogs state={state}
-                            addMessage={addMessage}
-                            addTextInTextArea={addTextInTextArea}
-                            keyPressHandlerText={keyPressHandlerText}
-            />
-
-        }}
-    </StoreContext.Consumer>
-};
+        }
+    }
+}
+    export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

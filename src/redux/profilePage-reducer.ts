@@ -20,7 +20,7 @@ let initialState: profilePagePropsType = {
     ],
 }
 
-const profilePageReducer = (state=initialState, action: ActionsType): profilePagePropsType => {
+const profilePageReducer = (state: profilePagePropsType=initialState, action: ActionsType): profilePagePropsType => {
        switch (action.type) {
         case "ADD_POST":
             state.postsData.unshift({

@@ -2,33 +2,11 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import obc from "./Dialogs.module.css";
 import {Message} from "./Message/Message";
+import {typeDialogProps} from "./DialogsContainer";
 
-type dialogsDataPropsType = {
-    id: number;
-    name: string;
-    urlAvatar: string;
-};
-type messageDataPropsType = {
-    id: number;
-    message: string;
-};
-
-type stateDialogsPropsType = {
-    dialogsData: dialogsDataPropsType[];
-    messageValueTextarea: string
-    messageData: messageDataPropsType[];
-};
-
-type DialogPropsTypePage = {
-    state: stateDialogsPropsType;
-    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>) => void
-    addMessage: () => void
-    addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void
-};
-
-export const Dialogs = (props: DialogPropsTypePage) => {
-    let state = props.state.dialogsData
-    let usersName = state.map((el) => {
+export const Dialogs = (props: typeDialogProps) => {
+    let state = props.state
+    let usersName = state.dialogsData.map((el) => {
         return (
             <div className={obc.dialogsItems} key={el.id}>
                 <DialogItem
@@ -40,7 +18,7 @@ export const Dialogs = (props: DialogPropsTypePage) => {
         );
     });
 
-    let messages = props.state.messageData.map((el) => {
+    let messages = state.messageData.map((el) => {
         return (
             <div className={obc.messages} key={el.id}>
                 <Message text={el.message}/>
@@ -49,7 +27,7 @@ export const Dialogs = (props: DialogPropsTypePage) => {
     });
 
     const addMessageHandler = () => {
-        props.addMessage()
+        props.addMessage(state.messageValueTextarea)
     }
 
     const addTextInTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement> ) => {
@@ -57,7 +35,7 @@ export const Dialogs = (props: DialogPropsTypePage) => {
     }
 
     const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        props.keyPressHandlerText(e)
+        props.keyPressHandlerText(e,  state.messageValueTextarea)
     }
 
     return (

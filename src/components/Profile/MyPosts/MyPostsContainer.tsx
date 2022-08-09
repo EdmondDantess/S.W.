@@ -1,35 +1,40 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {addPostAC, changeTextValuePostAC} from "../../../redux/profilePage-reducer";
+import {addPostAC, changeTextValuePostAC, profilePagePropsType} from "../../../redux/profilePage-reducer";
 import {MyPosts} from "./MyPosts";
-import {StoreContext} from "../../../StoreContext";
+import {connect} from "react-redux";
+import {ReduxStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
-export const MyPostsContainer = () => {
-    return <StoreContext.Consumer>
-        {(store) => {
-            let state = store.getState().profilePage
+export type  typeMyPostsProps = MapStateProps & MapDispatchProps
 
-            const changeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-                store.dispatch(changeTextValuePostAC(e.currentTarget.value))
-            };
-            const sendPostHandler = () => {
-                store.dispatch(addPostAC(state.postTextValue))
-            };
+type MapStateProps = {
+    state: profilePagePropsType
+}
+type MapDispatchProps = {
+    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    sendPostHandler: (postTextValue: string) => void
+    keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, postTextValue: string) => void
+}
 
-            const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-                if (e.key === "Enter") {
-                    store.dispatch(addPostAC(state.postTextValue))
-                }
+const mapStateToProps = (state: ReduxStateType): MapStateProps => {
+    return {
+        state: state.profilePage
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
+    return {
+        changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
+            dispatch(changeTextValuePostAC(e.currentTarget.value))
+        },
+        sendPostHandler: (postTextValue: string) => {
+            dispatch(addPostAC(postTextValue))
+        },
+        keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, postTextValue: string) => {
+            if (e.key === "Enter") {
+                dispatch(addPostAC(postTextValue))
             }
-
-            return (
-                <MyPosts state={state}
-                         changeTextHandler={changeTextHandler}
-                         sendPostHandler={sendPostHandler}
-                         keyPressHandlerText={keyPressHandlerText}
-
-                />
-            )
-        }
-        }
-    </StoreContext.Consumer>
-};
+        },
+    }
+}
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
