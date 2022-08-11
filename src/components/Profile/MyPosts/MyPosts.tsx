@@ -1,7 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
-import obc from "./MyPosts.module.css";
-import {Post} from "./Post/Post";
-import {typeMyPostsProps} from "./MyPostsContainer";
+import React, {ChangeEvent, KeyboardEvent} from 'react';
+import obc from './MyPosts.module.css';
+import {Post} from './Post/Post';
+import {typeMyPostsProps} from './MyPostsContainer';
 
 export const MyPosts = (props: typeMyPostsProps) => {
 

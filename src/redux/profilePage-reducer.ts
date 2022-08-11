@@ -1,4 +1,4 @@
-import {ActionsType} from "./redux-store";
+import {ActionsType} from './redux-store';
 
 type postsDataPropsType = {
     id: number;
@@ -9,30 +9,30 @@ export type profilePagePropsType = {
     postsData: postsDataPropsType[];
     postTextValue: string;
 };
+
 let initialState: profilePagePropsType = {
-    postTextValue: "",
+    postTextValue: '',
     postsData: [
-        {id: 1, message: "Hello World", Likes: 22},
-        {id: 2, message: "Nice site", Likes: 2},
-        {id: 3, message: "Hey hey", Likes: 12},
-        {id: 4, message: "New World", Likes: 52},
-        {id: 5, message: "Test message", Likes: 3},
+        {id: 1, message: 'Hello World', Likes: 22},
+        {id: 2, message: 'Nice site', Likes: 2},
+        {id: 3, message: 'Hey hey', Likes: 12},
+        {id: 4, message: 'New World', Likes: 52},
+        {id: 5, message: 'Test message', Likes: 3},
     ],
 }
 
-const profilePageReducer = (state: profilePagePropsType=initialState, action: ActionsType): profilePagePropsType => {
-       switch (action.type) {
-        case "ADD_POST":
-            state.postsData.unshift({
-                id: new Date().getTime(),
-                message: action.postText,
-                Likes: 0,
-            });
-            state.postTextValue = "";
-            return state;
-        case "TEXTAREA_VALUE_POST":
-            state.postTextValue = action.text.trim();
-            return state;
+const profilePageReducer = (state: profilePagePropsType = initialState, action: ActionsType): profilePagePropsType => {
+    switch (action.type) {
+        case 'ADD_POST':
+            return {
+                ...state, postsData: [{
+                    id: new Date().getTime(),
+                    message: action.postText.trim(),
+                    Likes: 0,
+                }, ...state.postsData], postTextValue: ''
+            }
+        case 'TEXTAREA_VALUE_POST':
+            return {...state, postTextValue: action.text};
         default:
             return state
     }
@@ -40,13 +40,13 @@ const profilePageReducer = (state: profilePagePropsType=initialState, action: Ac
 
 export const changeTextValuePostAC = (text: string) => {
     return {
-        type: "TEXTAREA_VALUE_POST",
+        type: 'TEXTAREA_VALUE_POST',
         text: text
     } as const
 }
 export const addPostAC = (postText: string) => {
     return {
-        type: "ADD_POST",
+        type: 'ADD_POST',
         postText: postText
     } as const
 }
