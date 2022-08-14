@@ -13,6 +13,11 @@ export const Nav = (props: MapStateToPropsType) => {
                 </NavLink>
             </div>
             <div className={obc.item}>
+                <NavLink to="/users" activeClassName={obc.activeLink}>
+                    Users
+                </NavLink>
+            </div>
+            <div className={obc.item}>
                 <NavLink to="/dialogs" activeClassName={obc.activeLink} >
                     Messages
                 </NavLink>

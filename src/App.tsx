@@ -8,9 +8,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settingz/Settings";
 import {NavContainer} from "./components/Nav/NavContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-
-
-
+import UsersContainer from './components/Users/UsersContainer';
 
 const App = () => {
     //const state = useSelector(state => state)
@@ -33,6 +31,7 @@ const App = () => {
                     <Route path={"/news"} render={() => <News/>}/>
                     <Route path={"/music"} render={() => <Music/>}/>
                     <Route path={"/settingz"} render={() => <Settings/>}/>
+                    <Route path={"/users"} render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

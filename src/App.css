@@ -7,7 +7,7 @@ body {
     width: 1200px;
     margin: 0 auto;
     grid-template-areas:
-    "app-h app-h "
+    "app-h app-h"
     "app-n app-c ";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;

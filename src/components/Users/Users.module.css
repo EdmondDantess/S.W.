@@ -1,0 +1,54 @@
+
+.divUserBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    width: 70%;
+    box-shadow: 1px 1px 10px red;
+    border: 1px solid black;
+    margin: 1% 30% 0% 5%
+    }
+.divUserBody:hover {
+    box-shadow: 1px 1px 10px white;
+}
+
+.divUserBody img {
+    box-shadow: 1px 1px 10px red;
+    border-radius: 50%;
+    width: 100px;
+}
+
+.divUserInfo {
+font-weight: bold;
+    color: black;
+
+}
+.divUserInfo .name {
+      position: absolute;
+    margin-top: -3%;
+    margin-left: -19%;
+    background-color: white;
+}
+.divUserInfo .location {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: -18%;
+    background-color: gray;
+}
+.divUserInfo .date {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 11%;
+    background-color: yellowgreen;
+}
+
+.buttonInDiv {
+     width: 10%;
+}
+.buttonInDiv button{
+    height: 100px;
+    width: 100%;
+   }

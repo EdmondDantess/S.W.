@@ -4,27 +4,26 @@
     grid-template-areas: "names messages"
                         "names  textAreaInput"
                         "name Button"
-                       
 }
 
-.dialogsItems a { 
+.dialogsItems a {
     padding: 10px;
     color: whitesmoke;
     text-decoration-line: none;
-    }
+}
 
 .parentDialogsItem {
     grid-area: names;
-   }
+}
 
 .dialogsItems .activeLink {
     color: red;
 }
 
-.dialogsItems:hover  {
+.dialogsItems:hover {
     background-color: rgb(13, 156, 90);
     color: gray;
-  }  
+}
 
 .messages {
     color: rgb(67, 0, 190);
@@ -33,13 +32,16 @@
     margin-right: 5px;
     margin-bottom: 5px;
     padding: 10px;
-   
+
 }
 
 .parentMessages {
     grid-area: messages;
-    background-color: gray;
+    height: 400px;
+    overflow-y: auto;
+       background-color: gray;
 }
+
 .avatarka {
     margin-top: 10px;
     margin-right: 10px;
