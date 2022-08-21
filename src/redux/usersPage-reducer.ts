@@ -13,80 +13,15 @@ export type usersPagePropsType = {
 };
 
 let initialState: usersPagePropsType = {
-    users: [
-        {
-            id: 1,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: true,
-            fullName: 'Maksim Laurouski',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Zhodino', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: true,
-            fullName: 'Jon Mc',
-            dateOfBirth: '15/09/1980',
-            location: {city: 'NY', country: 'USA'}
-        },
-        {
-            id: 3,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: false,
-            fullName: 'Maksim Laurouski',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Zhodino', country: 'Spain'}
-        },
-        {
-            id: 4,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: true,
-            fullName: 'Sasha Man',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-        {
-            id: 5,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: true,
-            fullName: 'Viktor Bred',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Zhodino', country: 'Belarus'}
-        },
-        {
-            id: 6,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: false,
-            fullName: 'Maksim Laurouski',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Zhodino', country: 'Belarus'}
-        },
-        {
-            id: 7,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: false,
-            fullName: 'Denis Izmal',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Zhodino', country: 'Belarus'}
-        },
-        {
-            id: 8,
-            urlPhoto: 'https://i.etsystatic.com/27152142/r/il/e7721f/3007107857/il_fullxfull.3007107857_ay0i.jpg',
-            followed: true,
-            fullName: 'Fedya Fedorovich',
-            dateOfBirth: '15/09/1994',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-    ],
+    users: [],
 }
 
-const usersPageReducer = (state: usersPagePropsType = initialState, action: ActionsType): usersPagePropsType => {
+const usersPageReducer = (state: any = initialState, action: ActionsType): any => {
     switch (action.type) {
         case 'FOLLOW_UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map(el => (el.id === action.userId ? ({...el, followed: !el.followed}) : el))
+                users: state.users.map((el: any) => (el.id === action.userId ? ({...el, followed: !el.followed}) : el))
             }
         case 'SET_USERS':
             return {
@@ -98,7 +33,7 @@ const usersPageReducer = (state: usersPagePropsType = initialState, action: Acti
     }
 }
 
-export const followUnFollowtAC = (userId: number) => {
+export const followUnFollowAC = (userId: number) => {
     return {
         type: 'FOLLOW_UNFOLLOW',
         userId: userId
