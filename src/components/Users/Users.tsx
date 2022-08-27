@@ -7,19 +7,45 @@ import {usersPagePropsType} from '../../redux/usersPage-reducer';
 
 export class Users extends React.Component<UsersPropsType, usersPagePropsType[]> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount(): void {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setUsersTotalCount(response.data.totalCount)
+            })
     }
 
-    componentDidMount(): void {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUsers(response.data.items)
-        })
+    onPageChanged = (p: number) => {
+        this.props.setCurrentPage(p)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div className={obc.parentDivBodyUsers}>
+                <div className={obc.pageSelectorDIV}>
+                    {
+                        pages.map(p => {
+                            return (
+                                <span key={p}
+                                      className={this.props.currentPage === p ? obc.activePageSelector : ''}
+                                      onClick={(e) => {
+                                          this.onPageChanged(p)
+                                      }}>{p}</span>
+                            )
+                        })
+                    }
+                </div>
                 {
                     this.props.users.map((u: any) => {
                         return (

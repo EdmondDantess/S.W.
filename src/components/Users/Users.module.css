@@ -6,13 +6,13 @@
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    width: 70%;
     box-shadow: 1px 1px 10px red;
     border: 1px solid black;
-    margin: 1% 30% 0% 5%
+    width: 768px;
     }
 .divUserBody:hover {
     box-shadow: 1px 1px 10px white;
+
 }
 
 .divUserBody img {
@@ -52,3 +52,18 @@ font-weight: bold;
     height: 100px;
     width: 100%;
    }
+
+.pageSelectorDIV {
+
+    color: #d8ded0;
+}
+.pageSelectorDIV:hover {
+    cursor: pointer;
+
+
+}
+
+.pageSelectorDIV .activePageSelector {
+    font-weight: bold;
+    color: black;
+}

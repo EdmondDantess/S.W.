@@ -10,10 +10,16 @@ export type usersPropsDataType = {
 };
 export type usersPagePropsType = {
     users: usersPropsDataType[];
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 };
 
 let initialState: usersPagePropsType = {
     users: [],
+    pageSize: 50,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 const usersPageReducer = (state: any = initialState, action: ActionsType): any => {
@@ -26,7 +32,17 @@ const usersPageReducer = (state: any = initialState, action: ActionsType): any =
         case 'SET_USERS':
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
+            }
+        case 'SET_CURRENT_PAGE':
+            return {
+                ...state,
+                currentPage: action.page
+            }
+        case 'SET_USERS_TOTAL_COUNT':
+            return {
+                ...state,
+                totalUsersCount: action.totalUsers
             }
         default:
             return state
@@ -43,6 +59,18 @@ export const setUsersAC = (users: usersPropsDataType[]) => {
     return {
         type: 'SET_USERS',
         users: users
+    } as const
+}
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: 'SET_CURRENT_PAGE',
+        page
+    } as const
+}
+export const setUsersTotalCountAC = (totalUsers: number) => {
+    return {
+        type: 'SET_USERS_TOTAL_COUNT',
+        totalUsers
     } as const
 }
 

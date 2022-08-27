@@ -18,4 +18,4 @@ const mapDispatchToProps = ( )  => {
 
 }
 
-export const NavContainer = connect(mapStateToProps, mapDispatchToProps)(Nav)
+export const NavContainer = connect(mapStateToProps)(Nav)
