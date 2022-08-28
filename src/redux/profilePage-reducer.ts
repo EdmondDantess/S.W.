@@ -1,16 +1,60 @@
 import {ActionsType} from './redux-store';
 
+export type profileStateProps = {
+    'aboutMe': null | string,
+    'contacts': {
+        'facebook': null | string,
+        'website': null | string,
+        'vk': null | string,
+        'twitter': null | string,
+        'instagram': null | string,
+        'youtube': null | string,
+        'github': null | string,
+        'mainLink': null | string
+    },
+    'lookingForAJob': boolean,
+    'lookingForAJobDescription': null | string,
+    'fullName': string,
+    'userId': number | null,
+    'photos': {
+        'small': null | string,
+        'large': null | string
+    }
+}
+
 type postsDataPropsType = {
     id: number;
     message: string;
     Likes: number;
 };
 export type profilePagePropsType = {
+    profile: profileStateProps
     postsData: postsDataPropsType[];
     postTextValue: string;
-};
+} ;
 
 let initialState: profilePagePropsType = {
+    profile: {
+        "aboutMe": "I am divine",
+        "contacts": {
+            "facebook": "",
+            "website": null,
+            "vk": null,
+            "twitter": null,
+            "instagram": null,
+            "youtube": null,
+            "github": null,
+            "mainLink": null
+        },
+        "lookingForAJob": true,
+        "lookingForAJobDescription": "I am profi!!!!REAL",
+        "fullName": "nekotochka",
+        "userId": 24667,
+        photos: {
+            "small": "https://social-network.samuraijs.com/activecontent/images/users/24667/user-small.jpg?v=0",
+            large: "https://social-network.samuraijs.com/activecontent/images/users/24667/user.jpg?v=0"
+        }
+    },
     postTextValue: '',
     postsData: [
         {id: 1, message: 'Hello World', Likes: 22},
@@ -33,6 +77,8 @@ const profilePageReducer = (state: profilePagePropsType = initialState, action: 
             }
         case 'TEXTAREA_VALUE_POST':
             return {...state, postTextValue: action.text};
+        case 'SET_USER_PROFILE':
+            return {...state, profile: {...action.profile}};
         default:
             return state
     }
@@ -48,6 +94,12 @@ export const addPostAC = (postText: string) => {
     return {
         type: 'ADD_POST',
         postText: postText
+    } as const
+}
+export const setUserProfile = (profile: profileStateProps ) => {
+    return {
+        type: 'SET_USER_PROFILE',
+        profile
     } as const
 }
 

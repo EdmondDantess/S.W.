@@ -1,75 +1,75 @@
 import React from 'react';
-import {UsersPropsType} from './UsersContainer';
-import obc from './Users.module.css'
-import axios from 'axios';
-import userPhoto from '../../assets/images/user.png'
-import {usersPagePropsType} from '../../redux/usersPage-reducer';
+import obc from './Users.module.css';
+import userPhoto from '../../assets/images/user.png';
+import {usersPropsDataType} from '../../redux/usersPage-reducer';
+import {NavLink} from 'react-router-dom';
 
-export class Users extends React.Component<UsersPropsType, usersPagePropsType[]> {
+type propsFromUsersContainer = {
+    onPageChanged: (p: number) => void
+    followUnFollow: (id: number) => void
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: usersPropsDataType[]
+    isFetching: boolean
+}
 
-    componentDidMount(): void {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setUsersTotalCount(response.data.totalCount)
-            })
+export const Users = (props: propsFromUsersContainer) => {
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages: number[] = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onPageChanged = (p: number) => {
-        this.props.setCurrentPage(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        let pages = []
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-
+    let pageSelector = () => {
         return (
-            <div className={obc.parentDivBodyUsers}>
-                <div className={obc.pageSelectorDIV}>
-                    {
-                        pages.map(p => {
-                            return (
-                                <span key={p}
-                                      className={this.props.currentPage === p ? obc.activePageSelector : ''}
-                                      onClick={(e) => {
-                                          this.onPageChanged(p)
-                                      }}>{p}</span>
-                            )
-                        })
-                    }
-                </div>
+            <div className={obc.pageSelectorDIV}>
                 {
-                    this.props.users.map((u: any) => {
+                    pages.map((p) => {
                         return (
-                            <div className={obc.divUserBody} key={u.id}>
-                                <img src={u.photos.small !== null ? u.photos : userPhoto} alt="User dont added Avatar"/>
-                                <div className={obc.divUserInfo}>
-                                    <div className={obc.name}>{u.name}</div>
-                                    <div className={obc.location}>{'u.location.city'}
-                                        {'u.location.country'}</div>
-                                    <div className={obc.date}>{u.status}</div>
-                                </div>
-                                <div className={obc.buttonInDiv}>
-                                    {u.followed ?
-                                        <button onClick={() => this.props.followUnFollowAC(u.id)}> ✘</button>
-                                        :
-                                        <button
-                                            onClick={() => this.props.followUnFollowAC(u.id)}>Add as Friends</button>
-                                    }
-                                </div>
-                            </div>
+                            <span key={p}
+                                  className={props.currentPage === p ? obc.activePageSelector : ''}
+                                  onClick={(e) => {
+                                      props.onPageChanged(p)
+                                  }}>{p}</span>
                         )
                     })
                 }
             </div>
         )
     }
+
+    return (
+        <div className={obc.parentDivBodyUsers}>
+            {pageSelector()}
+            {
+                props.users.map((u: any) => {
+                    return (
+                        <div className={obc.divUserBody} key={u.id}>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                     alt="User dont added Avatar"/>
+                            </NavLink>
+                            <div className={obc.divUserInfo}>
+                                <div className={obc.name}>{u.name}</div>
+                                <div className={obc.location}>{'u.location.city'}
+                                    {'u.location.country'}</div>
+                                <div className={obc.date}>{u.status}</div>
+                            </div>
+                            <div className={obc.buttonInDiv}>
+                                {u.followed ?
+                                    <button onClick={() => props.followUnFollow(u.id)}> ✘</button>
+                                    :
+                                    <button
+                                        onClick={() => props.followUnFollow(u.id)}>Add as Friends</button>
+                                }
+                            </div>
+                        </div>
+                    )
+                })
+            }
+            {pageSelector()}
+        </div>
+    )
 }

@@ -16,7 +16,7 @@
 }
 
 .divUserBody img {
-    box-shadow: 1px 1px 10px red;
+  background-color: gray;
     border-radius: 50%;
     width: 100px;
 }

@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux'
 import {legacy_createStore as createStore} from 'redux'
 import dialogsPageReducer, {addMessageInDialogsAC, textAreaValueMessageAC} from './dialogsPage-reducer';
-import profilePageReducer, {addPostAC, changeTextValuePostAC} from './profilePage-reducer';
+import profilePageReducer, {addPostAC, changeTextValuePostAC, setUserProfile} from './profilePage-reducer';
 import sidebarPageReducer from './sidebarPage-reducer';
 import usersPageReducer, {
-    followUnFollowAC,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC
+    followUnFollow,
+    setCurrentPage,
+    setUsers,
+    setUsersTotalCount, toggleIsFetching
 } from './usersPage-reducer';
 
 export type ActionsType =
@@ -15,10 +15,12 @@ export type ActionsType =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof addMessageInDialogsAC>
     | ReturnType<typeof textAreaValueMessageAC>
-    | ReturnType<typeof followUnFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setUsersTotalCountAC>
+    | ReturnType<typeof followUnFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setUsersTotalCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 
 export type RootState = typeof rootReducer
@@ -33,3 +35,6 @@ export let rootReducer = combineReducers({
 )
 
 export let store = createStore(rootReducer)
+
+//@ts-ignore
+window.store = store

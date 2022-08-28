@@ -13,16 +13,18 @@ export type usersPagePropsType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 };
 
 let initialState: usersPagePropsType = {
     users: [],
     pageSize: 50,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
-const usersPageReducer = (state: any = initialState, action: ActionsType): any => {
+const usersPageReducer = (state: usersPagePropsType = initialState, action: ActionsType): any => {
     switch (action.type) {
         case 'FOLLOW_UNFOLLOW':
             return {
@@ -44,33 +46,44 @@ const usersPageReducer = (state: any = initialState, action: ActionsType): any =
                 ...state,
                 totalUsersCount: action.totalUsers
             }
+        case 'TOGGLE_ISFETCHING':
+            return {
+                ...state,
+                isFetching: action.status
+            }
         default:
             return state
     }
 }
 
-export const followUnFollowAC = (userId: number) => {
+export const followUnFollow = (userId: number) => {
     return {
         type: 'FOLLOW_UNFOLLOW',
         userId: userId
     } as const
 }
-export const setUsersAC = (users: usersPropsDataType[]) => {
+export const setUsers = (users: usersPropsDataType[]) => {
     return {
         type: 'SET_USERS',
         users: users
     } as const
 }
-export const setCurrentPageAC = (page: number) => {
+export const setCurrentPage = (page: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         page
     } as const
 }
-export const setUsersTotalCountAC = (totalUsers: number) => {
+export const setUsersTotalCount = (totalUsers: number) => {
     return {
         type: 'SET_USERS_TOTAL_COUNT',
         totalUsers
+    } as const
+}
+export const toggleIsFetching = (status: boolean) => {
+    return {
+        type: 'TOGGLE_ISFETCHING',
+        status
     } as const
 }
 

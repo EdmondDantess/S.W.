@@ -1,7 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import "./App.css";
-import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -9,6 +8,7 @@ import {Settings} from "./components/Settingz/Settings";
 import {NavContainer} from "./components/Nav/NavContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 const App = () => {
     //const state = useSelector(state => state)
@@ -23,9 +23,9 @@ const App = () => {
                         render={() => <DialogsContainer/>}
                     />
                     <Route
-                        path={"/profile"}
+                        path={"/profile/:userId?"}
                         render={() => (
-                            <Profile/>
+                            <ProfileContainer/>
                         )}
                     />
                     <Route path={"/news"} render={() => <News/>}/>
