@@ -9,6 +9,7 @@ import usersPageReducer, {
     setUsers,
     setUsersTotalCount, toggleIsFetching
 } from './usersPage-reducer';
+import authReducer, {setAuthUserData} from './auth-reducer';
 
 export type ActionsType =
     ReturnType<typeof changeTextValuePostAC>
@@ -21,6 +22,7 @@ export type ActionsType =
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
 
 
 export type RootState = typeof rootReducer
@@ -30,7 +32,8 @@ export let rootReducer = combineReducers({
         dialogsPage: dialogsPageReducer,
         profilePage: profilePageReducer,
         sidebarPage: sidebarPageReducer,
-        usersPage: usersPageReducer
+        usersPage: usersPageReducer,
+        auth: authReducer
     }
 )
 
