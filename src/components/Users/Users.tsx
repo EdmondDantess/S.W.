@@ -3,6 +3,7 @@ import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import {usersPropsDataType} from '../../redux/usersPage-reducer';
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
 
 type propsFromUsersContainer = {
     onPageChanged: (p: number) => void
@@ -59,10 +60,36 @@ export const Users = (props: propsFromUsersContainer) => {
                             </div>
                             <div className={obc.buttonInDiv}>
                                 {u.followed ?
-                                    <button onClick={() => props.followUnFollow(u.id)}> ✘</button>
+                                    <button onClick={() => {
+                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                            {
+                                                withCredentials: true,
+                                                headers: {
+                                                    'API-KEY': 'b8bf41ff-23c1-4902-b891-e8c308f276ca'
+                                                }
+                                            }
+                                        ).then(res => {
+                                            if (res.data.resultCode === 0) {
+                                                props.followUnFollow(u.id)
+                                            }
+                                        })
+                                    }}> ✘</button>
                                     :
                                     <button
-                                        onClick={() => props.followUnFollow(u.id)}>Add as Friends</button>
+                                        onClick={() => {
+                                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                {}, {
+                                                    withCredentials: true,
+                                                    headers: {
+                                                        'API-KEY': 'b8bf41ff-23c1-4902-b891-e8c308f276ca'
+                                                    }
+                                                }
+                                            ).then(res => {
+                                                if (res.data.resultCode === 0) {
+                                                    props.followUnFollow(u.id)
+                                                }
+                                            })
+                                        }}>Add as Friends</button>
                                 }
                             </div>
                         </div>
