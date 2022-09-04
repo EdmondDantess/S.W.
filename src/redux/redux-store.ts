@@ -7,7 +7,7 @@ import usersPageReducer, {
     followUnFollow,
     setCurrentPage,
     setUsers,
-    setUsersTotalCount, toggleIsFetching
+    setUsersTotalCount, toggleFollowingInProgress, toggleIsFetching
 } from './usersPage-reducer';
 import authReducer, {setAuthUserData} from './auth-reducer';
 
@@ -23,6 +23,7 @@ export type ActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleFollowingInProgress>
 
 
 export type RootState = typeof rootReducer
