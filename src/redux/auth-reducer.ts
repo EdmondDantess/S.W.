@@ -1,4 +1,7 @@
 import {ActionsType} from './redux-store';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
+import {followUnFollow, toggleFollowingInProgress} from './usersPage-reducer';
 
 export type authPropsType = {
     id: null | number
@@ -39,5 +42,14 @@ export const setAuthUserData = (id: number,
         }
     } as const
 }
-
+export const authThunk = () => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getAuth().then(res => {
+            if (res.resultCode === 0) {
+                let {id, login, email} = res.data
+                dispatch(setAuthUserData(id, email, login))
+            }
+        })
+    }
+}
 export default authReducer

@@ -1,5 +1,5 @@
 import React from 'react';
-import {profileStateProps, setUserProfile} from '../../redux/profilePage-reducer';
+import {profileStateProps, setUserProfile, setUserProfileThunk} from '../../redux/profilePage-reducer';
 import {Profile} from './Profile';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -13,6 +13,7 @@ type PathParamsType = {
 
 type mstdpt = {
     setUserProfile: (profile: profileStateProps) => void
+    setUserProfileThunk: (userId: string) => void
 }
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -24,13 +25,10 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        console.log(userId)
         if (!userId) {
             userId = '2'
         }
-        usersAPI.getProfile(userId).then(response => {
-            this.props.setUserProfile(response.data)
-        })
+        this.props.setUserProfileThunk(userId)
     }
 
     render() {
@@ -48,4 +46,4 @@ let mapStateToProps = (state: ReduxStateType) => {
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)
+export default connect(mapStateToProps, {setUserProfile, setUserProfileThunk})(WithUrlDataContainerComponent)

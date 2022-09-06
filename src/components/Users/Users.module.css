@@ -1,3 +1,8 @@
+.parentDivBodyUsers {
+    display: flex;
+    flex-direction: column;
+
+}
 
 .divUserBody {
     display: flex;
@@ -8,36 +13,39 @@
     align-content: center;
     box-shadow: 1px 1px 10px red;
     border: 1px solid black;
-    width: 768px;
-    }
+    min-width: 100vh;
+}
+
 .divUserBody:hover {
     box-shadow: 1px 1px 10px white;
-
 }
 
 .divUserBody img {
-  background-color: gray;
+    background-color: gray;
     border-radius: 50%;
     width: 100px;
 }
 
 .divUserInfo {
-font-weight: bold;
+    font-weight: bold;
     color: black;
 
 }
+
 .divUserInfo .name {
-      position: absolute;
+    position: absolute;
     margin-top: -3%;
     margin-left: -19%;
     background-color: white;
 }
+
 .divUserInfo .location {
     position: absolute;
     margin-top: 2%;
     margin-left: -18%;
     background-color: gray;
 }
+
 .divUserInfo .date {
     position: absolute;
     margin-top: 2%;
@@ -46,17 +54,19 @@ font-weight: bold;
 }
 
 .buttonInDiv {
-     width: 10%;
+    width: 10%;
 }
-.buttonInDiv button{
+
+.buttonInDiv button {
     height: 100px;
     width: 100%;
-   }
+}
 
 .pageSelectorDIV {
 
     color: #d8ded0;
 }
+
 .pageSelectorDIV:hover {
     cursor: pointer;
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import obc from './ProfileInfo.module.css';
 import {Preloader} from '../../../common/Preloader';
-import {ProfilePropsType} from '../ProfileContainer';
-import {profileStateProps} from '../../../redux/profilePage-reducer';
 
 
 export type ProfileInfoPropsType = {
@@ -31,22 +29,27 @@ export type ProfileInfoPropsType = {
 
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+    console.log(props.profile)
     if (!props.profile) {
         return <Preloader/>
     }
-let avatar = props.profile.photos.large ? props.profile.photos.large: ''
-    console.log(props.profile.userId)
+    let avatar = props.profile.photos.large ? props.profile.photos.large : ''
     return (
         <div>
-            <div className={obc.imgHead}>
-                <img
-                    src="https://ic.pics.livejournal.com/dergachev_va/58474394/4085016/4085016_original.png"
-                    alt="Fail"
-                />
-            </div>
             <div className={obc.description}>
                 <img src={avatar} alt="Users Avatar losted"/>
-                ava i description
+                <div className={obc.descriptionTextInfo}>
+                    <div>Fullname: <b>{props.profile.fullName}</b></div>
+                    <div>about me: {props.profile.aboutMe}</div>
+                    <b>contacts:</b>
+                    <div> facebook: {props.profile.contacts.facebook}</div>
+                    <div>github: {props.profile.contacts.github}</div>
+                    <div> instagram:{props.profile.contacts.instagram}</div>
+                    <div> twitter: {props.profile.contacts.twitter}</div>
+                    {props.profile.contacts.vk ? <div> vk: {props.profile.contacts.vk}</div> : null}
+                    <div> website: {props.profile.contacts.website}</div>
+                    <div> youtube: {props.profile.contacts.youtube}</div>
+                </div>
             </div>
         </div>
     );

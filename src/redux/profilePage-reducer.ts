@@ -1,4 +1,6 @@
 import {ActionsType} from './redux-store';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
 
 export type profileStateProps = {
     'aboutMe': null | string,
@@ -101,6 +103,13 @@ export const setUserProfile = (profile: profileStateProps ) => {
         type: 'SET_USER_PROFILE',
         profile
     } as const
+}
+export const setUserProfileThunk = (userId: string ) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId).then(response => {
+           dispatch(setUserProfile(response.data))
+        })
+    }
 }
 
 export default profilePageReducer

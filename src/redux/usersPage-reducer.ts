@@ -1,4 +1,6 @@
 import {ActionsType} from './redux-store';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
 
 export type usersPropsDataType = {
     id: number;
@@ -53,12 +55,12 @@ const usersPageReducer = (state: usersPagePropsType = initialState, action: Acti
                 ...state,
                 isFetching: action.status
             }
-            case 'TOGGLE_FOLLOWING_PROGRESS':
+        case 'TOGGLE_FOLLOWING_PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.status ?
-                    [...state.followingInProgress, action.userId]:
-                    [...state.followingInProgress.filter( id => id != action.userId)]
+                    [...state.followingInProgress, action.userId] :
+                    [...state.followingInProgress.filter(id => id != action.userId)]
             }
         default:
             return state
@@ -101,6 +103,38 @@ export const toggleFollowingInProgress = (status: boolean, userId: number) => {
         status,
         userId
     } as const
+}
+export const getUsersThunk = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(response => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(response.items))
+            dispatch(setUsersTotalCount(response.totalCount))
+        })
+    }
+}
+export const followThunk = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.follow(userId).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(followUnFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }
+}
+export const unFollowThunk = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.unFollow(userId).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(followUnFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }
 }
 
 export default usersPageReducer

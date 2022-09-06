@@ -1,7 +1,7 @@
 import React from 'react';
 import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
-import {toggleFollowingInProgress, usersPropsDataType} from '../../redux/usersPage-reducer';
+import {toggleFollowingInProgress, unFollowThunk, usersPropsDataType} from '../../redux/usersPage-reducer';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import {usersAPI} from '../../api/api';
@@ -16,6 +16,8 @@ type propsFromUsersContainer = {
     isFetching: boolean
     followingInProgress: []
     toggleFollowingInProgress: (status: boolean, userId: number) => void
+    followThunk: (userId: number) => void
+    unFollowThunk: (userId: number) => void
 }
 
 
@@ -28,10 +30,11 @@ export const Users = (props: propsFromUsersContainer) => {
     }
 
     let pageSelector = () => {
+        let filteredPages = pages.filter(p => (p <= 50))
         return (
             <div className={obc.pageSelectorDIV}>
                 {
-                    pages.map((p) => {
+                    filteredPages.map((p) => {
                         return (
                             <span key={p}
                                   className={props.currentPage === p ? obc.activePageSelector : ''}
@@ -65,27 +68,15 @@ export const Users = (props: propsFromUsersContainer) => {
                             <div className={obc.buttonInDiv}>
                                 {u.followed ?
                                     <button
-                                        disabled={props.followingInProgress.some( id => id === u.id)}
+                                        disabled={props.followingInProgress.some(id => id === u.id)}
                                         onClick={() => {
-                                            props.toggleFollowingInProgress(true, u.id)
-                                            usersAPI.unFollow(u.id).then(res => {
-                                                if (res.data.resultCode === 0) {
-                                                    props.followUnFollow(u.id)
-                                                }
-                                                props.toggleFollowingInProgress(false, u.id)
-                                            })
-                                        }}> ✘</button>
+                                            props.unFollowThunk(u.id)
+                                        }}>✘</button>
                                     :
                                     <button
-                                        disabled={props.followingInProgress.some( id => id === u.id)}
+                                        disabled={props.followingInProgress.some(id => id === u.id)}
                                         onClick={() => {
-                                            props.toggleFollowingInProgress(true, u.id)
-                                            usersAPI.follow(u.id).then(res => {
-                                                if (res.data.resultCode === 0) {
-                                                    props.followUnFollow(u.id)
-                                                }
-                                                props.toggleFollowingInProgress(false, u.id)
-                                            })
+                                            props.followThunk(u.id)
                                         }}>Add as Friends</button>
                                 }
                             </div>
