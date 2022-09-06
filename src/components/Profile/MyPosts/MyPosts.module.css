@@ -5,12 +5,12 @@
 
 .posts {
     margin-top: 20px;
-    background-color: aquamarine;
+    background-color: #7fddff;
 }
 
 .textareaPosts {
     resize: none;
-    background: #85e468;
+    background: #286876;
     /* Цвет фона */
     border: 2px solid #71c358;
     /* Параметры рамки */

@@ -1,5 +1,5 @@
 body {
-    background-color: aquamarine;
+    background-color: #34bcf4;
 }
 
 .appWrapper {
@@ -16,6 +16,6 @@ body {
 
 .appWrapperContent {
     grid-area: app-c;
-    background-color: #00d084;
+    background-color: #0087d0;
 }
 

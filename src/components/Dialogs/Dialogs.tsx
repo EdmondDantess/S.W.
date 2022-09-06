@@ -3,6 +3,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import obc from "./Dialogs.module.css";
 import {Message} from "./Message/Message";
 import {typeDialogProps} from "./DialogsContainer";
+import {Redirect} from 'react-router-dom';
 
 export const Dialogs = (props: typeDialogProps) => {
     let state = props.state
@@ -37,6 +38,9 @@ export const Dialogs = (props: typeDialogProps) => {
     const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         props.keyPressHandlerText(e,  state.messageValueTextarea)
     }
+
+    if (props.isAuth === false)  return <Redirect to={'/login'}/>
+
 
     return (
         <div className={obc.dialogs}>

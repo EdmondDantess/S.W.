@@ -1,10 +1,8 @@
 import React from 'react';
 import {Header} from './Header';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {authPropsType, authThunk, setAuthUserData} from '../../redux/auth-reducer';
 import {ReduxStateType} from '../../redux/redux-store';
-import {usersAPI} from '../../api/api';
 
 
 export type mstpType = authPropsType
