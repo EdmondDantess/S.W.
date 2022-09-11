@@ -1,6 +1,7 @@
 import React from 'react';
 import obc from './ProfileInfo.module.css';
 import {Preloader} from '../../../common/Preloader';
+import {ProfileStatus} from './ProfileStatus';
 
 
 export type ProfileInfoPropsType = {
@@ -29,7 +30,6 @@ export type ProfileInfoPropsType = {
 
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    console.log(props.profile)
     if (!props.profile) {
         return <Preloader/>
     }
@@ -39,6 +39,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={obc.description}>
                 <img src={avatar} alt="Users Avatar losted"/>
                 <div className={obc.descriptionTextInfo}>
+                    <ProfileStatus status={'Hey-hey'}/>
                     <div>Fullname: <b>{props.profile.fullName}</b></div>
                     <div>about me: {props.profile.aboutMe}</div>
                     <b>contacts:</b>

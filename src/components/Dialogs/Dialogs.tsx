@@ -39,9 +39,6 @@ export const Dialogs = (props: typeDialogProps) => {
         props.keyPressHandlerText(e,  state.messageValueTextarea)
     }
 
-    if (props.isAuth === false)  return <Redirect to={'/login'}/>
-
-
     return (
         <div className={obc.dialogs}>
             <div className={obc.parentDialogsItem}>{usersName}</div>

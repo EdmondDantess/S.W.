@@ -3,13 +3,15 @@ import {addMessageInDialogsAC, dialogsPagePropsType, textAreaValueMessageAC} fro
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {ReduxStateType} from '../../redux/redux-store';
-import {Dispatch} from 'redux';
+import {compose, Dispatch} from 'redux';
+import {Redirect} from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 
 type MapStateProps = {
     state: dialogsPagePropsType
-    isAuth: boolean
 }
+
 type MapDispatchProps = {
     addMessage: (value: string) => void
     addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void
@@ -21,11 +23,9 @@ export type  typeDialogProps = MapStateProps & MapDispatchProps
 const mapStateToProps = (state: ReduxStateType): MapStateProps => {
     return {
         state: state.dialogsPage,
-        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
-
     return {
         addMessage: (messageValueTextarea: string) => {
             dispatch(addMessageInDialogsAC(messageValueTextarea))
@@ -40,4 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
         }
     }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
