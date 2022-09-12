@@ -6,7 +6,7 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 export const Profile = (props: ProfileInfoPropsType ) => {
   return (
     <div className={obc.INfo}>
-      <ProfileInfo profile={props.profile}/>
+      <ProfileInfo profile={props.profile} status={props.status} updateStatusThunk={props.updateStatusThunk}/>
       <MyPostsContainer/>
      </div>
   );

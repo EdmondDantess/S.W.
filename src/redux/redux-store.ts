@@ -1,16 +1,21 @@
-import {applyMiddleware, combineReducers} from 'redux'
-import {legacy_createStore as createStore} from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import dialogsPageReducer, {addMessageInDialogsAC, textAreaValueMessageAC} from './dialogsPage-reducer';
-import profilePageReducer, {addPostAC, changeTextValuePostAC, setUserProfile} from './profilePage-reducer';
+import profilePageReducer, {
+    addPostAC,
+    changeTextValuePostAC,
+    setStatus,
+    setUserProfile
+} from './profilePage-reducer';
 import sidebarPageReducer from './sidebarPage-reducer';
 import usersPageReducer, {
-    followUnFollow, getUsersThunk,
+    followUnFollow,
     setCurrentPage,
     setUsers,
     setUsersTotalCount, toggleFollowingInProgress, toggleIsFetching
 } from './usersPage-reducer';
 import authReducer, {setAuthUserData} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from 'redux-form'
 
 export type ActionsType =
     ReturnType<typeof changeTextValuePostAC>
@@ -25,8 +30,7 @@ export type ActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
-    //| ReturnType<typeof getUsersThunk>
-
+    | ReturnType<typeof setStatus>
 
 export type RootState = typeof rootReducer
 export type ReduxStateType = ReturnType<RootState>
@@ -36,7 +40,8 @@ export let rootReducer = combineReducers({
         profilePage: profilePageReducer,
         sidebarPage: sidebarPageReducer,
         usersPage: usersPageReducer,
-        auth: authReducer
+        auth: authReducer,
+        form: formReducer
     }
 )
 

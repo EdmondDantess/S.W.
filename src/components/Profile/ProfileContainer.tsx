@@ -1,11 +1,14 @@
 import React from 'react';
-import {profileStateProps, setUserProfile, setUserProfileThunk} from '../../redux/profilePage-reducer';
+import {
+    getStatusThunk,
+    profileStateProps,
+    setUserProfile,
+    setUserProfileThunk, updateStatusThunk
+} from '../../redux/profilePage-reducer';
 import {Profile} from './Profile';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {ReduxStateType} from '../../redux/redux-store';
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
@@ -16,6 +19,8 @@ type PathParamsType = {
 type mstdpt = {
     setUserProfile: (profile: profileStateProps) => void
     setUserProfileThunk: (userId: string) => void
+    getStatusThunk: (userId: string) => void
+    updateStatusThunk: (status: string) => void
 }
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -28,15 +33,18 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = '25317'
         }
         this.props.setUserProfileThunk(userId)
+        this.props.getStatusThunk(userId)
     }
 
     render() {
-
         return (
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile
+                     profile={this.props.profile}
+                     status={this.props.status}
+                     updateStatusThunk={this.props.updateStatusThunk}/>
         )
     }
 }
@@ -44,12 +52,14 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 let mapStateToProps = (state: ReduxStateType) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        setUserProfile,
+        updateStatusThunk,
+        getStatusThunk,
         setUserProfileThunk
     }),
     withRouter,

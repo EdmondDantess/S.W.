@@ -1,11 +1,22 @@
-import React from 'react';
-import {Preloader} from '../../../common/Preloader';
+import React, {ChangeEvent} from 'react';
 
-export class ProfileStatus extends React.Component<any> {
+type ProfileStatusType = {
+    status: string,
+    updateStatusThunk: (status: string) => void
+}
+type StateType = {
+    editMode: boolean,
+    status: string
+}
+
+
+export class ProfileStatus extends React.Component<ProfileStatusType, StateType> {
+
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
-    activateEditMode =()=>  {
+    activateEditMode = () => {
         this.setState({
             editMode: true
         })
@@ -14,21 +25,36 @@ export class ProfileStatus extends React.Component<any> {
         this.setState({
             editMode: false
         })
+        this.props.updateStatusThunk(this.state.status)
+    }
+    statusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+                status: e.currentTarget.value
+            }
+        )
+    }
+
+    componentDidUpdate(prevProps: ProfileStatusType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
     }
 
     render() {
-        if (!this.props.status) {
-            return <Preloader/>
-        }
         return (
+
             <div>
                 {!this.state.editMode &&
                     <div>
-                        <b>Status:</b> <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <b>Status:</b> <span
+                        onDoubleClick={this.activateEditMode}>{this.props.status}</span>
                     </div>}
                 {this.state.editMode &&
                     <div>
-                        <input type="text" value={this.props.status} autoFocus onBlur={this.deActivateEditMode}/>
+                        <input value={this.state.status}
+                               onChange={this.statusChange}
+                               autoFocus
+                               onBlur={this.deActivateEditMode}/>
                     </div>}
             </div>
         );

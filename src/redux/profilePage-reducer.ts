@@ -1,6 +1,6 @@
 import {ActionsType} from './redux-store';
 import {Dispatch} from 'redux';
-import {usersAPI} from '../api/api';
+import {profileAPI, usersAPI} from '../api/api';
 
 export type profileStateProps = {
     'aboutMe': null | string,
@@ -33,28 +33,29 @@ export type profilePagePropsType = {
     profile: profileStateProps
     postsData: postsDataPropsType[];
     postTextValue: string;
-} ;
+    status: string
+};
 
 let initialState: profilePagePropsType = {
     profile: {
-        "aboutMe": "I am divine",
-        "contacts": {
-            "facebook": "",
-            "website": null,
-            "vk": null,
-            "twitter": null,
-            "instagram": null,
-            "youtube": null,
-            "github": null,
-            "mainLink": null
+        'aboutMe': 'I am divine',
+        'contacts': {
+            'facebook': '',
+            'website': null,
+            'vk': null,
+            'twitter': null,
+            'instagram': null,
+            'youtube': null,
+            'github': null,
+            'mainLink': null
         },
-        "lookingForAJob": true,
-        "lookingForAJobDescription": "I am profi!!!!REAL",
-        "fullName": "nekotochka",
-        "userId": 24667,
+        'lookingForAJob': true,
+        'lookingForAJobDescription': 'I am profi!!!!REAL',
+        'fullName': 'nekotochka',
+        'userId': 24667,
         photos: {
-            "small": "https://social-network.samuraijs.com/activecontent/images/users/24667/user-small.jpg?v=0",
-            large: "https://social-network.samuraijs.com/activecontent/images/users/24667/user.jpg?v=0"
+            'small': null,
+            large: null,
         }
     },
     postTextValue: '',
@@ -65,6 +66,7 @@ let initialState: profilePagePropsType = {
         {id: 4, message: 'New World', Likes: 52},
         {id: 5, message: 'Test message', Likes: 3},
     ],
+    status: '',
 }
 
 const profilePageReducer = (state: profilePagePropsType = initialState, action: ActionsType): profilePagePropsType => {
@@ -81,6 +83,8 @@ const profilePageReducer = (state: profilePagePropsType = initialState, action: 
             return {...state, postTextValue: action.text};
         case 'SET_USER_PROFILE':
             return {...state, profile: {...action.profile}};
+        case 'SET_STATUS':
+            return {...state, status: action.status};
         default:
             return state
     }
@@ -98,16 +102,39 @@ export const addPostAC = (postText: string) => {
         postText: postText
     } as const
 }
-export const setUserProfile = (profile: profileStateProps ) => {
+export const setUserProfile = (profile: profileStateProps) => {
     return {
         type: 'SET_USER_PROFILE',
         profile
     } as const
 }
-export const setUserProfileThunk = (userId: string ) => {
+export const setStatus = (status: string) => {
+        return {
+        type: 'SET_STATUS',
+        status
+    } as const
+}
+export const setUserProfileThunk = (userId: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
-           dispatch(setUserProfile(response.data))
+            dispatch(setUserProfile(response.data))
+        })
+    }
+}
+export const getStatusThunk = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(userId).then(response => {
+            dispatch(setStatus(response.data))
+        })
+    }
+}
+export const updateStatusThunk = (status: string) => {
+
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+          if (response.data.resultCode === 0) {
+               dispatch(setStatus(status))
+             }
         })
     }
 }
