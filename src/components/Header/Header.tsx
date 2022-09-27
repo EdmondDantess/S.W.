@@ -2,6 +2,7 @@ import React from 'react';
 import obc from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from './HeaderContainer';
+import {logoutTC} from '../../redux/auth-reducer';
 
 export const Header = (props: HeaderContainerPropsType) => {
     return (
@@ -12,7 +13,7 @@ export const Header = (props: HeaderContainerPropsType) => {
             />
             <div className={obc.loginBlock}>{
                 props.isAuth ?
-                    props.login :
+                 <div>{props.login} - <button onClick={props.logoutTC}>Logout</button> </div>   :
                     <NavLink to={'/login'}>Login</NavLink>
             }
             </div>

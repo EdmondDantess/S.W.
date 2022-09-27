@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import {addPostAC, changeTextValuePostAC, profilePagePropsType} from "../../../redux/profilePage-reducer";
+import {addPostAC,  profilePagePropsType} from "../../../redux/profilePage-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {ReduxStateType} from "../../../redux/redux-store";
@@ -11,7 +11,6 @@ type MapStateProps = {
     state: profilePagePropsType
 }
 type MapDispatchProps = {
-    changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void
     sendPostHandler: (postTextValue: string) => void
     keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, postTextValue: string) => void
 }
@@ -24,13 +23,10 @@ const mapStateToProps = (state: ReduxStateType): MapStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
     return {
-        changeTextHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(changeTextValuePostAC(e.currentTarget.value))
-        },
         sendPostHandler: (postTextValue: string) => {
             dispatch(addPostAC(postTextValue))
         },
-        keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, postTextValue: string) => {
+        keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, postTextValue: string ) => {
             if (e.key === "Enter") {
                 dispatch(addPostAC(postTextValue))
             }

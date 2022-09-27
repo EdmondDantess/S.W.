@@ -32,7 +32,6 @@ type postsDataPropsType = {
 export type profilePagePropsType = {
     profile: profileStateProps
     postsData: postsDataPropsType[];
-    postTextValue: string;
     status: string
 };
 
@@ -58,7 +57,7 @@ let initialState: profilePagePropsType = {
             large: null,
         }
     },
-    postTextValue: '',
+
     postsData: [
         {id: 1, message: 'Hello World', Likes: 22},
         {id: 2, message: 'Nice site', Likes: 2},
@@ -75,12 +74,11 @@ const profilePageReducer = (state: profilePagePropsType = initialState, action: 
             return {
                 ...state, postsData: [{
                     id: new Date().getTime(),
-                    message: action.postText.trim(),
+                    message: action.postText,
                     Likes: 0,
-                }, ...state.postsData], postTextValue: ''
+                }, ...state.postsData]
             }
-        case 'TEXTAREA_VALUE_POST':
-            return {...state, postTextValue: action.text};
+
         case 'SET_USER_PROFILE':
             return {...state, profile: {...action.profile}};
         case 'SET_STATUS':
@@ -90,12 +88,7 @@ const profilePageReducer = (state: profilePagePropsType = initialState, action: 
     }
 }
 
-export const changeTextValuePostAC = (text: string) => {
-    return {
-        type: 'TEXTAREA_VALUE_POST',
-        text: text
-    } as const
-}
+
 export const addPostAC = (postText: string) => {
     return {
         type: 'ADD_POST',
@@ -109,7 +102,7 @@ export const setUserProfile = (profile: profileStateProps) => {
     } as const
 }
 export const setStatus = (status: string) => {
-        return {
+    return {
         type: 'SET_STATUS',
         status
     } as const
@@ -132,9 +125,9 @@ export const updateStatusThunk = (status: string) => {
 
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(response => {
-          if (response.data.resultCode === 0) {
-               dispatch(setStatus(status))
-             }
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
         })
     }
 }

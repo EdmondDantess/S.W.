@@ -13,8 +13,7 @@ type messageDataPropsType = {
 export type dialogsPagePropsType = {
     dialogsData: dialogsDataPropsType[];
     messageData: messageDataPropsType[];
-    messageValueTextarea: string
-};
+  };
 
 let initialState: dialogsPagePropsType = {
     messageData: [
@@ -54,7 +53,6 @@ let initialState: dialogsPagePropsType = {
                 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem animi earum eveniet voluptatibus qui, reiciendis labore nobis illo dolor neque porro dolore soluta non quo molestias? Aliquid corrupti fugiat animi?',
         },
     ],
-    messageValueTextarea: '',
     dialogsData: [
         {
             id: 1,
@@ -115,30 +113,23 @@ let initialState: dialogsPagePropsType = {
 
 const dialogsPageReducer = (state: dialogsPagePropsType = initialState, action: ActionsType): dialogsPagePropsType => {
     switch (action.type) {
-        case 'TEXTAREA_VALUE_MESSAGE':
-            return {...state, messageValueTextarea: action.text};
         case 'ADD_MESSSAGE':
             return {
-                ...state, messageData: [...state.messageData, {
+                ...state,
+                messageData: [...state.messageData, {
                     id: new Date().getTime(),
-                    message: action.messageText.trim(),
-                }], messageValueTextarea: ''
+                    message: action.newMessageBody,
+                }]
             }
         default:
             return state
     }
 }
 
-export const addMessageInDialogsAC = (messageText: string) => {
+export const addMessageInDialogsAC = (newMessageBody: string) => {
     return {
         type: 'ADD_MESSSAGE',
-        messageText: messageText
-    } as const
-}
-export const textAreaValueMessageAC = (text: string) => {
-    return {
-        type: 'TEXTAREA_VALUE_MESSAGE',
-        text: text
+        newMessageBody
     } as const
 }
 

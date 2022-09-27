@@ -1,10 +1,10 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
-import {addMessageInDialogsAC, dialogsPagePropsType, textAreaValueMessageAC} from '../../redux/dialogsPage-reducer';
+import React, {KeyboardEvent} from 'react';
+import {addMessageInDialogsAC, dialogsPagePropsType, } from '../../redux/dialogsPage-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {ReduxStateType} from '../../redux/redux-store';
 import {compose, Dispatch} from 'redux';
-import {Redirect} from 'react-router-dom';
+
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 
@@ -13,8 +13,7 @@ type MapStateProps = {
 }
 
 type MapDispatchProps = {
-    addMessage: (value: string) => void
-    addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    addMessage: (newMes: string) => void
     keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, valueText: string) => void
 }
 
@@ -27,12 +26,10 @@ const mapStateToProps = (state: ReduxStateType): MapStateProps => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
     return {
-        addMessage: (messageValueTextarea: string) => {
-            dispatch(addMessageInDialogsAC(messageValueTextarea))
+        addMessage: (newMes: string) => {
+            dispatch(addMessageInDialogsAC(newMes))
         },
-        addTextInTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(textAreaValueMessageAC(e.currentTarget.value))
-        },
+
         keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, messageValueTextarea: string) => {
             if (e.key === 'Enter') {
                 dispatch(addMessageInDialogsAC(messageValueTextarea))

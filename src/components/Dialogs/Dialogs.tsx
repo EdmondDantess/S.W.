@@ -1,9 +1,14 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
-import {DialogItem} from "./DialogItem/DialogItem";
-import obc from "./Dialogs.module.css";
-import {Message} from "./Message/Message";
-import {typeDialogProps} from "./DialogsContainer";
-import {Redirect} from 'react-router-dom';
+import React from 'react';
+import {DialogItem} from './DialogItem/DialogItem';
+import obc from './Dialogs.module.css';
+import {Message} from './Message/Message';
+import {typeDialogProps} from './DialogsContainer';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {TextArea} from '../../common/FormsControls';
+import {maxLengthCreator, requered} from '../../utils/validators/validators';
+
+
+const validatorMaxSymbols = maxLengthCreator(100)
 
 export const Dialogs = (props: typeDialogProps) => {
     let state = props.state
@@ -27,29 +32,46 @@ export const Dialogs = (props: typeDialogProps) => {
         );
     });
 
-    const addMessageHandler = () => {
-        props.addMessage(state.messageValueTextarea)
+
+    // const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    //     props.keyPressHandlerText(e)
+    // }
+    const onSubmit = (formData: FormDataTypeDialog) => {
+
+        props.addMessage(formData.newMessageBody)
+        console.log(formData)
     }
 
-    const addTextInTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement> ) => {
-        props.addTextInTextArea(e)
-    }
-
-    const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        props.keyPressHandlerText(e,  state.messageValueTextarea)
-    }
 
     return (
         <div className={obc.dialogs}>
             <div className={obc.parentDialogsItem}>{usersName}</div>
             <div className={obc.parentMessages}>{messages}</div>
-            <textarea value={props.state.messageValueTextarea}
-                      className={obc.textAreaInput}
-                      onChange={addTextInTextAreaHandler}
-                      onKeyPress={keyPressHandlerText}
-                      placeholder={"Enter your message"}
-            ></textarea>
-            <button onClick={addMessageHandler}>Send</button>
+
+            <AddMessageFormRedux onSubmit={onSubmit}/>
+
         </div>
     );
 };
+
+export const AddMessageForm: React.FC<InjectedFormProps<FormDataTypeDialog>> = (props) => {
+    return (
+        <div>
+            <form onSubmit={props.handleSubmit}>
+                <Field component={TextArea} validate={[requered, validatorMaxSymbols]} name="newMessageBody" placeholder="Enter your message"/>
+                {/*<textarea*/}
+                {/*          className={obc.textAreaInput}*/}
+                {/*          onChange={addTextInTextAreaHandler}*/}
+                {/*          onKeyPress={keyPressHandlerText}*/}
+
+                {/*></textarea>*/}
+                <button>Send</button>
+            </form>
+        </div>
+
+    )
+}
+type FormDataTypeDialog = {
+    newMessageBody: string
+}
+const AddMessageFormRedux = reduxForm<FormDataTypeDialog>({form: 'dialogAddMessageForm'})(AddMessageForm)

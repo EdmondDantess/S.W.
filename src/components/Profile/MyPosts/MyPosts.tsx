@@ -1,7 +1,13 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {KeyboardEvent} from 'react';
 import obc from './MyPosts.module.css';
 import {Post} from './Post/Post';
 import {typeMyPostsProps} from './MyPostsContainer';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {maxLengthCreator, requered} from '../../../utils/validators/validators';
+import {TextArea} from '../../../common/FormsControls';
+
+
+const validatorMaxSymbols = maxLengthCreator(50)
 
 export const MyPosts = (props: typeMyPostsProps) => {
 
@@ -13,35 +19,46 @@ export const MyPosts = (props: typeMyPostsProps) => {
         );
     });
 
-    const onSendPostHandler = () => {
-        props.sendPostHandler(props.state.postTextValue)
+    const onSendPostHandler = (values: FormDataTypePosts) => {
+        props.sendPostHandler(values.newPosts)
     }
-
-    const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeTextHandler(e)
-    }
-
-    const onKeyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        props.keyPressHandlerText(e, props.state.postTextValue)
+    const onKeyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>, values: FormDataTypePosts) => {
+        props.keyPressHandlerText(e, values.newPosts)
     }
 
     return (
         <div className={obc.postsBlock}>
             <h3>My Posts</h3>
             <div>
-                <div>
-          <textarea className={obc.textareaPosts}
-                    value={props.state.postTextValue}
-                    onChange={onChangeTextHandler}
-                    onKeyPress={onKeyPressHandlerText}>
 
-          </textarea>
-                </div>
-                <div>
-                    <button onClick={onSendPostHandler}>Send</button>
-                </div>
+                <AddNewPostFormRedux onSubmit={onSendPostHandler}/>
             </div>
             {posts}
         </div>
     );
 };
+
+export const AddNewPostForm: React.FC<InjectedFormProps<any>> = (props) => {
+    return (
+        <div>
+            <form onSubmit={props.handleSubmit}>
+                <Field name={'newPosts'} component={TextArea} validate={[requered, validatorMaxSymbols]} placeholder={'Post message'}/>
+                {/*<textarea className={obc.textareaPosts}*/}
+                {/*          value={props.state.postTextValue}*/}
+                {/*          onChange={onChangeTextHandler}*/}
+                {/*          onKeyPress={onKeyPressHandlerText}>*/}
+
+                {/*</textarea>*/}
+                <div>
+                    <button>Send</button>
+                </div>
+            </form>
+        </div>
+
+    )
+}
+
+type FormDataTypePosts = {
+    newPosts: string
+}
+const AddNewPostFormRedux = reduxForm<FormDataTypePosts>({form: 'postsFormRedux'})(AddNewPostForm)

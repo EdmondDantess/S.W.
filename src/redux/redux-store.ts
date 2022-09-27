@@ -1,8 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
-import dialogsPageReducer, {addMessageInDialogsAC, textAreaValueMessageAC} from './dialogsPage-reducer';
+import dialogsPageReducer, {addMessageInDialogsAC} from './dialogsPage-reducer';
 import profilePageReducer, {
     addPostAC,
-    changeTextValuePostAC,
     setStatus,
     setUserProfile
 } from './profilePage-reducer';
@@ -18,10 +17,8 @@ import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 
 export type ActionsType =
-    ReturnType<typeof changeTextValuePostAC>
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof addMessageInDialogsAC>
-    | ReturnType<typeof textAreaValueMessageAC>
     | ReturnType<typeof followUnFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>

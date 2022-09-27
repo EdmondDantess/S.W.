@@ -1,4 +1,4 @@
-import profilePageReducer, {addPostAC, changeTextValuePostAC, profilePagePropsType} from './profilePage-reducer';
+import profilePageReducer, {addPostAC, profilePagePropsType} from './profilePage-reducer';
 
 // test('Test for ProfilePage reducer', () => {
 //     const startState: profilePagePropsType = {

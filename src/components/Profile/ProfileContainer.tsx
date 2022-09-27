@@ -2,13 +2,12 @@ import React from 'react';
 import {
     getStatusThunk,
     profileStateProps,
-    setUserProfile,
     setUserProfileThunk, updateStatusThunk
 } from '../../redux/profilePage-reducer';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {ReduxStateType} from '../../redux/redux-store';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
@@ -33,7 +32,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '25317'
+                    userId = this.props.authorizedUserId
         }
         this.props.setUserProfileThunk(userId)
         this.props.getStatusThunk(userId)
@@ -42,9 +41,10 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     render() {
         return (
             <Profile
-                     profile={this.props.profile}
-                     status={this.props.status}
-                     updateStatusThunk={this.props.updateStatusThunk}/>
+                {...this.props}
+                profile={this.props.profile}
+                status={this.props.status}
+                updateStatusThunk={this.props.updateStatusThunk}/>
         )
     }
 }
@@ -53,6 +53,8 @@ let mapStateToProps = (state: ReduxStateType) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
     }
 }
 
