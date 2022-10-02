@@ -2,16 +2,25 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {
     followThunk,
-    followUnFollow, getUsersThunk,
+    followUnFollow,
+    getUsersThunk,
     setCurrentPage,
-    setUsers, setUsersTotalCount, toggleFollowingInProgress, toggleIsFetching, unFollowThunk, usersPropsDataType
+    toggleFollowingInProgress,
+    unFollowThunk,
+    usersPropsDataType
 } from '../../redux/usersPage-reducer';
 import {ReduxStateType} from '../../redux/redux-store';
 import {Users} from './Users';
 import {Preloader} from '../../common/Preloader';
-import {usersAPI} from '../../api/api';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from '../../redux/usersPage-selectors';
 
 export type  UsersPropsType = mapDispatchToPropsType & mapStateToPropsType
 
@@ -71,12 +80,19 @@ class UsersContainer extends React.Component<any> {
 
 let mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        // users: state.usersPage.users,
+        // pageSize: state.usersPage.pageSize,
+        // totalUsersCount: state.usersPage.totalUsersCount,
+        // currentPage: state.usersPage.currentPage,
+        // isFetching: state.usersPage.isFetching,
+        // followingInProgress: state.usersPage.followingInProgress,
+
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 export default compose<React.ComponentType>(
@@ -86,5 +102,5 @@ export default compose<React.ComponentType>(
         toggleFollowingInProgress,
         getUsersThunk, followThunk, unFollowThunk
     }),
-    withAuthRedirect
+    //withAuthRedirect
 )(UsersContainer)
