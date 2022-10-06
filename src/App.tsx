@@ -36,6 +36,7 @@ class App extends React.Component<AppPropsType> {
         return (
             <BrowserRouter>
                 <div className="appWrapper">
+                    <h1>HELLOW</h1>
                     <HeaderContainer/>
                     <NavContainer/>
                     <div className="appWrapperContent">
