@@ -1,8 +1,34 @@
 .item {
-  color: rgb(185, 35, 35);
+    display: grid;
+    color: rgb(185, 35, 35);
+    grid-template-areas:
+    "avatar messagePost"
+    "avatar footerPost ";
+    grid-template-columns: 1.2fr 10fr;
 }
 
-.item img {
-  height: 70px;
-  border-radius: 50%;
+.item {
+    grid-area: messagePost;
+}
+
+.avatarPost {
+    height: 75px;
+    grid-area: avatar;
+    border-right: white solid 1px;
+}
+
+.footerPost {
+    grid-area: footerPost;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 85%;
+}
+
+.footerPost img:hover {
+    transform: scale(1.1);
+}
+
+.footerPost img:active {
+    transform: scale(1.4);
 }

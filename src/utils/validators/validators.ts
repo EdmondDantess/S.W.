@@ -1,16 +1,16 @@
 export const requered = (value: any) => {
     if (value) {
-        return undefined
+        return null
     } else {
         return 'Field is required'
     }
 }
 
-export const maxLengthCreator = (maxLength: any) => (value: any) => {
+export const maxLengthCreator = (maxLength: number) => (value: any) => {
     if (value.length > maxLength) {
-        return `Max length ${maxLength} symbols`
+        return (`Max length ${maxLength} symbols`)
     } else {
-        return undefined
+        return null
     }
 }
 

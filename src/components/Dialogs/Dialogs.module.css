@@ -1,9 +1,8 @@
 .dialogs {
     display: grid;
     grid-template-columns: 10fr 2fr;
-    grid-template-areas: " messages names"
-                        "  textAreaInput names"
-                        " Button names"
+    grid-template-areas: "messages names"
+                        "textAreaInput names"
 }
 
 .dialogsItems a {
@@ -28,9 +27,7 @@
 .messages {
     color: rgb(67, 0, 190);
     background-color: rgb(255, 255, 255);
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+  margin: 5px;
     padding: 10px;
 
 }
@@ -39,7 +36,7 @@
     grid-area: messages;
     height: 400px;
     overflow-y: auto;
-       background-color: gray;
+    background-color: #4db2ef;
 }
 
 .avatarka {
@@ -50,27 +47,22 @@
     vertical-align: middle;
 }
 
-.textAreaInput {
+.formText {
+    min-height: 80px;
     grid-area: textAreaInput;
-    resize: none;
-    background: #ffffffcc;
-    /* Цвет фона */
-    border: 2px solid #71c358;
-    /* Параметры рамки */
-    padding: 10px;
-    /* Поля */
-    width: 100%;
-    /* Ширина */
-    height: 100px;
-    /* Высота */
-    box-sizing: border-box;
-    /* Алгоритм расчёта ширины */
-    font-size: 14px;
-    /* Размер шрифта */
-
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-template-areas: "textArea buttonText"
 }
 
-.dialogs button {
-    grid-area: Button;
-    margin-left: 90%;
+.formText button {
+    height: 80px;
+    grid-area: buttonText;
+}
+
+.textAreaInput {
+    grid-area: textArea;
+    min-height: 72px;
+    min-width: 99%;
+    resize: none;
 }

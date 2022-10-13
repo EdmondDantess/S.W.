@@ -6,6 +6,7 @@ import {typeDialogProps} from './DialogsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {TextArea} from '../../common/FormsControls';
 import {maxLengthCreator, requered} from '../../utils/validators/validators';
+import style from '../../common/FormsControls.module.css';
 
 
 const validatorMaxSymbols = maxLengthCreator(100)
@@ -37,9 +38,8 @@ export const Dialogs = (props: typeDialogProps) => {
     //     props.keyPressHandlerText(e)
     // }
     const onSubmit = (formData: FormDataTypeDialog) => {
-
         props.addMessage(formData.newMessageBody)
-        console.log(formData)
+        formData.newMessageBody = ''
     }
 
 
@@ -57,15 +57,11 @@ export const Dialogs = (props: typeDialogProps) => {
 export const AddMessageForm: React.FC<InjectedFormProps<FormDataTypeDialog>> = (props) => {
     return (
         <div>
-            <form onSubmit={props.handleSubmit}>
-                <Field component={TextArea} validate={[requered, validatorMaxSymbols]} name="newMessageBody" placeholder="Enter your message"/>
-                {/*<textarea*/}
-                {/*          className={obc.textAreaInput}*/}
-                {/*          onChange={addTextInTextAreaHandler}*/}
-                {/*          onKeyPress={keyPressHandlerText}*/}
+            <form onSubmit={props.handleSubmit} className={obc.formText}>
+                <Field component={TextArea} validate={[requered, validatorMaxSymbols]} name="newMessageBody"
+                       placeholder="Enter your message" className={obc.textAreaInput}/>
+                <button className={obc.buttonInTextArea}>Send</button>
 
-                {/*></textarea>*/}
-                <button>Send</button>
             </form>
         </div>
 

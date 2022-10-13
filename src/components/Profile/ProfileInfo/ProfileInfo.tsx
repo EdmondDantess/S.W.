@@ -2,6 +2,7 @@ import React from 'react';
 import obc from './ProfileInfo.module.css';
 import {Preloader} from '../../../common/Preloader';
 import {ProfileStatusHooks} from './ProfileStatusHooks';
+import user from '../../../assets/images/user.png'
 
 
 export type ProfileInfoPropsType = {
@@ -30,18 +31,17 @@ export type ProfileInfoPropsType = {
     updateStatusThunk: (status: string) => void
 }
 
-
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
         return <Preloader/>
     }
-    let avatar = props.profile.photos.large ? props.profile.photos.large : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwR7Qi-oaumlT-l1On-kXZa8W7NR7z2tn0nc6JQok9tn4HpkU-W1NtRtCBPABWqR0IVpg&usqp=CAU'
+    let avatar = props.profile.photos.large ? props.profile.photos.large : user
     return (
-        <div>
+        <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
                                 updateStatusThunk={props.updateStatusThunk}/>
             <div className={obc.description}>
-                <img src={avatar} alt="Users Avatar losted"/>
+                <img src={avatar} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>
 
                     <div>Fullname: <b>{props.profile.fullName}</b></div>

@@ -50,7 +50,7 @@ let initialState: profilePagePropsType = {
         },
         'lookingForAJob': true,
         'lookingForAJobDescription': 'I am profi!!!!REAL',
-        'fullName': 'nekotochka',
+        'fullName': '',
         'userId': 24667,
         photos: {
             'small': null,
@@ -59,10 +59,10 @@ let initialState: profilePagePropsType = {
     },
 
     postsData: [
-        {id: 1, message: 'Hello World', Likes: 22},
-        {id: 2, message: 'Nice site', Likes: 2},
-        {id: 3, message: 'Hey hey', Likes: 12},
-        {id: 4, message: 'New World', Likes: 52},
+        {id: 1, message: 'Здесь должны были быть реальные посты реальных людей', Likes: 22},
+        {id: 2, message: 'Но апишка на посты не реализована...', Likes: 2},
+        {id: 3, message: 'Нет апишки - нет постов, нет постов - заглушка', Likes: 12},
+        {id: 4, message: 'Hello World', Likes: 52},
         {id: 5, message: 'Test message', Likes: 3},
     ],
     status: '',

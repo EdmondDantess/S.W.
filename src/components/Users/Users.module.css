@@ -11,19 +11,23 @@
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    box-shadow: 1px 1px 10px red;
+    box-shadow: 1px 1px 10px grey;
     border: 1px solid black;
     min-width: 100vh;
 }
 
 .divUserBody:hover {
     box-shadow: 1px 1px 10px white;
+    background-color: rgba(66, 92, 237, 0.37);
 }
 
 .divUserBody img {
     background-color: gray;
-    border-radius: 50%;
-    width: 100px;
+     width: 100px;
+    border-right: white 1px solid;
+}
+.divUserBody:hover img {
+    transform: scale(1.4);
 }
 
 .divUserInfo {
@@ -35,7 +39,9 @@
     position: absolute;
     margin-top: -3%;
     margin-left: -19%;
-    background-color: white;
+    font-weight: bold;
+    font-size: large;
+    color: white;
 }
 
 .divUserInfo .location {
@@ -47,9 +53,9 @@
 
 .divUserInfo .date {
     position: absolute;
-    margin-top: 2%;
-    margin-left: 11%;
-    background-color: yellowgreen;
+    color: white;
+    font-size: large;
+    font-weight: lighter;
 }
 
 .buttonInDiv {
@@ -73,4 +79,17 @@
 .pageSelectorDIV .activePageSelector {
     font-weight: bold;
     color: black;
+}
+
+ button {
+    height: 80px;
+    grid-area: buttonText;
+    background-color: #4db2ef;
+     font-weight: bold;
+}
+button:hover {
+    background-color: rgba(221, 233, 236, 0.38);
+}
+ button:active {
+    background-color: #4300be;
 }

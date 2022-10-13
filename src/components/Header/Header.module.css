@@ -1,12 +1,12 @@
 
 .appHeader {
     grid-area: app-h;
-    background-color: #003758;
+    background-color: #4db2ef;
+    border-bottom: white solid 1px;
   }
   
   .appHeader img {
-    width: 50px;
-    height: 50px;
+    height: 10vh;
   }
 
   .loginBlock {

@@ -1,25 +1,42 @@
 .appNav {
-    height: 300px;
-    grid-area: app-n;
-    background-color: #00b1d0;
-    padding: 30px;
-    text-align: left;
 
+    min-height: 89vh;
+    grid-area: app-n;
+    background-color: #00c3f4;
+    text-align: left;
+    border-right: white solid 1px;
+}
+
+.appNav img {
+    height: 40px;
+}
+
+.item {
+    border-bottom: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .item a {
-
-    color: rgb(245, 245, 245);
+    color: rgb(255, 255, 255);
     text-decoration-line: none;
-    width: auto;
+    width: 100%;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: large;
 }
 
-.item a.activeLink {
-    color: red;
-    width: 200px;
+a.activeLink {
+    color: #000000;
 }
 
 .item:hover {
-    background-color: rgb(13, 37, 156);
+    background-color: rgba(66, 92, 237, 0.37);
     color: gray;
+}
+
+.item:hover img {
+    color: gray;
+    transform: scale(1.3);
 }

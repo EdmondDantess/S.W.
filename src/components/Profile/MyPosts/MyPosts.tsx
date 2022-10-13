@@ -13,13 +13,14 @@ export const MyPosts = React.memo((props: typeMyPostsProps) => {
     let posts = props.state.postsData.map((el) => {
         return (
             <div className={obc.posts} key={el.id}>
-                <Post message={el.message} Likes={el.Likes}/>
+                <Post message={el.message} Likes={el.Likes} avatars = {props.state.profile.photos.large}/>
             </div>
         );
     });
 
     const onSendPostHandler = (values: FormDataTypePosts) => {
         props.sendPostHandler(values.newPosts)
+        values.newPosts = ''
     }
     const onKeyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>, values: FormDataTypePosts) => {
         props.keyPressHandlerText(e, values.newPosts)
@@ -27,7 +28,6 @@ export const MyPosts = React.memo((props: typeMyPostsProps) => {
 
     return (
         <div className={obc.postsBlock}>
-            <h3>My Posts</h3>
             <div>
                 <AddNewPostFormRedux onSubmit={onSendPostHandler}/>
             </div>
@@ -39,18 +39,12 @@ export const MyPosts = React.memo((props: typeMyPostsProps) => {
 export const AddNewPostForm: React.FC<InjectedFormProps<any>> = React.memo((props) => {
     return (
         <div>
-            <form onSubmit={props.handleSubmit}>
-                <Field name={'newPosts'} component={TextArea} validate={[requered, validatorMaxSymbols]}
-                       placeholder={'Post message'}/>
-                {/*<textarea className={obc.textareaPosts}*/}
-                {/*          value={props.state.postTextValue}*/}
-                {/*          onChange={onChangeTextHandler}*/}
-                {/*          onKeyPress={onKeyPressHandlerText}>*/}
-                {/*</textarea>*/}
-                <div>
-                    <button>Send</button>
-                </div>
-            </form>
+                 <form onSubmit={props.handleSubmit} className={obc.formText}>
+                    <Field component={TextArea} validate={[requered, validatorMaxSymbols]} name="newPosts"
+                           placeholder="Enter your message" className={obc.textAreaInput}/>
+
+                    <button className={obc.buttonInTextArea}>Send</button>
+                </form>
         </div>
 
     )

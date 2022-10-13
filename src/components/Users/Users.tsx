@@ -1,10 +1,8 @@
 import React from 'react';
 import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
-import {toggleFollowingInProgress, unFollowThunk, usersPropsDataType} from '../../redux/usersPage-reducer';
+import {usersPropsDataType} from '../../redux/usersPage-reducer';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
-import {usersAPI} from '../../api/api';
 import {Paginator} from './Paginator';
 
 type propsFromUsersContainer = {
@@ -31,6 +29,15 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ..
             {pages}
             {
                 props.users.map((u: any) => {
+                    let trimmedStatus = []
+                    if (u.status) {  let copyStatus = u.status.split('')
+
+                        for (let i = 0; i < 20; i++) {
+                            trimmedStatus.push(copyStatus[i])
+                        }}
+
+
+
                     return (
                         <div className={obc.divUserBody} key={u.id}>
                             <NavLink to={'/profile/' + u.id}>
@@ -39,9 +46,8 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ..
                             </NavLink>
                             <div className={obc.divUserInfo}>
                                 <div className={obc.name}>{u.name}</div>
-                                <div className={obc.location}>{'u.location.city'}
-                                    {'u.location.country'}</div>
-                                <div className={obc.date}>{u.status}</div>
+
+                                <div className={obc.date}>{u.status ? trimmedStatus.join('') : `` }</div>
                             </div>
                             <div className={obc.buttonInDiv}>
                                 {u.followed ?

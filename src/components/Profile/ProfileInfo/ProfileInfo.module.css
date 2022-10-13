@@ -7,12 +7,18 @@
 }
 
 .description {
-    background-color: #258495;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+
 }
 
 .descriptionTextInfo {
     margin: 0 auto;
+}
+
+.parentDivProfileInfo {
+    height: 95vh;
+    grid-area: profileInfo;
+    border-left: solid white 1px;
 }
