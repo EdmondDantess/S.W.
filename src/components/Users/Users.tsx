@@ -5,6 +5,7 @@ import {toggleFollowingInProgress, unFollowThunk, usersPropsDataType} from '../.
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import {usersAPI} from '../../api/api';
+import {Paginator} from './Paginator';
 
 type propsFromUsersContainer = {
     onPageChanged: (p: number) => void
@@ -20,37 +21,14 @@ type propsFromUsersContainer = {
     unFollowThunk: (userId: number) => void
 }
 
-
-export const Users = (props: propsFromUsersContainer) => {
-
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages: number[] = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
-    let pageSelector = () => {
-        let filteredPages = pages.filter(p => (p <= 50))
-        return (
-            <div className={obc.pageSelectorDIV}>
-                {
-                    filteredPages.map((p) => {
-                        return (
-                            <span key={p}
-                                  className={props.currentPage === p ? obc.activePageSelector : ''}
-                                  onClick={(e) => {
-                                      props.onPageChanged(p)
-                                  }}>{p}</span>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
+export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}: propsFromUsersContainer) => {
+    const pages = <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
+                             currentPage={currentPage}
+                             onPageChanged={onPageChanged}/>
 
     return (
         <div className={obc.parentDivBodyUsers}>
-            {pageSelector()}
+            {pages}
             {
                 props.users.map((u: any) => {
                     return (
@@ -84,7 +62,7 @@ export const Users = (props: propsFromUsersContainer) => {
                     )
                 })
             }
-            {pageSelector()}
+            {pages}
         </div>
-    )
+    );
 }

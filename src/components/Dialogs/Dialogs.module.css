@@ -1,9 +1,9 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
-    grid-template-areas: "names messages"
-                        "names  textAreaInput"
-                        "name Button"
+    grid-template-columns: 10fr 2fr;
+    grid-template-areas: " messages names"
+                        "  textAreaInput names"
+                        " Button names"
 }
 
 .dialogsItems a {

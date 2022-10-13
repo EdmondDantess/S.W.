@@ -29,7 +29,6 @@
 .divUserInfo {
     font-weight: bold;
     color: black;
-
 }
 
 .divUserInfo .name {
@@ -69,8 +68,6 @@
 
 .pageSelectorDIV:hover {
     cursor: pointer;
-
-
 }
 
 .pageSelectorDIV .activePageSelector {

@@ -113,7 +113,7 @@ let initialState: dialogsPagePropsType = {
 
 const dialogsPageReducer = (state: dialogsPagePropsType = initialState, action: ActionsType): dialogsPagePropsType => {
     switch (action.type) {
-        case 'ADD_MESSSAGE':
+        case 'dialogs/ADD_MESSSAGE':
             return {
                 ...state,
                 messageData: [...state.messageData, {
@@ -128,7 +128,7 @@ const dialogsPageReducer = (state: dialogsPagePropsType = initialState, action: 
 
 export const addMessageInDialogsAC = (newMessageBody: string) => {
     return {
-        type: 'ADD_MESSSAGE',
+        type: 'dialogs/ADD_MESSSAGE',
         newMessageBody
     } as const
 }

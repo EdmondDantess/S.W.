@@ -10,7 +10,6 @@ test('test for reducer dialogsPage', () => {
         dialogsData: [],
     }
 
-
     const testAddMessage = addMessageInDialogsAC('HELLO')
     const test1 = dialogsPageReducer(startState, testAddMessage)
 

@@ -14,5 +14,7 @@ ReactDOM.render(
     </BrowserRouter>,
     document.getElementById('root'));
 
+document.title = 'maxim\'s social network'.toUpperCase()
+
 
 

@@ -3,7 +3,7 @@ import preloader from '../assets/images/preloader.gif';
 
 export const Preloader = () => {
     return (
-        <div>
+        <div style={{position: 'absolute', margin: '20% 47%'}}>
             <img src={preloader} alt="loading...." style={{height: '100px'}}/>
         </div>
     );

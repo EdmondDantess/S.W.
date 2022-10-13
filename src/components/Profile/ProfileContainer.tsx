@@ -12,7 +12,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
 type PathParamsType = {
-    userId: string
+    userId: any
 }
 
 type mstdpt = {

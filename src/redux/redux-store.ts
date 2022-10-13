@@ -13,7 +13,7 @@ import usersPageReducer, {
     setUsersTotalCount, toggleFollowingInProgress, toggleIsFetching
 } from './usersPage-reducer';
 import authReducer, {setAuthUserData} from './auth-reducer';
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {initialSuccesAC} from './app-reducer';
 
@@ -33,6 +33,7 @@ export type ActionsType =
 
 export type RootState = typeof rootReducer
 export type ReduxStateType = ReturnType<RootState>
+export type ThunkType = ThunkAction<void, ReduxStateType, unknown, ActionsType>
 
 export let rootReducer = combineReducers({
         dialogsPage: dialogsPageReducer,

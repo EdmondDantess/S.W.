@@ -1,5 +1,4 @@
-import {ActionsType} from './redux-store';
-import {Dispatch} from 'redux';
+import {ActionsType, ThunkType} from './redux-store';
 import {authThunk} from './auth-reducer';
 
 export type appPropsType = {
@@ -12,7 +11,7 @@ let initialState: appPropsType = {
 
 const appReducer = (state: appPropsType = initialState, action: ActionsType): appPropsType => {
     switch (action.type) {
-        case 'SET_INITIALIZED':
+        case 'app/SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true
@@ -24,14 +23,13 @@ const appReducer = (state: appPropsType = initialState, action: ActionsType): ap
 
 export const initialSuccesAC = () => {
     return {
-        type: 'SET_INITIALIZED'
+        type: 'app/SET_INITIALIZED'
     } as const
 }
-export const initializeTC = (): any => {
-    return (dispatch: Dispatch) => {
-        let promise = dispatch(authThunk())
-        promise.then(() => dispatch(initialSuccesAC()))
-    }
+export const initializeTC = (): ThunkType => async (dispatch) => {
+    await dispatch(authThunk())
+    dispatch(initialSuccesAC())
 }
+
 
 export default appReducer
