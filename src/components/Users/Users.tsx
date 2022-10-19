@@ -30,13 +30,13 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ..
             {
                 props.users.map((u: any) => {
                     let trimmedStatus = []
-                    if (u.status) {  let copyStatus = u.status.split('')
+                    if (u.status) {
+                        let copyStatus = u.status.split('')
 
-                        for (let i = 0; i < 20; i++) {
+                        for (let i = 0; i < 40; i++) {
                             trimmedStatus.push(copyStatus[i])
-                        }}
-
-
+                        }
+                    }
 
                     return (
                         <div className={obc.divUserBody} key={u.id}>
@@ -45,9 +45,15 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ..
                                      alt="User dont added Avatar"/>
                             </NavLink>
                             <div className={obc.divUserInfo}>
-                                <div className={obc.name}>{u.name}</div>
-
-                                <div className={obc.date}>{u.status ? trimmedStatus.join('') : `` }</div>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <div className={obc.name}>{u.name}
+                                        <hr/>
+                                    </div>
+                                </NavLink>
+                                <div className={obc.date}>
+                                    <b>Status: </b>{u.status ? trimmedStatus.join('') : `the user has not yet set the status`}
+                                    <hr/>
+                                </div>
                             </div>
                             <div className={obc.buttonInDiv}>
                                 {u.followed ?

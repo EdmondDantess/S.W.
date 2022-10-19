@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import './App.css';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
@@ -49,6 +49,7 @@ class App extends React.Component<AppPropsType> {
                                 <ProfileContainer/>
                             )}
                         />
+                        <Redirect from = '*' to = '/profile'/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settingz'} render={() => <Settings/>}/>

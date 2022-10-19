@@ -17,7 +17,7 @@
 }
 
 .divUserBody:hover {
-    box-shadow: 1px 1px 10px white;
+    box-shadow: 1px 1px 10px #3349ce;
     background-color: rgba(66, 92, 237, 0.37);
 }
 
@@ -28,6 +28,7 @@
 }
 .divUserBody:hover img {
     transform: scale(1.4);
+    box-shadow: 1px 1px 10px #3349ce;
 }
 
 .divUserInfo {
@@ -89,6 +90,7 @@
 }
 button:hover {
     background-color: rgba(221, 233, 236, 0.38);
+    cursor: pointer;
 }
  button:active {
     background-color: #4300be;

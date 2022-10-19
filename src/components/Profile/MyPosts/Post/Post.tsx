@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import obc from './Post.module.css';
-import like from '../../../../assets/images/likepng.png'
+import Like from '../../../../assets/images/likepng.png'
 import userPhoto from '../../../../assets/images/user.png'
 
 type PostTypeProps = {
@@ -12,6 +12,8 @@ type PostTypeProps = {
 
 export const Post = (props: PostTypeProps) => {
 
+    let [like, setLike] = useState(props.Likes)
+
     return (
         <div className={obc.item}>
             <img
@@ -19,9 +21,11 @@ export const Post = (props: PostTypeProps) => {
                 alt="download img fail"
                 className={obc.avatarPost}/>
             {props.message}
-            <div className={obc.footerPost}><img src={like} alt="Likes"
-                                                 style={{height: '30px'}}/><span
-            > {props.Likes}</span></div>
+            <div className={obc.footerPost}><img
+                onClick={() => setLike(like + 1)}
+                src={Like} alt="Likes"
+                style={{height: '30px'}}/><span
+            > {like}</span></div>
         </div>
     );
 };

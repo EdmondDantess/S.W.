@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import obc from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from './HeaderContainer';
 import header from '../../assets/images/header.gif'
 
 export const Header = (props: HeaderContainerPropsType) => {
+
     return (
         <header className={obc.appHeader}>
             <img

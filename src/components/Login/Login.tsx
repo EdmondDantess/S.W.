@@ -18,9 +18,13 @@ const Login = (props: LoginPropsType) => {
         return <Redirect to={'/profile'}/>
     }
     return <div>
-        <a href="https://social-network.samuraijs.com/account" target={'_blank'}>
+        <b> To log in get registered
+            <a href={'https://social-network.samuraijs.com/'}
+               target={'_blank'}> here
+            </a>
+        </b>
 
-        </a>
+
         <h1>LOGIN</h1>
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>
