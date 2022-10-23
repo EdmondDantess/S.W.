@@ -20,7 +20,8 @@ type propsFromUsersContainer = {
 }
 
 export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}: propsFromUsersContainer) => {
-    const pages = <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
+    const pages = <Paginator totalUsersCount={totalUsersCount}
+                             pageSize={pageSize}
                              currentPage={currentPage}
                              onPageChanged={onPageChanged}/>
 
@@ -74,7 +75,6 @@ export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ..
                     )
                 })
             }
-            {pages}
         </div>
     );
 }

@@ -5,9 +5,7 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settingz/Settings';
 import {NavContainer} from './components/Nav/NavContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 import {connect} from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -15,6 +13,9 @@ import {compose} from 'redux';
 import {initializeTC} from './redux/app-reducer';
 import {ReduxStateType} from './redux/redux-store';
 import {Preloader} from './common/Preloader';
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 type mstd = {
     initializeTC: () => any
@@ -41,15 +42,25 @@ class App extends React.Component<AppPropsType> {
                     <div className="appWrapperContent">
                         <Route
                             path={'/dialogs'}
-                            render={() => <DialogsContainer/>}
+                            render={() => {
+                                return <React.Suspense fallback={<div><Preloader/>
+                                    <p>its component is lazy</p>
+                                </div>}>
+                                    <DialogsContainer/>
+                                </React.Suspense>
+                            }}
                         />
                         <Route
                             path={'/profile/:userId?'}
-                            render={() => (
-                                <ProfileContainer/>
-                            )}
+                            render={() => {
+                                return <React.Suspense fallback={<div><Preloader/>
+                                    <p>its component is lazy</p>
+                                </div>}>
+                                    <ProfileContainer/>
+                                </React.Suspense>
+                            }}
                         />
-                        <Redirect from = '*' to = '/profile'/>
+                        <Redirect from="*" to="/profile"/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settingz'} render={() => <Settings/>}/>
@@ -64,7 +75,6 @@ class App extends React.Component<AppPropsType> {
 
 const mstp = (state: ReduxStateType) => {
     return {initialized: state.app.initialized}
-
 }
 export default compose<React.ComponentType>(
     withRouter,
