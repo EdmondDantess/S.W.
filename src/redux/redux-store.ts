@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import dialogsPageReducer, {addMessageInDialogsAC} from './dialogsPage-reducer';
 import profilePageReducer, {
-    addPostAC,
+    addPostAC, setPhoto,
     setStatus,
     setUserProfile
 } from './profilePage-reducer';
@@ -30,6 +30,7 @@ export type ActionsType =
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof initialSuccesAC>
+    | ReturnType<typeof setPhoto>
 
 export type RootState = typeof rootReducer
 export type ReduxStateType = ReturnType<RootState>

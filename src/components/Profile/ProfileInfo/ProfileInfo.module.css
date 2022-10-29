@@ -13,6 +13,10 @@
 
 }
 
+.description img {
+    border: solid 1px white;
+}
+
 .descriptionTextInfo {
     margin: 0 auto;
 }

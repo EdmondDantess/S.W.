@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     getStatusThunk,
-    profileStateProps,
+    profileStateProps, savePhoto,
     setUserProfileThunk, updateStatusThunk
 } from '../../redux/profilePage-reducer';
 import {Profile} from './Profile';
@@ -20,6 +20,7 @@ type mstdpt = {
     setUserProfileThunk: (userId: string) => void
     getStatusThunk: (userId: string) => void
     updateStatusThunk: (status: string) => void
+    savePhoto: (file: any) => void
 }
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -29,7 +30,7 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnProfileP
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
@@ -41,13 +42,26 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
         this.props.getStatusThunk(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
             <Profile
                 {...this.props}
+                isOwner={!this.props.match.params.userId}
                 profile={this.props.profile}
                 status={this.props.status}
-                updateStatusThunk={this.props.updateStatusThunk}/>
+                updateStatusThunk={this.props.updateStatusThunk}
+                savePhoto={this.props.savePhoto}
+            />
         )
     }
 }
@@ -65,7 +79,8 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         updateStatusThunk,
         getStatusThunk,
-        setUserProfileThunk
+        setUserProfileThunk,
+        savePhoto
     }),
     withRouter,
     withAuthRedirect

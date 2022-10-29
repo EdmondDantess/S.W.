@@ -53,7 +53,7 @@ let initialState: profilePagePropsType = {
         'fullName': '',
         'userId': 24667,
         photos: {
-            'small': null,
+            small: null,
             large: null,
         }
     },
@@ -78,11 +78,17 @@ const profilePageReducer = (state: profilePagePropsType = initialState, action: 
                     Likes: 0,
                 }, ...state.postsData]
             }
-
         case 'SET_USER_PROFILE':
             return {...state, profile: {...action.profile}};
         case 'SET_STATUS':
             return {...state, status: action.status};
+        case 'SET_PHOTO':
+            return {
+                ...state, profile: {
+                    ...state.profile, photos:
+                    action.file,
+                }
+            };
         default:
             return state
     }
@@ -107,6 +113,12 @@ export const setStatus = (status: string) => {
         status
     } as const
 }
+export const setPhoto = (file: any) => {
+    return {
+        type: 'SET_PHOTO',
+        file
+    } as const
+}
 export const setUserProfileThunk = (userId: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
@@ -122,11 +134,20 @@ export const getStatusThunk = (userId: string) => {
     }
 }
 export const updateStatusThunk = (status: string) => {
-
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setStatus(status))
+            }
+        })
+    }
+}
+
+export const savePhoto = (file: any) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.savePhoto(file).then((response: any) => {
+            if (response.data.resultCode === 0) {
+                dispatch(setPhoto(response.data.data.photos))
             }
         })
     }

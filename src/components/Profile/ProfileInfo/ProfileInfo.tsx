@@ -29,12 +29,22 @@ export type ProfileInfoPropsType = {
     },
     status: string,
     updateStatusThunk: (status: string) => void
+    isOwner: boolean
+    savePhoto: any
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
         return <Preloader/>
     }
+
+    const onMainPhotoSelect = (e: any) => {
+        if (e.target.files.length) {
+            props.savePhoto(e.target.files[0])
+        }
+
+    }
+
     let avatar = props.profile.photos.large ? props.profile.photos.large : user
     return (
         <div className={obc.parentDivProfileInfo}>
@@ -42,6 +52,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 updateStatusThunk={props.updateStatusThunk}/>
             <div className={obc.description}>
                 <img src={avatar} alt="Users Avatar losted" style={{width: '300px'}}/>
+                {props.isOwner && <input type="file" onChange={onMainPhotoSelect}/>}
                 <div className={obc.descriptionTextInfo}>
 
                     <div>Fullname: <b>{props.profile.fullName}</b></div>
