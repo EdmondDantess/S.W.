@@ -1,5 +1,5 @@
 # Hello
-What kind of app is this? This is a social network created as part of the ReactJS course - the way of the samurai (https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8 ). Translated from Javascript to TypeScript. 
+What kind of app is this? This is a social network created as part of the ReactJS course - the way of the samurai (https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8 ). This course is provided in JavaScript, but I did it in TypeScript.
 
 In this project I use the following libraries:
 - **axios** 
