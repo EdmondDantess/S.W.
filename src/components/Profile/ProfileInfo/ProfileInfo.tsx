@@ -50,21 +50,20 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
                                 updateStatusThunk={props.updateStatusThunk}/>
+            {props.isOwner && <input type="file" onChange={onMainPhotoSelect}/>}
             <div className={obc.description}>
                 <img src={avatar} alt="Users Avatar losted" style={{width: '300px'}}/>
-                {props.isOwner && <input type="file" onChange={onMainPhotoSelect}/>}
                 <div className={obc.descriptionTextInfo}>
-
                     <div>Fullname: <b>{props.profile.fullName}</b></div>
-                    <div>about me: {props.profile.aboutMe}</div>
-                    <b>contacts:</b>
-                    <div> facebook: {props.profile.contacts.facebook}</div>
-                    <div>github: {props.profile.contacts.github}</div>
-                    <div> instagram:{props.profile.contacts.instagram}</div>
-                    <div> twitter: {props.profile.contacts.twitter}</div>
-                    {props.profile.contacts.vk ? <div> vk: {props.profile.contacts.vk}</div> : null}
-                    <div> website: {props.profile.contacts.website}</div>
-                    <div> youtube: {props.profile.contacts.youtube}</div>
+                    <div>about me: {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>
+                    <div><b>Contacts:</b></div>
+                    <div>facebook: {props.profile.contacts.facebook ? props.profile.contacts.facebook : 'not yet added'}</div>
+                    <div>github: {props.profile.contacts.github ? props.profile.contacts.instagram : 'not yet added'}</div>
+                    <div>instagram:{props.profile.contacts.instagram ? props.profile.contacts.instagram : 'not yet added'}</div>
+                    <div>vk: {props.profile.contacts.vk ? props.profile.contacts.vk : 'not yet added'}</div>
+                    <div>website: {props.profile.contacts.website ? props.profile.contacts.website : 'not yet added'}</div>
+                    <div>youtube: {props.profile.contacts.youtube ? props.profile.contacts.youtube : 'not yet added'}</div>
+                    <hr/>
                 </div>
             </div>
         </div>

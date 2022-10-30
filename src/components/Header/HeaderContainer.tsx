@@ -29,6 +29,7 @@ export const mstp = (state: ReduxStateType): authPropsType => {
         email: state.auth.email,
         login: state.auth.login,
         isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl,
     }
 }
 export default connect(mstp, {setAuthUserData, logoutTC})(HeaderContainer)

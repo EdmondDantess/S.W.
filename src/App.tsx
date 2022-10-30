@@ -1,9 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import './App.css';
-import {News} from './components/News/News';
-import {Music} from './components/Music/Music';
-import {Settings} from './components/Settingz/Settings';
 import {NavContainer} from './components/Nav/NavContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
@@ -61,9 +58,6 @@ class App extends React.Component<AppPropsType> {
                             }}
                         />
                         <Redirect from="*" to="/profile"/>
-                        <Route path={'/news'} render={() => <News/>}/>
-                        <Route path={'/music'} render={() => <Music/>}/>
-                        <Route path={'/settingz'} render={() => <Settings/>}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>
                         <Route path={'/login'} render={() => <Login/>}/>
                     </div>

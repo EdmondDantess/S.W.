@@ -12,7 +12,7 @@ import usersPageReducer, {
     setUsers,
     setUsersTotalCount, toggleFollowingInProgress, toggleIsFetching
 } from './usersPage-reducer';
-import authReducer, {setAuthUserData} from './auth-reducer';
+import authReducer, {getCaptcha, setAuthUserData} from './auth-reducer';
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {initialSuccesAC} from './app-reducer';
@@ -31,6 +31,7 @@ export type ActionsType =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof initialSuccesAC>
     | ReturnType<typeof setPhoto>
+    | ReturnType<typeof getCaptcha>
 
 export type RootState = typeof rootReducer
 export type ReduxStateType = ReturnType<RootState>

@@ -1,6 +1,7 @@
 import {ActionsType} from './redux-store';
 import {Dispatch} from 'redux';
 import {profileAPI, usersAPI} from '../api/api';
+import React from 'react';
 
 export type profileStateProps = {
     'aboutMe': null | string,
@@ -59,6 +60,11 @@ let initialState: profilePagePropsType = {
     },
 
     postsData: [
+        {
+            id: 0,
+            message: 'Что это за приложение? Это социальная сеть, созданная в рамках курса ReactJS - путь самурая. Переведённая с JS на TS',
+            Likes: 33
+        },
         {id: 1, message: 'Здесь должны были быть реальные посты реальных людей', Likes: 22},
         {id: 2, message: 'Но апишка на посты не реализована...', Likes: 2},
         {id: 3, message: 'Нет апишки - нет постов, нет постов - заглушка', Likes: 12},
@@ -121,7 +127,7 @@ export const setPhoto = (file: any) => {
 }
 export const setUserProfileThunk = (userId: string) => {
     return (dispatch: Dispatch) => {
-        usersAPI.getProfile(userId).then(response => {
+        profileAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
     }

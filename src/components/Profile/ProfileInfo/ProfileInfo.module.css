@@ -8,13 +8,14 @@
 
 .description {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
 
 }
 
 .description img {
     border: solid 1px white;
+    margin: 0 auto;
 }
 
 .descriptionTextInfo {
