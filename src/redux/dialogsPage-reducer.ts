@@ -114,13 +114,15 @@ let initialState: dialogsPagePropsType = {
 const dialogsPageReducer = (state: dialogsPagePropsType = initialState, action: ActionsType): dialogsPagePropsType => {
     switch (action.type) {
         case 'dialogs/ADD_MESSSAGE':
-            return {
-                ...state,
-                messageData: [...state.messageData, {
-                    id: new Date().getTime(),
-                    message: action.newMessageBody,
-                }]
-            }
+            if (action.newMessageBody.trim() !== '') {
+                return {
+                    ...state,
+                    messageData: [...state.messageData, {
+                        id: new Date().getTime(),
+                        message: action.newMessageBody,
+                    }]
+                }
+            } else return state
         default:
             return state
     }

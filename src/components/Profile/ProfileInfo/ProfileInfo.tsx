@@ -50,7 +50,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
                                 updateStatusThunk={props.updateStatusThunk}/>
-            {props.isOwner && <input type="file" onChange={onMainPhotoSelect}/>}
+            {props.isOwner && <><input type="file" onChange={onMainPhotoSelect} style={{width: '120px'}}/>
+                <span>Upload your avatar</span>   </>}
             <div className={obc.description}>
                 <img src={avatar} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>

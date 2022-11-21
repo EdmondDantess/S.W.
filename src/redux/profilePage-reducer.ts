@@ -1,7 +1,6 @@
 import {ActionsType} from './redux-store';
 import {Dispatch} from 'redux';
-import {profileAPI, usersAPI} from '../api/api';
-import React from 'react';
+import {profileAPI} from '../api/api';
 
 export type profileStateProps = {
     'aboutMe': null | string,
@@ -77,13 +76,15 @@ let initialState: profilePagePropsType = {
 const profilePageReducer = (state: profilePagePropsType = initialState, action: ActionsType): profilePagePropsType => {
     switch (action.type) {
         case 'ADD_POST':
-            return {
-                ...state, postsData: [{
-                    id: new Date().getTime(),
-                    message: action.postText,
-                    Likes: 0,
-                }, ...state.postsData]
-            }
+            if (action.postText.trim() !== '') {
+                return {
+                    ...state, postsData: [{
+                        id: new Date().getTime(),
+                        message: action.postText,
+                        Likes: 0,
+                    }, ...state.postsData]
+                }
+            } else return state
         case 'SET_USER_PROFILE':
             return {...state, profile: {...action.profile}};
         case 'SET_STATUS':

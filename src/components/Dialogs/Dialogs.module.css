@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 10fr 2fr;
     grid-template-areas: "messages names"
-                        "textAreaInput names"
+                        "textAreaInput names";
 }
 
 .dialogsItems a {
@@ -37,6 +37,18 @@
     height: 400px;
     overflow-y: auto;
     background-color: #4db2ef;
+}
+
+.parentMessages::-webkit-scrollbar {
+    width: 10px;
+    border: 1px solid white;
+    overflow: visible;
+}
+.parentMessages::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: rgba(255, 255, 255, 0.23);
+    border: 1px solid grey;
+    border-radius: 100px;
 }
 
 .avatarka {
