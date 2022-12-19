@@ -2,25 +2,9 @@ import {ActionsType, ThunkType} from './redux-store';
 import {Dispatch} from 'redux';
 import {usersAPI} from '../api/api';
 
-export type usersPropsDataType = {
-    id: number;
-    urlPhoto: string
-    followed: boolean
-    fullName: string;
-    dateOfBirth: string
-    location: { city: string, country: string }
-};
-export type usersPagePropsType = {
-    users: usersPropsDataType[];
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: []
-};
 
-let initialState: usersPagePropsType = {
-    users: [],
+let initialState = {
+    users: [] as UsersPropsDataType[],
     pageSize: 25,
     totalUsersCount: 0,
     currentPage: 1,
@@ -28,7 +12,7 @@ let initialState: usersPagePropsType = {
     followingInProgress: [],
 }
 
-const usersPageReducer = (state: usersPagePropsType = initialState, action: ActionsType): any => {
+const usersPageReducer = (state: UsersPagePropsType = initialState, action: ActionsType): any => {
     switch (action.type) {
         case 'users/FOLLOW_UNFOLLOW':
             return {
@@ -73,7 +57,7 @@ export const followUnFollow = (userId: number) => {
         userId: userId
     } as const
 }
-export const setUsers = (users: usersPropsDataType[]) => {
+export const setUsers = (users: UsersPropsDataType[]) => {
     return {
         type: 'users/SET_USERS',
         users: users
@@ -129,7 +113,16 @@ export const unFollowThunk = (userId: number): ThunkType => async (dispatch) => 
         dispatch(followUnFollow(userId))
     }
     dispatch(toggleFollowingInProgress(false, userId))
-
 }
+
+export type UsersPropsDataType = {
+    id: number;
+    urlPhoto: string
+    followed: boolean
+    fullName: string;
+    dateOfBirth: string
+    location: { city: string, country: string }
+};
+type UsersPagePropsType = typeof initialState
 
 export default usersPageReducer

@@ -1,15 +1,11 @@
 import {ActionsType, ThunkType} from './redux-store';
 import {authThunk} from './auth-reducer';
 
-export type appPropsType = {
-    initialized: boolean
-}
-
-let initialState: appPropsType = {
+let initialState = {
     initialized: false
 }
 
-const appReducer = (state: appPropsType = initialState, action: ActionsType): appPropsType => {
+const appReducer = (state: AppPropsType = initialState, action: ActionsType): AppPropsType => {
     switch (action.type) {
         case 'app/SET_INITIALIZED':
             return {
@@ -31,5 +27,6 @@ export const initializeTC = (): ThunkType => async (dispatch) => {
     dispatch(initialSuccesAC())
 }
 
+export type AppPropsType = typeof initialState
 
 export default appReducer

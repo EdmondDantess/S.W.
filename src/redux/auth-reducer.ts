@@ -2,23 +2,15 @@ import {ActionsType, ThunkType} from './redux-store';
 import {authAPI, securityAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
-export type authPropsType = {
-    id: null | number
-    email: null | string
-    login: null | string
-    isAuth: boolean
-    captchaUrl: null | string
-}
-
-let initialState: authPropsType = {
-    id: null,
-    email: null,
-    login: null,
+let initialState = {
+    id: null as NullOrNumber,
+    email: null as NullOrString,
+    login: null as NullOrString,
     isAuth: false,
-    captchaUrl: null,
+    captchaUrl: null as NullOrString,
 }
 
-const authReducer = (state: authPropsType = initialState, action: ActionsType): authPropsType => {
+const authReducer = (state: AuthPropsType = initialState, action: ActionsType): AuthPropsType => {
     switch (action.type) {
         case 'auth/SET_USER_DATA':
             return {
@@ -92,5 +84,9 @@ export const logoutTC = (): ThunkType => async (dispatch) => {
     }
 
 }
+
+export type AuthPropsType = typeof initialState
+type NullOrString = null | string
+type NullOrNumber = null | number
 
 export default authReducer

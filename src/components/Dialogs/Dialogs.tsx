@@ -46,7 +46,6 @@ export const Dialogs = (props: typeDialogProps) => {
         formData.newMessageBody = ''
     }
 
-
     return (
         <div className={obc.dialogs}>
             <div className={obc.parentDialogsItem}>{usersName}</div>

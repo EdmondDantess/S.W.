@@ -2,59 +2,27 @@ import {ActionsType} from './redux-store';
 import {Dispatch} from 'redux';
 import {profileAPI} from '../api/api';
 
-export type profileStateProps = {
-    'aboutMe': null | string,
-    'contacts': {
-        'facebook': null | string,
-        'website': null | string,
-        'vk': null | string,
-        'twitter': null | string,
-        'instagram': null | string,
-        'youtube': null | string,
-        'github': null | string,
-        'mainLink': null | string
-    },
-    'lookingForAJob': boolean,
-    'lookingForAJobDescription': null | string,
-    'fullName': string,
-    'userId': number | null,
-    'photos': {
-        'small': null | string,
-        'large': null | string
-    }
-}
 
-type postsDataPropsType = {
-    id: number;
-    message: string;
-    Likes: number;
-};
-export type profilePagePropsType = {
-    profile: profileStateProps
-    postsData: postsDataPropsType[];
-    status: string
-};
-
-let initialState: profilePagePropsType = {
+let initialState = {
     profile: {
-        'aboutMe': 'I am divine',
+        'aboutMe': 'I am divine' as NullOrString,
         'contacts': {
-            'facebook': '',
-            'website': null,
-            'vk': null,
-            'twitter': null,
-            'instagram': null,
-            'youtube': null,
-            'github': null,
-            'mainLink': null
+            'facebook': null as NullOrString,
+            'website': null as NullOrString,
+            'vk': null as NullOrString,
+            'twitter': null as NullOrString,
+            'instagram': null as NullOrString,
+            'youtube': null as NullOrString,
+            'github': null as NullOrString,
+            'mainLink': null as NullOrString
         },
         'lookingForAJob': true,
-        'lookingForAJobDescription': 'I am profi!!!!REAL',
-        'fullName': '',
-        'userId': 24667,
+        'lookingForAJobDescription': 'I am profi!!!!REAL' as NullOrString,
+        'fullName': '' as NullOrString,
+        'userId': 24667 as NullOrNumber,
         photos: {
-            small: null,
-            large: null,
+            small: null as NullOrString,
+            large: null as NullOrString,
         }
     },
 
@@ -73,7 +41,7 @@ let initialState: profilePagePropsType = {
     status: '',
 }
 
-const profilePageReducer = (state: profilePagePropsType = initialState, action: ActionsType): profilePagePropsType => {
+const profilePageReducer = (state: ProfilePagePropsType = initialState, action: ActionsType): ProfilePagePropsType => {
     switch (action.type) {
         case 'ADD_POST':
             if (action.postText.trim() !== '') {
@@ -108,7 +76,7 @@ export const addPostAC = (postText: string) => {
         postText: postText
     } as const
 }
-export const setUserProfile = (profile: profileStateProps) => {
+export const setUserProfile = (profile: ProfileStateProps) => {
     return {
         type: 'SET_USER_PROFILE',
         profile
@@ -159,5 +127,31 @@ export const savePhoto = (file: any) => {
         })
     }
 }
+
+export type ProfileStateProps = {
+    'aboutMe': null | string,
+    'contacts': {
+        'facebook': null | string,
+        'website': null | string,
+        'vk': null | string,
+        'twitter': null | string,
+        'instagram': null | string,
+        'youtube': null | string,
+        'github': null | string,
+        'mainLink': null | string
+    },
+    'lookingForAJob': boolean,
+    'lookingForAJobDescription': null | string,
+    'fullName': string,
+    'userId': number | null,
+    'photos': {
+        'small': null | string,
+        'large': null | string
+    }
+}
+export type ProfilePagePropsType = typeof  initialState
+type NullOrString = null | string
+type NullOrNumber = null | number
+
 
 export default profilePageReducer

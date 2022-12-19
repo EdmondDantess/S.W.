@@ -1,11 +1,10 @@
 import dialogsPageReducer, {
     addMessageInDialogsAC,
-    dialogsPagePropsType,
 } from './dialogsPage-reducer';
 
 test('test for reducer dialogsPage', () => {
 
-    let startState: dialogsPagePropsType = {
+    let startState = {
         messageData: [],
         dialogsData: [],
     }

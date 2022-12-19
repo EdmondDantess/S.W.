@@ -1,21 +1,6 @@
 import {ActionsType} from './redux-store';
 
-type dialogsDataPropsType = {
-    id: number;
-    name: string;
-    urlAvatar: string;
-};
-type messageDataPropsType = {
-    id: number;
-    message: string;
-};
-
-export type dialogsPagePropsType = {
-    dialogsData: dialogsDataPropsType[];
-    messageData: messageDataPropsType[];
-  };
-
-let initialState: dialogsPagePropsType = {
+let initialState = {
     messageData: [
         {
             id: 1,
@@ -111,7 +96,7 @@ let initialState: dialogsPagePropsType = {
     ],
 }
 
-const dialogsPageReducer = (state: dialogsPagePropsType = initialState, action: ActionsType): dialogsPagePropsType => {
+const dialogsPageReducer = (state: DialogsPagePropsType = initialState, action: ActionsType): DialogsPagePropsType => {
     switch (action.type) {
         case 'dialogs/ADD_MESSSAGE':
             if (action.newMessageBody.trim() !== '') {
@@ -134,5 +119,7 @@ export const addMessageInDialogsAC = (newMessageBody: string) => {
         newMessageBody
     } as const
 }
+
+export type DialogsPagePropsType =  typeof initialState
 
 export default dialogsPageReducer
