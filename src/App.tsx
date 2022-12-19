@@ -7,15 +7,15 @@ import Login from './components/Login/Login';
 import {connect} from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {compose} from 'redux';
-import {initializeTC} from './redux/app-reducer';
-import {ReduxStateType} from './redux/redux-store';
+import {initializeApp} from './redux/app-reducer';
+import {AppstateType} from './redux/redux-store';
 import {Preloader} from './common/Preloader';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 type mstd = {
-    initializeTC: () => any
+    initializeApp: () => void
 }
 type mpstp = ReturnType<typeof mstp>
 type AppPropsType = mstd & mpstp
@@ -23,7 +23,7 @@ type AppPropsType = mstd & mpstp
 class App extends React.Component<AppPropsType> {
 
     componentDidMount() {
-        this.props.initializeTC()
+        this.props.initializeApp()
     }
 
     render() {
@@ -65,10 +65,10 @@ class App extends React.Component<AppPropsType> {
     }
 }
 
-const mstp = (state: ReduxStateType) => {
+const mstp = (state: AppstateType) => {
     return {initialized: state.app.initialized}
 }
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mstp, {initializeTC}))
+    connect(mstp, {initializeApp}))
 (App)

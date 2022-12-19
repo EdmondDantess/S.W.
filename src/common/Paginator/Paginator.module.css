@@ -1,0 +1,27 @@
+.pageSelectorDIV {
+    margin: 0 auto ;
+    color: #d8ded0;
+}
+
+.pageSelectorDIV:hover {
+    cursor: pointer;
+}
+
+.pageSelectorDIV .activePageSelector {
+    font-weight: bold;
+    color: black;
+}
+
+button {
+    height: 80px;
+    grid-area: buttonText;
+    background-color: #4db2ef;
+    font-weight: bold;
+}
+button:hover {
+    background-color: rgba(221, 233, 236, 0.38);
+    cursor: pointer;
+}
+button:active {
+    background-color: #4300be;
+}

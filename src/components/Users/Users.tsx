@@ -1,9 +1,9 @@
 import React from 'react';
 import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
-import {usersPropsDataType} from '../../redux/usersPage-reducer';
 import {NavLink} from 'react-router-dom';
-import {Paginator} from './Paginator';
+import {Paginator} from '../../common/Paginator/Paginator';
+import {UsersPropsDataType} from '../../redux/types/types';
 
 type propsFromUsersContainer = {
     onPageChanged: (p: number) => void
@@ -11,34 +11,33 @@ type propsFromUsersContainer = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    users: usersPropsDataType[]
+    users: UsersPropsDataType[]
     isFetching: boolean
-    followingInProgress: []
+    followingInProgress: number[]
     toggleFollowingInProgress: (status: boolean, userId: number) => void
     followThunk: (userId: number) => void
     unFollowThunk: (userId: number) => void
 }
 
-export const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}: propsFromUsersContainer) => {
-    const pages = <Paginator totalUsersCount={totalUsersCount}
-                             pageSize={pageSize}
-                             currentPage={currentPage}
-                             onPageChanged={onPageChanged}/>
+export const Users = ({
+                          totalUsersCount, pageSize, currentPage, onPageChanged, ...props
+                      }: propsFromUsersContainer) => {
 
     return (
         <div className={obc.parentDivBodyUsers}>
-            {pages}
+            <Paginator totalUsersCount={totalUsersCount}
+                       pageSize={pageSize}
+                       currentPage={currentPage}
+                       onPageChanged={onPageChanged}/>
             {
                 props.users.map((u: any) => {
                     let trimmedStatus = []
                     if (u.status) {
                         let copyStatus = u.status.split('')
-
                         for (let i = 0; i < 40; i++) {
                             trimmedStatus.push(copyStatus[i])
                         }
                     }
-
                     return (
                         <div className={obc.divUserBody} key={u.id}>
                             <NavLink to={'/profile/' + u.id}>

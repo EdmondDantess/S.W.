@@ -1,7 +1,7 @@
-import {ActionsType} from './redux-store';
+import {ThunkType} from './redux-store';
 import {Dispatch} from 'redux';
 import {profileAPI} from '../api/api';
-
+import {NullOrNumber, NullOrString, ProfileStateProps} from './types/types';
 
 let initialState = {
     profile: {
@@ -25,7 +25,6 @@ let initialState = {
             large: null as NullOrString,
         }
     },
-
     postsData: [
         {
             id: 0,
@@ -41,7 +40,7 @@ let initialState = {
     status: '',
 }
 
-const profilePageReducer = (state: ProfilePagePropsType = initialState, action: ActionsType): ProfilePagePropsType => {
+const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ProfileActionsType): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'ADD_POST':
             if (action.postText.trim() !== '') {
@@ -69,8 +68,7 @@ const profilePageReducer = (state: ProfilePagePropsType = initialState, action: 
     }
 }
 
-
-export const addPostAC = (postText: string) => {
+export const addPost = (postText: string) => {
     return {
         type: 'ADD_POST',
         postText: postText
@@ -94,64 +92,40 @@ export const setPhoto = (file: any) => {
         file
     } as const
 }
-export const setUserProfileThunk = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getProfile(userId).then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId: string): ThunkType => {
+    return async (dispatch) => {
+        let res = await profileAPI.getProfile(userId)
+        dispatch(setUserProfile(res.data))
     }
 }
-export const getStatusThunk = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userId).then(response => {
-            dispatch(setStatus(response.data))
-        })
+export const getStatus = (userId: string): ThunkType => {
+    return async (dispatch) => {
+        let res = await profileAPI.getStatus(userId)
+        dispatch(setStatus(res.data))
     }
 }
-export const updateStatusThunk = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateStatus = (status: string): ThunkType => {
+    return async (dispatch) => {
+        let res = await profileAPI.updateStatus(status)
+        if (res.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
-
-export const savePhoto = (file: any) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.savePhoto(file).then((response: any) => {
-            if (response.data.resultCode === 0) {
-                dispatch(setPhoto(response.data.data.photos))
-            }
-        })
+export const savePhoto = (file: any): ThunkType => {
+    return async (dispatch) => {
+        let res = await profileAPI.savePhoto(file)
+        if (res.data.resultCode === 0) {
+            dispatch(setPhoto(res.data.data.photos))
+        }
     }
 }
 
-export type ProfileStateProps = {
-    'aboutMe': null | string,
-    'contacts': {
-        'facebook': null | string,
-        'website': null | string,
-        'vk': null | string,
-        'twitter': null | string,
-        'instagram': null | string,
-        'youtube': null | string,
-        'github': null | string,
-        'mainLink': null | string
-    },
-    'lookingForAJob': boolean,
-    'lookingForAJobDescription': null | string,
-    'fullName': string,
-    'userId': number | null,
-    'photos': {
-        'small': null | string,
-        'large': null | string
-    }
-}
-export type ProfilePagePropsType = typeof  initialState
-type NullOrString = null | string
-type NullOrNumber = null | number
-
+export type ProfilePageInitialStateType = typeof initialState
+export type ProfileActionsType =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof setPhoto>
+    | ReturnType<typeof setUserProfile>
 
 export default profilePageReducer

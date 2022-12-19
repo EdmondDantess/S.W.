@@ -9,9 +9,9 @@ import App from './App';
 ReactDOM.render(
     <HashRouter>
         <Provider store={store}>
-                <App/>
+            <App/>
         </Provider>
-        </HashRouter>,
+    </HashRouter>,
     document.getElementById('root'));
 
 document.title = 'maxim\'s social network'.toUpperCase()

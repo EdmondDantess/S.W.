@@ -1,25 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import obc from './Users.module.css';
+import obc from './Paginator.module.css';
 
-type propsFromUsersContainer = {
+type FromUsersContainerType = {
     onPageChanged: (p: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
 }
 
-export const Paginator = (props: propsFromUsersContainer) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let portionSize = 10
+export const Paginator = (props: FromUsersContainerType) => {
+
+    let pagesCount: number = Math.ceil(props.totalUsersCount / props.pageSize)
+    let portionSize: number = 10
     let pages: number[] = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
-    let portionCount = Math.ceil(pagesCount / portionSize)
+    let portionCount: number = Math.ceil(pagesCount / portionSize)
     let [portionNumber, setPortionNumber] = useState<number>(1)
-    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
-    let rightPortionPageNumber = portionNumber * portionSize
+    let leftPortionPageNumber: number = (portionNumber - 1) * portionSize + 1
+    let rightPortionPageNumber: number = portionNumber * portionSize
 
     useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)),
         [props.currentPage]);
@@ -28,7 +28,6 @@ export const Paginator = (props: propsFromUsersContainer) => {
         <div className={obc.pageSelectorDIV}>
             {portionNumber > 1 &&
                 <button onClick={() => (setPortionNumber(portionNumber - 1))}>PREV</button>}
-
             {
                 pages
                     .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)

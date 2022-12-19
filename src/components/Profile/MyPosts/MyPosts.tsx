@@ -1,7 +1,7 @@
 import React, {KeyboardEvent} from 'react';
 import obc from './MyPosts.module.css';
 import {Post} from './Post/Post';
-import {typeMyPostsProps} from './MyPostsContainer';
+import {TypeMyPostsProps} from './MyPostsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, requered} from '../../../utils/validators/validators';
 import {TextArea} from '../../../common/FormsControls';
@@ -9,11 +9,11 @@ import {TextArea} from '../../../common/FormsControls';
 
 const validatorMaxSymbols = maxLengthCreator(50)
 
-export const MyPosts = React.memo((props: typeMyPostsProps) => {
+export const MyPosts = React.memo((props: TypeMyPostsProps) => {
     let posts = props.state.postsData.map((el) => {
         return (
             <div className={obc.posts} key={el.id}>
-                <Post message={el.message} Likes={el.Likes} avatars = {props.state.profile.photos.large}/>
+                <Post message={el.message} Likes={el.Likes} avatars = {props.state.profile.photos.large as null | string}/>
             </div>
         );
     });

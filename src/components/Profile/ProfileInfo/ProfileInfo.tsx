@@ -3,37 +3,17 @@ import obc from './ProfileInfo.module.css';
 import {Preloader} from '../../../common/Preloader';
 import {ProfileStatusHooks} from './ProfileStatusHooks';
 import user from '../../../assets/images/user.png'
+import {ProfilePageInitialStateType} from '../../../redux/profilePage-reducer';
 
 
 export type ProfileInfoPropsType = {
-    profile: {
-        'aboutMe': null | string,
-        'contacts': {
-            'facebook': null | string,
-            'website': null | string,
-            'vk': null | string,
-            'twitter': null | string,
-            'instagram': null | string,
-            'youtube': null | string,
-            'github': null | string,
-            'mainLink': null | string
-        },
-        'lookingForAJob': boolean,
-        'lookingForAJobDescription': null | string,
-        'fullName': string,
-        'userId': number | null,
-        'photos': {
-            'small': null | string,
-            'large': null | string
-        }
-    },
-    status: string,
-    updateStatusThunk: (status: string) => void
+    updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: any
 }
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
+export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStateType) => {
+
     if (!props.profile) {
         return <Preloader/>
     }
@@ -44,16 +24,15 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         }
 
     }
-
-    let avatar = props.profile.photos.large ? props.profile.photos.large : user
+     let avatar = props.profile.photos.large
     return (
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
-                                updateStatusThunk={props.updateStatusThunk}/>
+                                updateStatus={props.updateStatus}/>
             {props.isOwner && <><input type="file" onChange={onMainPhotoSelect} style={{width: '120px'}}/>
                 <span>Upload your avatar</span>   </>}
             <div className={obc.description}>
-                <img src={avatar} alt="Users Avatar losted" style={{width: '300px'}}/>
+                <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>
                     <div>Fullname: <b>{props.profile.fullName}</b></div>
                     <div>about me: {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>

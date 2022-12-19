@@ -1,6 +1,4 @@
-import dialogsPageReducer, {
-    addMessageInDialogsAC,
-} from './dialogsPage-reducer';
+import dialogsPageReducer, {addMessageInDialogs} from './dialogsPage-reducer';
 
 test('test for reducer dialogsPage', () => {
 
@@ -9,7 +7,7 @@ test('test for reducer dialogsPage', () => {
         dialogsData: [],
     }
 
-    const testAddMessage = addMessageInDialogsAC('HELLO')
+    const testAddMessage = addMessageInDialogs('HELLO')
     const test1 = dialogsPageReducer(startState, testAddMessage)
 
 

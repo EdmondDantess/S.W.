@@ -1,5 +1,3 @@
-import {ActionsType} from './redux-store';
-
 let initialState = {
     messageData: [
         {
@@ -96,7 +94,7 @@ let initialState = {
     ],
 }
 
-const dialogsPageReducer = (state: DialogsPagePropsType = initialState, action: ActionsType): DialogsPagePropsType => {
+const dialogsPageReducer = (state: DialogsPageInitialStateType = initialState, action: DialogsActionsType): DialogsPageInitialStateType => {
     switch (action.type) {
         case 'dialogs/ADD_MESSSAGE':
             if (action.newMessageBody.trim() !== '') {
@@ -113,13 +111,14 @@ const dialogsPageReducer = (state: DialogsPagePropsType = initialState, action: 
     }
 }
 
-export const addMessageInDialogsAC = (newMessageBody: string) => {
+export const addMessageInDialogs = (newMessageBody: string) => {
     return {
         type: 'dialogs/ADD_MESSSAGE',
         newMessageBody
     } as const
 }
 
-export type DialogsPagePropsType =  typeof initialState
+export type DialogsPageInitialStateType = typeof initialState
+export type  DialogsActionsType = ReturnType<typeof addMessageInDialogs>
 
 export default dialogsPageReducer

@@ -1,15 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    followThunk,
+    follow,
     followUnFollow,
-    getUsersThunk,
     setCurrentPage,
     toggleFollowingInProgress,
-    unFollowThunk,
-    usersPropsDataType
+    unFollow,
+    getUsers
 } from '../../redux/usersPage-reducer';
-import {ReduxStateType} from '../../redux/redux-store';
+import {AppstateType} from '../../redux/redux-store';
 import {Users} from './Users';
 import {Preloader} from '../../common/Preloader';
 import {compose} from 'redux';
@@ -19,44 +18,44 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsersS
 } from '../../redux/usersPage-selectors';
+import {UsersPropsDataType} from '../../redux/types/types';
 
-export type  UsersPropsType = mapDispatchToPropsType & mapStateToPropsType
+export type  UsersPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-export type mapStateToPropsType = {
-    users: usersPropsDataType[]
+export type MapStateToPropsType = {
+    users: UsersPropsDataType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: []
+    followingInProgress: number[]
 }
-export type mapDispatchToPropsType = {
+export type MapDispatchToPropsType = {
     followUnFollow: (userId: number) => void
-    setUsers: (users: usersPropsDataType[]) => void
+    setUsers: (users: UsersPropsDataType[]) => void
     setCurrentPage: (page: number) => void
     setUsersTotalCount: (totalCountUsers: number) => void
     toggleIsFetching: (status: boolean) => void
     toggleFollowingInProgress: (status: boolean, userId: number) => void
-    getUsersThunk: (curPage: number, pageSize: number) => void
-    followThunk: (userId: number) => void
-    unFollowThunk: (userId: number) => void
+    getUsers: (curPage: number, pageSize: number) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
 }
 
-class UsersContainer extends React.Component<any> {
+class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount(): void {
-        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (p: number) => {
         this.props.setCurrentPage(p)
-        this.props.getUsersThunk(p, this.props.pageSize)
+        this.props.getUsers(p, this.props.pageSize)
     }
 
     render() {
-
         return <>
             {this.props.isFetching ? <Preloader/> :
                 <Users
@@ -69,25 +68,16 @@ class UsersContainer extends React.Component<any> {
                     isFetching={this.props.isFetching}
                     toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                     followingInProgress={this.props.followingInProgress}
-                    followThunk={this.props.followThunk}
-                    unFollowThunk={this.props.unFollowThunk}
+                    followThunk={this.props.follow}
+                    unFollowThunk={this.props.unFollow}
                 />}
-
         </>
     }
 }
 
-
-let mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
+let mapStateToProps = (state: AppstateType): MapStateToPropsType => {
     return {
-        // users: state.usersPage.users,
-        // pageSize: state.usersPage.pageSize,
-        // totalUsersCount: state.usersPage.totalUsersCount,
-        // currentPage: state.usersPage.currentPage,
-        // isFetching: state.usersPage.isFetching,
-        // followingInProgress: state.usersPage.followingInProgress,
-
-        users: getUsers(state),
+        users: getUsersS(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -100,7 +90,7 @@ export default compose<React.ComponentType>(
         setCurrentPage,
         followUnFollow,
         toggleFollowingInProgress,
-        getUsersThunk, followThunk, unFollowThunk
-    }),
-    //withAuthRedirect
-)(UsersContainer)
+        getUsers,
+        follow,
+        unFollow
+    }))(UsersContainer)

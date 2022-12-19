@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 
 type ProfileStatusType = {
     status: string,
-    updateStatusThunk: (status: string) => void
+    updateStatus: (status: string) => void
 }
 type StateType = {
     editMode: boolean,
@@ -25,7 +25,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType, StateType>
         this.setState({
             editMode: false
         })
-        this.props.updateStatusThunk(this.state.status)
+        this.props.updateStatus(this.state.status)
     }
     statusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
@@ -42,7 +42,6 @@ export class ProfileStatus extends React.Component<ProfileStatusType, StateType>
 
     render() {
         return (
-
             <div>
                 {!this.state.editMode &&
                     <div>
@@ -56,7 +55,6 @@ export class ProfileStatus extends React.Component<ProfileStatusType, StateType>
                                autoFocus
                                onBlur={this.deActivateEditMode}/>
                     </div>}
-            </div>
-        );
+            </div>);
     }
 }

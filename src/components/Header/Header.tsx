@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import obc from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from './HeaderContainer';
@@ -14,7 +14,7 @@ export const Header = (props: HeaderContainerPropsType) => {
             />
             <div className={obc.loginBlock}>{
                 props.isAuth ?
-                 <div>{props.login} - <button onClick={props.logoutTC}>Logout</button> </div>   :
+                 <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>   :
                     <NavLink to={'/login'}>Login</NavLink>
             }
             </div>

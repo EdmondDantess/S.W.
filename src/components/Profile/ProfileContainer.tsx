@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    getStatusThunk,
-    profileStateProps, savePhoto,
-    setUserProfileThunk, updateStatusThunk
+    getStatus, getUserProfile,
+    ProfilePageInitialStateType, savePhoto,
+    setUserProfile, updateStatus
 } from '../../redux/profilePage-reducer';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {ReduxStateType} from '../../redux/redux-store';
+import {AppstateType} from '../../redux/redux-store';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
@@ -15,17 +15,17 @@ type PathParamsType = {
     userId: any
 }
 
-type mstdpt = {
-    setUserProfile: (profile: profileStateProps) => void
-    setUserProfileThunk: (userId: string) => void
-    getStatusThunk: (userId: string) => void
-    updateStatusThunk: (status: string) => void
+type Mstdpt = {
+    setUserProfile: (profile: ProfilePageInitialStateType) => void
+    getUserProfile: (profile: ProfilePageInitialStateType) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
     savePhoto: (file: any) => void
 }
 
-export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-export type OwnProfilePropsType = mapStateToPropsType & mstdpt
+export type OwnProfilePropsType = MapStateToPropsType & Mstdpt
 export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnProfilePropsType
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
@@ -38,8 +38,8 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                 this.props.history.push('/login')
             }
         }
-        this.props.setUserProfileThunk(userId)
-        this.props.getStatusThunk(userId)
+        this.props.getUserProfile(userId)
+        this.props.getStatus(userId)
     }
 
     componentDidMount() {
@@ -59,28 +59,31 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                 isOwner={!this.props.match.params.userId}
                 profile={this.props.profile}
                 status={this.props.status}
-                updateStatusThunk={this.props.updateStatusThunk}
+                updateStatus={this.props.updateStatus}
                 savePhoto={this.props.savePhoto}
+                postsData={this.props.postsData}
             />
         )
     }
 }
 
-let mapStateToProps = (state: ReduxStateType) => {
+let mapStateToProps = (state: AppstateType) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         authorizedUserId: state.auth.id,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        postsData: state.profilePage.postsData
     }
 }
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        updateStatusThunk,
-        getStatusThunk,
-        setUserProfileThunk,
-        savePhoto
+        updateStatus,
+        getStatus,
+        setUserProfile,
+        savePhoto,
+        getUserProfile
     }),
     withRouter,
     withAuthRedirect

@@ -1,6 +1,3 @@
-import {ActionsType,} from './redux-store';
-
-
 let initialState = {
     friendsNav: [
         {
@@ -60,11 +57,12 @@ let initialState = {
     ],
 }
 
-const sidebarPageReducer = (state: FriendsNavPagePropsType = initialState, action: ActionsType): FriendsNavPagePropsType => {
-
+const sidebarPageReducer = (state: FriendsNavPageInitialStateType = initialState,
+                            action: SideBarActionsType): FriendsNavPageInitialStateType => {
     return state
 }
 
-export type FriendsNavPagePropsType = typeof initialState
+export type FriendsNavPageInitialStateType = typeof initialState
+export type SideBarActionsType = any
 
 export default sidebarPageReducer

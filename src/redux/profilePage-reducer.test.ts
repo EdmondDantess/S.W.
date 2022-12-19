@@ -1,5 +1,4 @@
-import profilePageReducer, {addPostAC, profilePagePropsType} from './profilePage-reducer';
-
+export {}
 // test('Test for ProfilePage reducer', () => {
 //     const startState: profilePagePropsType = {
 //         profile: null,
