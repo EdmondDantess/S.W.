@@ -1,5 +1,5 @@
 import React, {KeyboardEvent} from 'react';
-import {addMessageInDialogs, DialogsPageInitialStateType,} from '../../redux/dialogsPage-reducer';
+import {addMessageInDialogs, DialogsPageInitialStateType,} from '../../redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppstateType} from '../../redux/redux-store';

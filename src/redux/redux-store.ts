@@ -1,24 +1,19 @@
+import dialogsReducer, {DialogsActionsType} from './dialogs-reducer'
+import profileReducer, {ProfileActionsType} from './profile-reducer'
+import sidebarReducer, {SideBarActionsType} from './sidebar-reducer'
+import usersReducer, {UsersActionsType} from './users-reducer'
 import {applyMiddleware, combineReducers, createStore} from 'redux'
-import dialogsPageReducer, {DialogsActionsType} from './dialogsPage-reducer';
-import profilePageReducer, {ProfileActionsType} from './profilePage-reducer';
-import sidebarPageReducer, {SideBarActionsType} from './sidebarPage-reducer';
-import usersPageReducer, {UsersActionsType} from './usersPage-reducer';
-import authReducer, {AuthActionsType} from './auth-reducer';
+import authReducer, {AuthActionsType} from './auth-reducer'
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
+import appReducer, {AppActionsType} from './app-reducer'
 import {reducer as formReducer} from 'redux-form'
-import appReducer, {AppActionsType} from './app-reducer';
 
-export type ActionsType = UsersActionsType | SideBarActionsType | ProfileActionsType | DialogsActionsType
-    | AuthActionsType | AppActionsType
-export type RootReducerType = typeof rootReducer
-export type AppstateType = ReturnType<RootReducerType>
-export type ThunkType = ThunkAction<void, AppstateType, unknown, ActionsType>
 
 export let rootReducer = combineReducers({
-        dialogsPage: dialogsPageReducer,
-        profilePage: profilePageReducer,
-        sidebarPage: sidebarPageReducer,
-        usersPage: usersPageReducer,
+        dialogsPage: dialogsReducer,
+        profilePage: profileReducer,
+        sidebarPage: sidebarReducer,
+        usersPage: usersReducer,
         auth: authReducer,
         app: appReducer,
         form: formReducer
@@ -26,6 +21,12 @@ export let rootReducer = combineReducers({
 )
 
 export let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+
+export type ActionsType = UsersActionsType | SideBarActionsType | ProfileActionsType | DialogsActionsType
+    | AuthActionsType | AppActionsType
+export type RootReducerType = typeof rootReducer
+export type AppstateType = ReturnType<RootReducerType>
+export type ThunkType = ThunkAction<void, AppstateType, unknown, ActionsType>
 
 //@ts-ignore
 window.store = store

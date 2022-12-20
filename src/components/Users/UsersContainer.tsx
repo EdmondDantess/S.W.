@@ -7,10 +7,10 @@ import {
     toggleFollowingInProgress,
     unFollow,
     getUsers
-} from '../../redux/usersPage-reducer';
+} from '../../redux/users-reducer';
 import {AppstateType} from '../../redux/redux-store';
 import {Users} from './Users';
-import {Preloader} from '../../common/Preloader';
+import {Preloader} from '../../common/Preloader/Preloader';
 import {compose} from 'redux';
 import {
     getCurrentPage,
@@ -19,13 +19,13 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUsersS
-} from '../../redux/usersPage-selectors';
-import {UsersPropsDataType} from '../../redux/types/types';
+} from '../../redux/users-selectors';
+import {UserType} from '../../redux/types/types';
 
 export type  UsersPropsType = MapDispatchToPropsType & MapStateToPropsType
 
 export type MapStateToPropsType = {
-    users: UsersPropsDataType[]
+    users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
@@ -34,7 +34,7 @@ export type MapStateToPropsType = {
 }
 export type MapDispatchToPropsType = {
     followUnFollow: (userId: number) => void
-    setUsers: (users: UsersPropsDataType[]) => void
+    setUsers: (users: UserType[]) => void
     setCurrentPage: (page: number) => void
     setUsersTotalCount: (totalCountUsers: number) => void
     toggleIsFetching: (status: boolean) => void

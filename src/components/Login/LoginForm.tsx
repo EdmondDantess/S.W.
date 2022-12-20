@@ -1,8 +1,12 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {Input} from '../../common/FormsControls';
+import {Input} from '../../common/FormsControls/FormsControls';
 import {requered} from '../../utils/validators/validators';
-import style from '../../common/FormsControls.module.css'
+import style from '../../common/FormsControls/FormsControls.module.css'
+
+type LoginFormOwnProps = {
+    captcha: string | null
+}
 
 export type FormDataType = {
     email: string
@@ -11,7 +15,12 @@ export type FormDataType = {
     captcha: string | null
 }
 
-export const LoginForm: React.FC<any> = ({captcha, error, handleSubmit}) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps>
+    & LoginFormOwnProps> = ({
+                                captcha,
+                                error,
+                                handleSubmit
+                            }) => {
 
     return (
         <div>
@@ -48,6 +57,4 @@ export const LoginForm: React.FC<any> = ({captcha, error, handleSubmit}) => {
     );
 };
 
-export const LoginReduxForm = reduxForm<FormDataType, { captcha: string | null}>({
-    form: 'login',
-})(LoginForm)
+export const LoginReduxForm = reduxForm<FormDataType, LoginFormOwnProps>({form: 'login'})(LoginForm)

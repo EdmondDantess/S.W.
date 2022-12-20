@@ -2,7 +2,7 @@ export type NullOrString = null | string
 
 export type NullOrNumber = null | number
 
-export type ProfileStateProps = {
+export type ProfileType = {
     'aboutMe': NullOrString,
     'contacts': {
         'facebook': NullOrString,
@@ -24,7 +24,7 @@ export type ProfileStateProps = {
     }
 }
 
-export type UsersPropsDataType = {
+export type UserType = {
     id: number;
     urlPhoto: string
     followed: boolean

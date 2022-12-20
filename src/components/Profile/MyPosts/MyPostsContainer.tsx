@@ -1,5 +1,5 @@
 import React, {KeyboardEvent} from 'react';
-import {addPost, ProfilePageInitialStateType} from '../../../redux/profilePage-reducer';
+import {addPost, ProfilePageInitialStateType} from '../../../redux/profile-reducer';
 import {MyPosts} from './MyPosts';
 import {connect} from 'react-redux';
 import {AppstateType} from '../../../redux/redux-store';

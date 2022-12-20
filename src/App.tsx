@@ -9,7 +9,7 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
 import {AppstateType} from './redux/redux-store';
-import {Preloader} from './common/Preloader';
+import {Preloader} from './common/Preloader/Preloader';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))

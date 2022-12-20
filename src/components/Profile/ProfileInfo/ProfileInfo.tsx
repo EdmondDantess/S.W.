@@ -1,9 +1,9 @@
 import React from 'react';
 import obc from './ProfileInfo.module.css';
-import {Preloader} from '../../../common/Preloader';
+import {Preloader} from '../../../common/Preloader/Preloader';
 import {ProfileStatusHooks} from './ProfileStatusHooks';
 import user from '../../../assets/images/user.png'
-import {ProfilePageInitialStateType} from '../../../redux/profilePage-reducer';
+import {ProfilePageInitialStateType} from '../../../redux/profile-reducer';
 
 
 export type ProfileInfoPropsType = {

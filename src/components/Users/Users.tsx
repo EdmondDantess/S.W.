@@ -3,7 +3,7 @@ import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import {NavLink} from 'react-router-dom';
 import {Paginator} from '../../common/Paginator/Paginator';
-import {UsersPropsDataType} from '../../redux/types/types';
+import {UserType} from '../../redux/types/types';
 
 type propsFromUsersContainer = {
     onPageChanged: (p: number) => void
@@ -11,7 +11,7 @@ type propsFromUsersContainer = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    users: UsersPropsDataType[]
+    users: UserType[]
     isFetching: boolean
     followingInProgress: number[]
     toggleFollowingInProgress: (status: boolean, userId: number) => void

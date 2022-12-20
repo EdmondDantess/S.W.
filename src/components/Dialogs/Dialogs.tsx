@@ -4,7 +4,7 @@ import obc from './Dialogs.module.css';
 import {Message} from './Message/Message';
 import {typeDialogProps} from './DialogsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {TextArea} from '../../common/FormsControls';
+import {TextArea} from '../../common/FormsControls/FormsControls';
 import {maxLengthCreator, requered} from '../../utils/validators/validators';
 
 

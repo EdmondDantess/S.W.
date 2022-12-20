@@ -10,9 +10,9 @@ export {}
 //     }
 //
 //     const testChangeTextAreaValue = changeTextValuePostAC('HI-HI')
-//     const test1 = profilePageReducer(startState, testChangeTextAreaValue)
+//     const test1 = profileReducer(startState, testChangeTextAreaValue)
 //     const testAddPost = addPostAC('Its just a post')
-//     const test2 = profilePageReducer(startState, testAddPost)
+//     const test2 = profileReducer(startState, testAddPost)
 //
 //     expect(test1.postTextValue).toBe('HI-HI')
 //     expect(test2.postsData[0].Likes).toBe(0)

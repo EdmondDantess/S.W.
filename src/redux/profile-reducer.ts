@@ -1,7 +1,8 @@
+import {NullOrNumber, NullOrString, ProfileType} from './types/types';
+import {profileAPI} from '../api/profile-api';
+import {ResultCodesEnum} from '../api/api';
 import {ThunkType} from './redux-store';
-import {Dispatch} from 'redux';
-import {profileAPI} from '../api/api';
-import {NullOrNumber, NullOrString, ProfileStateProps} from './types/types';
+import {stopSubmit} from 'redux-form';
 
 let initialState = {
     profile: {
@@ -40,7 +41,7 @@ let initialState = {
     status: '',
 }
 
-const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ProfileActionsType): ProfilePageInitialStateType => {
+const profileReducer = (state: ProfilePageInitialStateType = initialState, action: ProfileActionsType): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'ADD_POST':
             if (action.postText.trim() !== '') {
@@ -74,7 +75,7 @@ export const addPost = (postText: string) => {
         postText: postText
     } as const
 }
-export const setUserProfile = (profile: ProfileStateProps) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET_USER_PROFILE',
         profile
@@ -92,32 +93,42 @@ export const setPhoto = (file: any) => {
         file
     } as const
 }
-export const getUserProfile = (userId: string): ThunkType => {
+export const getUserProfile = (userId: number): ThunkType => {
     return async (dispatch) => {
         let res = await profileAPI.getProfile(userId)
-        dispatch(setUserProfile(res.data))
+        dispatch(setUserProfile(res))
     }
 }
-export const getStatus = (userId: string): ThunkType => {
+export const getStatus = (userId: number): ThunkType => {
     return async (dispatch) => {
         let res = await profileAPI.getStatus(userId)
-        dispatch(setStatus(res.data))
+        dispatch(setStatus(res))
     }
 }
 export const updateStatus = (status: string): ThunkType => {
     return async (dispatch) => {
         let res = await profileAPI.updateStatus(status)
-        if (res.data.resultCode === 0) {
+        if (res.resultCode === ResultCodesEnum.Succes) {
             dispatch(setStatus(status))
         }
     }
 }
-export const savePhoto = (file: any): ThunkType => {
+export const savePhoto = (file: File): ThunkType => {
     return async (dispatch) => {
         let res = await profileAPI.savePhoto(file)
-        if (res.data.resultCode === 0) {
-            dispatch(setPhoto(res.data.data.photos))
+        if (res.resultCode === ResultCodesEnum.Succes) {
+            dispatch(setPhoto(res.data.photos))
         }
+    }
+}
+export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
+    const userId = getState().auth.id
+    const res = await profileAPI.saveProfile(profile)
+    if (res.resultCode === ResultCodesEnum.Succes) {
+        userId && dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: res.messages[0]}))
+        return Promise.reject(res.messages[0])
     }
 }
 
@@ -128,4 +139,4 @@ export type ProfileActionsType =
     | ReturnType<typeof setPhoto>
     | ReturnType<typeof setUserProfile>
 
-export default profilePageReducer
+export default profileReducer

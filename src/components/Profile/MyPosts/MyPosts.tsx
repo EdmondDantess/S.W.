@@ -4,7 +4,7 @@ import {Post} from './Post/Post';
 import {TypeMyPostsProps} from './MyPostsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, requered} from '../../../utils/validators/validators';
-import {TextArea} from '../../../common/FormsControls';
+import {TextArea} from '../../../common/FormsControls/FormsControls';
 
 
 const validatorMaxSymbols = maxLengthCreator(50)

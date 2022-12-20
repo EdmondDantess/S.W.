@@ -1,4 +1,4 @@
-import dialogsPageReducer, {addMessageInDialogs} from './dialogsPage-reducer';
+import dialogsReducer, {addMessageInDialogs} from './dialogs-reducer';
 
 test('test for reducer dialogsPage', () => {
 
@@ -8,7 +8,7 @@ test('test for reducer dialogsPage', () => {
     }
 
     const testAddMessage = addMessageInDialogs('HELLO')
-    const test1 = dialogsPageReducer(startState, testAddMessage)
+    const test1 = dialogsReducer(startState, testAddMessage)
 
 
     expect(test1.messageData[0].message).toBe('HELLO')

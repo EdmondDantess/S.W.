@@ -94,7 +94,7 @@ let initialState = {
     ],
 }
 
-const dialogsPageReducer = (state: DialogsPageInitialStateType = initialState, action: DialogsActionsType): DialogsPageInitialStateType => {
+const dialogsReducer = (state: DialogsPageInitialStateType = initialState, action: DialogsActionsType): DialogsPageInitialStateType => {
     switch (action.type) {
         case 'dialogs/ADD_MESSSAGE':
             if (action.newMessageBody.trim() !== '') {
@@ -121,4 +121,4 @@ export const addMessageInDialogs = (newMessageBody: string) => {
 export type DialogsPageInitialStateType = typeof initialState
 export type  DialogsActionsType = ReturnType<typeof addMessageInDialogs>
 
-export default dialogsPageReducer
+export default dialogsReducer

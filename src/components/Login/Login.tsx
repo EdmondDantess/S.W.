@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {AppstateType} from '../../redux/redux-store';
 
 type LoginPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, capctha: any) => any
+    login: (email: string, password: string, rememberMe: boolean, capctha: string | null) => any
     isAuth: boolean
     captchaUrl: string | null
 }
@@ -28,8 +28,6 @@ const Login = (props: LoginPropsType) => {
                 Password: free
             </p>
         </b>
-
-
         <h1>LOGIN</h1>
         <LoginReduxForm captcha={props.captchaUrl} onSubmit={onSubmit}/>
     </div>

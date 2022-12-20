@@ -57,12 +57,12 @@ let initialState = {
     ],
 }
 
-const sidebarPageReducer = (state: FriendsNavPageInitialStateType = initialState,
-                            action: SideBarActionsType): FriendsNavPageInitialStateType => {
+const sidebarReducer = (state: FriendsNavPageInitialStateType = initialState,
+                        action: SideBarActionsType): FriendsNavPageInitialStateType => {
     return state
 }
 
 export type FriendsNavPageInitialStateType = typeof initialState
 export type SideBarActionsType = any
 
-export default sidebarPageReducer
+export default sidebarReducer

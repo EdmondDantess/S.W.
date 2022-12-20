@@ -3,7 +3,7 @@ import {
     getStatus, getUserProfile,
     ProfilePageInitialStateType, savePhoto,
     setUserProfile, updateStatus
-} from '../../redux/profilePage-reducer';
+} from '../../redux/profile-reducer';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {AppstateType} from '../../redux/redux-store';
