@@ -31,4 +31,10 @@ export type UserType = {
     fullName: string;
     dateOfBirth: string
     location: { city: string, country: string }
+    status: NullOrString
+    name: NullOrString
+    'photos': {
+        'small': NullOrString,
+        'large': NullOrString
+    },
 };

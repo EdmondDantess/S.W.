@@ -16,9 +16,9 @@ export const Paginator = (props: FromUsersContainerType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    let portionCount: number = Math.ceil(pagesCount / portionSize)
     let [portionNumber, setPortionNumber] = useState<number>(1)
     let leftPortionPageNumber: number = (portionNumber - 1) * portionSize + 1
+    let portionCount: number = Math.ceil(pagesCount / portionSize)
     let rightPortionPageNumber: number = portionNumber * portionSize
 
     useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)),

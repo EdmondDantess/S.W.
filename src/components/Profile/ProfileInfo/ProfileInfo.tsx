@@ -9,7 +9,7 @@ import {ProfilePageInitialStateType} from '../../../redux/profile-reducer';
 export type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: any
+    savePhoto: (file: File) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStateType) => {
@@ -24,13 +24,15 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
         }
 
     }
-     let avatar = props.profile.photos.large
+
+    let avatar = props.profile.photos.large
+
     return (
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
                                 updateStatus={props.updateStatus}/>
-            {props.isOwner && <><input type="file" onChange={onMainPhotoSelect} style={{width: '120px'}}/>
-                <span>Upload your avatar</span>   </>}
+            {props.isOwner && <label><input type="file" onChange={onMainPhotoSelect} style={{width: '120px'}}/>
+                <span>Upload your avatar</span>   </label>}
             <div className={obc.description}>
                 <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>

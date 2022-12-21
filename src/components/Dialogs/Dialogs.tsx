@@ -2,15 +2,14 @@ import React, {useEffect, useRef} from 'react';
 import {DialogItem} from './DialogItem/DialogItem';
 import obc from './Dialogs.module.css';
 import {Message} from './Message/Message';
-import {typeDialogProps} from './DialogsContainer';
+import {TypeDialogProps} from './DialogsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {TextArea} from '../../common/FormsControls/FormsControls';
 import {maxLengthCreator, requered} from '../../utils/validators/validators';
 
-
 const validatorMaxSymbols = maxLengthCreator(100)
 
-export const Dialogs = (props: typeDialogProps) => {
+export const Dialogs = (props: TypeDialogProps) => {
     let state = props.state
     let usersName = state.dialogsData.map((el) => {
         return (
@@ -38,9 +37,6 @@ export const Dialogs = (props: typeDialogProps) => {
         myRef.current && myRef.current.scrollIntoView()
     }, [props.state.messageData])
 
-    // const keyPressHandlerText = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    //     props.keyPressHandlerText(e)
-    // }
     const onSubmit = (formData: FormDataTypeDialog) => {
         props.addMessage(formData.newMessageBody)
         formData.newMessageBody = ''
@@ -50,9 +46,7 @@ export const Dialogs = (props: typeDialogProps) => {
         <div className={obc.dialogs}>
             <div className={obc.parentDialogsItem}>{usersName}</div>
             <div className={obc.parentMessages}>{messages}</div>
-
             <AddMessageFormRedux onSubmit={onSubmit}/>
-
         </div>
     );
 };
@@ -64,7 +58,6 @@ export const AddMessageForm: React.FC<InjectedFormProps<FormDataTypeDialog>> = (
                 <Field component={TextArea} validate={[requered, validatorMaxSymbols]} name="newMessageBody"
                        placeholder="Enter your message" className={obc.textAreaInput}/>
                 <button className={obc.buttonInTextArea}>Send</button>
-
             </form>
         </div>
 

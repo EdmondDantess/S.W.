@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {FC} from 'react';
 import obc from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import {NavLink} from 'react-router-dom';
 import {Paginator} from '../../common/Paginator/Paginator';
 import {UserType} from '../../redux/types/types';
 
-type propsFromUsersContainer = {
+type PropsFromUsersContainer = {
     onPageChanged: (p: number) => void
     followUnFollow: (id: number) => void
     totalUsersCount: number
@@ -19,10 +19,13 @@ type propsFromUsersContainer = {
     unFollowThunk: (userId: number) => void
 }
 
-export const Users = ({
-                          totalUsersCount, pageSize, currentPage, onPageChanged, ...props
-                      }: propsFromUsersContainer) => {
-
+export const Users: React.FC<PropsFromUsersContainer> = ({
+                                                             totalUsersCount,
+                                                             pageSize,
+                                                             currentPage,
+                                                             onPageChanged,
+                                                             ...props
+                                                         }) => {
     return (
         <div className={obc.parentDivBodyUsers}>
             <Paginator totalUsersCount={totalUsersCount}
@@ -30,7 +33,7 @@ export const Users = ({
                        currentPage={currentPage}
                        onPageChanged={onPageChanged}/>
             {
-                props.users.map((u: any) => {
+                props.users.map((u: UserType) => {
                     let trimmedStatus = []
                     if (u.status) {
                         let copyStatus = u.status.split('')
@@ -62,8 +65,7 @@ export const Users = ({
                                         onClick={() => {
                                             props.unFollowThunk(u.id)
                                         }}>✘</button>
-                                    :
-                                    <button
+                                    : <button
                                         disabled={props.followingInProgress.some(id => id === u.id)}
                                         onClick={() => {
                                             props.followThunk(u.id)

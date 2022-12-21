@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {AppstateType} from '../../redux/redux-store';
 import {compose, Dispatch} from 'redux';
 
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
 
 
 type MapStateProps = {
@@ -17,7 +17,7 @@ type MapDispatchProps = {
     keyPressHandlerText: (e: KeyboardEvent<HTMLTextAreaElement>, valueText: string) => void
 }
 
-export type  typeDialogProps = MapStateProps & MapDispatchProps
+export type  TypeDialogProps = MapStateProps & MapDispatchProps
 
 const mapStateToProps = (state: AppstateType): MapStateProps => {
     return {
@@ -40,5 +40,5 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchProps => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
+    WithAuthRedirect
 )(Dialogs)

@@ -32,35 +32,33 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-                <div className="appWrapper">
-                    <HeaderContainer/>
-                    <NavContainer/>
-                    <div className="appWrapperContent">
-                        <Route
-                            path={'/dialogs'}
-                            render={() => {
-                                return <React.Suspense fallback={<div><Preloader/>
-                                    <p>its component is lazy</p>
-                                </div>}>
-                                    <DialogsContainer/>
-                                </React.Suspense>
-                            }}
-                        />
-                        <Route
-                            path={'/profile/:userId?'}
-                            render={() => {
-                                return <React.Suspense fallback={<div><Preloader/>
-                                    <p>its component is lazy</p>
-                                </div>}>
-                                    <ProfileContainer/>
-                                </React.Suspense>
-                            }}
-                        />
-                        <Redirect from="*" to="/profile"/>
-                        <Route path={'/users'} render={() => <UsersContainer/>}/>
-                        <Route path={'/login'} render={() => <Login/>}/>
-                    </div>
+            <div className="appWrapper">
+                <HeaderContainer/>
+                <NavContainer/>
+                <div className="appWrapperContent">
+                    <Route
+                        path={'/dialogs'}
+                        render={() => {
+                            return <React.Suspense fallback={<>
+                                <Preloader/>
+                                its component is lazy</>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+                        }}/>
+                    <Route
+                        path={'/profile/:userId?'}
+                        render={() => {
+                            return <React.Suspense fallback={<>
+                                <Preloader/>
+                                its component is lazy</>}>
+                                <ProfileContainer/>
+                            </React.Suspense>
+                        }}/>
+                    <Redirect from="*" to="/profile"/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                 </div>
+            </div>
         );
     }
 }
@@ -68,7 +66,8 @@ class App extends React.Component<AppPropsType> {
 const mstp = (state: AppstateType) => {
     return {initialized: state.app.initialized}
 }
-export default compose<React.ComponentType>(
+export default compose
+< React.ComponentType > (
     withRouter,
-    connect(mstp, {initializeApp}))
+        connect(mstp, {initializeApp}))
 (App)

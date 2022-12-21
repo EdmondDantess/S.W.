@@ -8,16 +8,14 @@ export const Header = (props: HeaderContainerPropsType) => {
 
     return (
         <header className={obc.appHeader}>
-            <img
-                src={header}
+            <img src={header}
                 alt="Ooops IMG Loading is Failed"
             />
             <div className={obc.loginBlock}>{
                 props.isAuth ?
-                 <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>   :
-                    <NavLink to={'/login'}>Login</NavLink>
-            }
-            </div>
+                    <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
+                    : <NavLink to={'/login'}>Login</NavLink>
+            }</div>
         </header>
     );
 };
