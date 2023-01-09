@@ -11,8 +11,7 @@ In this project I use the following libraries:
 - **react-router-dom** and **@types/react-router-dom**
 - **react-scripts** 
 - **redux**
-- **redux-form** and **@types/redux-form**
-- **redux-thunk**
+- **formik**
 - **reselect**
 - **typescript** 
 - **uuid** and **@types/uuid**
