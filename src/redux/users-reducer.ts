@@ -11,6 +11,10 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as number[], //array of users id
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 }
 
 const usersReducer = (state: UsersPageInitialStateType = initialState, action: UsersActionsType): UsersPageInitialStateType => {
@@ -42,6 +46,13 @@ const usersReducer = (state: UsersPageInitialStateType = initialState, action: U
             return {
                 ...state,
                 isFetching: action.status
+            }
+        case 'users/SET_FILTER':
+            return {
+                ...state,
+                filter: {
+                    ...action.filter
+                }
             }
         case 'users/TOGGLE_FOLLOWING_PROGRESS':
             return {
@@ -92,9 +103,17 @@ export const toggleFollowingInProgress = (status: boolean, userId: number) => {
         userId
     } as const
 }
-export const getUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
+export const setFilter = (filter: FilterType) => {
+    return {
+        type: 'users/SET_FILTER',
+        filter
+    } as const
+}
+
+export const getUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    let response = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setFilter(filter))
+    let response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(toggleIsFetching(false))
     dispatch(setUsers(response.items))
     dispatch(setUsersTotalCount(response.totalCount))
@@ -117,6 +136,7 @@ export const unFollow = (userId: number): ThunkType => async (dispatch) => {
 }
 
 export type UsersPageInitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 export type UsersActionsType =
     ReturnType<typeof followUnFollow>
     | ReturnType<typeof setUsers>
@@ -124,5 +144,6 @@ export type UsersActionsType =
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingInProgress>
+    | ReturnType<typeof setFilter>
 
 export default usersReducer

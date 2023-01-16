@@ -25,5 +25,5 @@
 .parentDivProfileInfo {
     height: 95vh;
     grid-area: profileInfo;
-    border-left: solid white 1px;
+
 }

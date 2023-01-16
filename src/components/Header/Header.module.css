@@ -3,10 +3,11 @@
     grid-area: app-h;
     background-color: #4db2ef;
     border-bottom: white solid 1px;
+    height: 62px;
   }
   
   .appHeader img {
-    height: 10vh;
+    height: 60px;
   }
 
   .loginBlock {

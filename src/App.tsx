@@ -2,7 +2,6 @@ import React from 'react';
 import {Redirect, Route, withRouter} from 'react-router-dom';
 import './App.css';
 import {NavContainer} from './components/Nav/NavContainer';
-import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
 import {connect} from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -10,6 +9,7 @@ import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
 import {AppstateType} from './redux/redux-store';
 import {Preloader} from './common/Preloader/Preloader';
+import {Users} from './components/Users/Users';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -55,7 +55,7 @@ class App extends React.Component<AppPropsType> {
                             </React.Suspense>
                         }}/>
                     <Redirect from="*" to="/profile"/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/users'} render={() => <Users/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                 </div>
             </div>
@@ -68,6 +68,5 @@ const mstp = (state: AppstateType) => {
 }
 export default compose
 < React.ComponentType > (
-    withRouter,
-        connect(mstp, {initializeApp}))
+    withRouter, connect(mstp, {initializeApp}))
 (App)

@@ -13,7 +13,7 @@
     align-content: center;
     box-shadow: 1px 1px 10px grey;
     border: 1px solid black;
-    min-width: 100vh;
+    width: 80vw;
 }
 
 .divUserBody:hover {
@@ -23,9 +23,10 @@
 
 .divUserBody img {
     background-color: gray;
-     width: 100px;
-    border-right: white 1px solid;
+    width: 100px;
+    border: white 1px solid;
 }
+
 .divUserBody:hover img {
     transform: scale(1.4);
     box-shadow: 1px 1px 10px #3349ce;
@@ -66,4 +67,15 @@
 .buttonInDiv button {
     height: 100px;
     width: 100%;
+}
+
+.searchWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.searchBtn {
+    margin-top: 5px;
+    height: 30px;
 }

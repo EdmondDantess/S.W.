@@ -22,7 +22,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0])
         }
-
     }
 
     let avatar = props.profile.photos.large
@@ -30,21 +29,21 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
     return (
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
-                                updateStatus={props.updateStatus}/>
-            {props.isOwner && <label><input type="file" onChange={onMainPhotoSelect} style={{width: '120px'}}/>
-                <span>Upload your avatar</span>   </label>}
+                                updateStatus={props.updateStatus}
+            isOwner={props.isOwner}/>
+            {props.isOwner && <label><input type="file" onChange={onMainPhotoSelect} style={{width: '109px'}}/>
+                <span>Upload your avatar</span> </label>}
             <div className={obc.description}>
                 <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>
-                    <div>Fullname: <b>{props.profile.fullName}</b></div>
-                    <div>about me: {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>
+                    <div><b><i>Fullname:</i></b> <b style={{color: 'blueviolet', fontSize: '20px'}}>{props.profile.fullName}</b></div>
+                    <div><b><i>about me:</i></b> {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>
                     <div><b>Contacts:</b></div>
-                    <div>facebook: {props.profile.contacts.facebook ? props.profile.contacts.facebook : 'not yet added'}</div>
-                    <div>github: {props.profile.contacts.github ? props.profile.contacts.instagram : 'not yet added'}</div>
-                    <div>instagram:{props.profile.contacts.instagram ? props.profile.contacts.instagram : 'not yet added'}</div>
-                    <div>vk: {props.profile.contacts.vk ? props.profile.contacts.vk : 'not yet added'}</div>
-                    <div>website: {props.profile.contacts.website ? props.profile.contacts.website : 'not yet added'}</div>
-                    <div>youtube: {props.profile.contacts.youtube ? props.profile.contacts.youtube : 'not yet added'}</div>
+                    <div><b><i>github:</i></b> {props.profile.contacts.github ? props.profile.contacts.instagram : 'github.com'}</div>
+                    <div><b><i>instagram:</i></b>{props.profile.contacts.instagram ? props.profile.contacts.instagram : 'instagram.com'}</div>
+                    <div><b><i>facebook:</i></b> {props.profile.contacts.facebook ? props.profile.contacts.facebook : 'facebook.com'}</div>
+                    <div><b><i>vk:</i></b> {props.profile.contacts.vk ? props.profile.contacts.vk : 'vk.com'}</div>
+                    <div><b><i>website:</i></b> {props.profile.contacts.website ? props.profile.contacts.website : 'no site'}</div>
                     <hr/>
                 </div>
             </div>

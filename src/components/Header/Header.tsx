@@ -4,12 +4,12 @@ import {NavLink} from 'react-router-dom';
 import {HeaderContainerPropsType} from './HeaderContainer';
 import header from '../../assets/images/header.gif'
 
-export const Header = (props: HeaderContainerPropsType) => {
+export const Header = React.memo((props: HeaderContainerPropsType) => {
 
     return (
         <header className={obc.appHeader}>
             <img src={header}
-                alt="Ooops IMG Loading is Failed"
+                 alt="Ooops IMG Loading is Failed"
             />
             <div className={obc.loginBlock}>{
                 props.isAuth ?
@@ -18,4 +18,5 @@ export const Header = (props: HeaderContainerPropsType) => {
             }</div>
         </header>
     );
-};
+}
+)

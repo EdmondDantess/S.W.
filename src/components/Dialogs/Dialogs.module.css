@@ -5,31 +5,45 @@
                         "textAreaInput names";
 }
 
-.dialogsItems a {
-    padding: 10px;
-    color: whitesmoke;
-    text-decoration-line: none;
-}
+/*.dialogsItems a {*/
+/*    padding: 10px;*/
+/*    color: whitesmoke;*/
+/*    text-decoration-line: none;*/
+/*}*/
 
 .parentDialogsItem {
+    overflow-y: scroll;
+    height: 70vh;
     grid-area: names;
 }
 
-.dialogsItems .activeLink {
-    color: red;
+.parentDialogsItem::-webkit-scrollbar {
+    width: 10px;
+    border: 1px solid white;
+    overflow: visible;
 }
 
-.dialogsItems:hover {
-    background-color: rgb(13, 156, 90);
-    color: gray;
+.parentDialogsItem::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: rgba(255, 255, 255, 0.23);
+    border: 1px solid grey;
+    border-radius: 100px;
 }
+
+/*.dialogsItems .activeLink {*/
+/*    color: red;*/
+/*}*/
+
+/*.dialogsItems:hover {*/
+/*    background-color: rgb(13, 156, 90);*/
+/*    color: gray;*/
+/*}*/
 
 .messages {
     color: rgb(67, 0, 190);
     background-color: rgb(255, 255, 255);
-  margin: 5px;
+    margin: 5px;
     padding: 10px;
-
 }
 
 .parentMessages {
@@ -44,6 +58,7 @@
     border: 1px solid white;
     overflow: visible;
 }
+
 .parentMessages::-webkit-scrollbar-thumb {
     width: 10px;
     background-color: rgba(255, 255, 255, 0.23);

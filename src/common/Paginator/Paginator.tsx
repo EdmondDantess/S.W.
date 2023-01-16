@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import obc from './Paginator.module.css';
+import {setCurrentPage} from '../../redux/users-reducer';
+import {useDispatch} from 'react-redux';
 
 type FromUsersContainerType = {
     onPageChanged: (p: number) => void
@@ -8,7 +10,9 @@ type FromUsersContainerType = {
     currentPage: number
 }
 
-export const Paginator = (props: FromUsersContainerType) => {
+export const Paginator = React.memo((props: FromUsersContainerType) => {
+
+    const dispatch = useDispatch()
 
     let pagesCount: number = Math.ceil(props.totalUsersCount / props.pageSize)
     let portionSize: number = 10
@@ -21,8 +25,11 @@ export const Paginator = (props: FromUsersContainerType) => {
     let portionCount: number = Math.ceil(pagesCount / portionSize)
     let rightPortionPageNumber: number = portionNumber * portionSize
 
-    useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)),
-        [props.currentPage]);
+    useEffect(() => {
+        setPortionNumber(Math.ceil(props.currentPage / portionSize))
+    }, [ props.currentPage]
+)
+    ;
 
     return (
         <div className={obc.pageSelectorDIV}>
@@ -37,11 +44,15 @@ export const Paginator = (props: FromUsersContainerType) => {
                                   className={props.currentPage === p ? obc.activePageSelector : ''}
                                   onClick={(e) => {
                                       props.onPageChanged(p)
+                                      dispatch(setCurrentPage(p))
                                   }}> {p}</span>
                         )
                     })
             }
             {portionCount > portionNumber &&
-                <button onClick={() => (setPortionNumber(portionNumber + 1))}>NEXT</button>}
+                <button onClick={() => {
+                    (setPortionNumber(portionNumber + 1))
+                    dispatch(setCurrentPage(portionNumber+1))
+                }}>NEXT</button>}
         </div>)
-}
+})

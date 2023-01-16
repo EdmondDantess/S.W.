@@ -17,3 +17,16 @@ body {
 .appWrapperContent {
     grid-area: app-c;
 }
+
+body::-webkit-scrollbar {
+    border-radius: 2px;
+    width: 10px;
+    border: 1px solid white;
+    overflow: visible;
+}
+body::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: rgba(24, 65, 115, 0.44);
+    border: 1px solid grey;
+    border-radius: 2px;
+}

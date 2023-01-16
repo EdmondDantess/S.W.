@@ -11,17 +11,7 @@ const validatorMaxSymbols = maxLengthCreator(100)
 
 export const Dialogs = (props: TypeDialogProps) => {
     let state = props.state
-    let usersName = state.dialogsData.map((el) => {
-        return (
-            <div className={obc.dialogsItems} key={el.id}>
-                <DialogItem
-                    name={el.name}
-                    id={el.id}
-                    urlAvatar={el.urlAvatar}
-                />
-            </div>
-        );
-    });
+
 
     let myRef = useRef<null | HTMLDivElement>(null)
 
@@ -33,7 +23,7 @@ export const Dialogs = (props: TypeDialogProps) => {
         );
     });
 
-    useEffect(()=>{
+    useEffect(() => {
         myRef.current && myRef.current.scrollIntoView()
     }, [props.state.messageData])
 
@@ -44,7 +34,9 @@ export const Dialogs = (props: TypeDialogProps) => {
 
     return (
         <div className={obc.dialogs}>
-            <div className={obc.parentDialogsItem}>{usersName}</div>
+            <div className={obc.parentDialogsItem}>
+                <DialogItem/>
+            </div>
             <div className={obc.parentMessages}>{messages}</div>
             <AddMessageFormRedux onSubmit={onSubmit}/>
         </div>

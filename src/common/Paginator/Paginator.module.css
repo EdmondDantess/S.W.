@@ -13,7 +13,7 @@
 }
 
 button {
-    height: 80px;
+    height: 61px;
     grid-area: buttonText;
     background-color: #4db2ef;
     font-weight: bold;
