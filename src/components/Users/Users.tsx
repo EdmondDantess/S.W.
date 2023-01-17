@@ -102,7 +102,10 @@ export const Users = React.memo(() => {
                         )
                     }
                 )
-            }
+            } <Paginator totalUsersCount={totalUsersCount}
+                         pageSize={pageSize}
+                         currentPage={currentPage}
+                         onPageChanged={onPageChanged}/>
         </div>
     }</>
 })

@@ -3,11 +3,10 @@ import obc from './../Dialogs.module.css';
 import {getUsers, setFilter} from '../../../redux/users-reducer';
 import userPhoto from '../../../assets/images/user.png'
 import {useDispatch, useSelector} from 'react-redux';
-import {getCurrentPage, getPageSize, getUsersFilter, getUsersS} from '../../../redux/users-selectors';
+import {getPageSize, getUsersS} from '../../../redux/users-selectors';
 
 
 export const DialogItem = () => {
-    const currentPage = useSelector(getCurrentPage)
     const pageSize = useSelector(getPageSize)
     const users = useSelector(getUsersS)
 
@@ -22,6 +21,8 @@ export const DialogItem = () => {
 
     return (
         <div className={obc.dialog}>
+       <span style={{color: "white"}}>Friends:</span>
+            <hr/>
             {
                 users.map(u => {
                     return (

@@ -36,7 +36,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
             <div className={obc.description}>
                 <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
                 <div className={obc.descriptionTextInfo}>
-                    <div><b><i>Fullname:</i></b> <b style={{color: 'blueviolet', fontSize: '20px'}}>{props.profile.fullName}</b></div>
+                    <div><b><i>Fullname:</i></b> <b style={{color: 'blanchedalmond', fontSize: '20px'}}>{props.profile.fullName}</b></div>
                     <div><b><i>about me:</i></b> {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>
                     <div><b>Contacts:</b></div>
                     <div><b><i>github:</i></b> {props.profile.contacts.github ? props.profile.contacts.instagram : 'github.com'}</div>

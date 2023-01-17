@@ -1,6 +1,6 @@
 .item {
     display: grid;
-    color: rgb(185, 35, 35);
+    color: #fcfcfc;
     grid-template-areas:
     "avatar messagePost"
     "avatar footerPost ";
@@ -21,8 +21,8 @@
     grid-area: footerPost;
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    margin-left: 85%;
+    justify-content: end;
+    margin-right: 10px;
 }
 
 .footerPost img:hover {

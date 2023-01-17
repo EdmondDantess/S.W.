@@ -29,12 +29,12 @@ let initialState = {
     postsData: [
         {
             id: 0,
-            message: 'Что это за приложение? Это социальная сеть, созданная в рамках курса ReactJS - путь самурая. Переведённая с JS на TS',
+            message: 'This is a social network created as part of the ReactJS course - the way of the samurai. Translated from JS to TS',
             Likes: 33
         },
-        {id: 1, message: 'Здесь должны были быть реальные посты реальных людей', Likes: 22},
-        {id: 2, message: 'Но апишка на посты не реализована...', Likes: 2},
-        {id: 3, message: 'Нет апишки - нет постов, нет постов - заглушка', Likes: 12},
+        {id: 1, message: 'There should have been real posts of real people here', Likes: 22},
+        {id: 2, message: 'But API for posts is not implemented...', Likes: 2},
+        {id: 3, message: 'No API - no posts, no posts - a stub', Likes: 12},
         {id: 4, message: 'Hello World', Likes: 52},
         {id: 5, message: 'Test message', Likes: 3},
     ],

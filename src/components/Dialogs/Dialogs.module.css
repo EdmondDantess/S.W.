@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 10fr 2fr;
+    grid-template-columns: 9fr 2fr;
     grid-template-areas: "messages names"
                         "textAreaInput names";
 }
@@ -13,14 +13,17 @@
 
 .parentDialogsItem {
     overflow-y: scroll;
-    height: 70vh;
+    height: 80vh;
     grid-area: names;
+    border: 1px solid white;
+
 }
 
 .parentDialogsItem::-webkit-scrollbar {
     width: 10px;
     border: 1px solid white;
     overflow: visible;
+
 }
 
 .parentDialogsItem::-webkit-scrollbar-thumb {
@@ -44,6 +47,7 @@
     background-color: rgb(255, 255, 255);
     margin: 5px;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .parentMessages {
@@ -88,8 +92,12 @@
 }
 
 .textAreaInput {
+    margin: auto;
     grid-area: textArea;
     min-height: 72px;
     min-width: 99%;
     resize: none;
+}
+
+.dialog {
 }
