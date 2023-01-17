@@ -14,7 +14,7 @@ export const DialogItem = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize, {term: '', friend: true}))
+        dispatch(getUsers(1, pageSize, {term: '', friend: true}))
         return () => {
             dispatch(setFilter({term: '', friend: null}))
         }

@@ -52,7 +52,6 @@ export const Paginator = React.memo((props: FromUsersContainerType) => {
             {portionCount > portionNumber &&
                 <button onClick={() => {
                     (setPortionNumber(portionNumber + 1))
-                    dispatch(setCurrentPage(portionNumber+1))
                 }}>NEXT</button>}
         </div>)
 })
