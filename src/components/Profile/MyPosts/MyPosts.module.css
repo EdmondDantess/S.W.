@@ -2,6 +2,7 @@
     padding: 10px;
     grid-area: posts;
     border-right: solid white 1px;
+    border-bottom: solid white 1px;
 }
 
 .posts {

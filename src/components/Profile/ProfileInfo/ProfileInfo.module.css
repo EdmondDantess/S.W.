@@ -19,10 +19,13 @@
 }
 
 .descriptionTextInfo {
+    background-color: #4db2ef;
+    width: 100%;
     margin: 0 auto;
 }
 
 .parentDivProfileInfo {
+
     height: 95vh;
     grid-area: profileInfo;
 

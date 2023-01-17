@@ -19,14 +19,15 @@ export const Header = React.memo((props: HeaderContainerPropsType) => {
                 />
                 <div className={obc.loginBlock}>{
                     props.isAuth ?
-                        <div style={{display: 'flex', alignItems: 'end'}}><span style={{
+                        <div style={{display: 'flex', alignItems: 'center'}}><span style={{
                             fontWeight: 'bold',
                             color: 'snow'
-                        }}> {props.login}</span><img src={avatar as string} alt="avatar"
-                                                     style={{
-                                                         height: '60px',
-                                                         borderRadius: '10%'
-                                                     }}/>
+                        }}> {props.login}</span>
+                            {/*<img src={avatar as string} alt="avatar"*/}
+                            {/*                         style={{*/}
+                            {/*                             height: '60px',*/}
+                            {/*                             borderRadius: '10%'*/}
+                            {/*                         }}/>*/}
                             <button
                                 onClick={props.logout}>Logout
                             </button>

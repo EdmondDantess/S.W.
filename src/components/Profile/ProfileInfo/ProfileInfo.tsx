@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import obc from './ProfileInfo.module.css';
 import {Preloader} from '../../../common/Preloader/Preloader';
 import {ProfileStatusHooks} from './ProfileStatusHooks';
 import user from '../../../assets/images/user.png'
 import {ProfilePageInitialStateType} from '../../../redux/profile-reducer';
+import {ProfileDataForm} from './ProfileEditForm';
 
 
 export type ProfileInfoPropsType = {
@@ -13,11 +14,17 @@ export type ProfileInfoPropsType = {
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStateType) => {
+    const [editMode, setEditMode] = useState<boolean>(false);
 
     if (!props.profile) {
         return <Preloader/>
     }
-
+    const onEditMode = () => {
+        setEditMode(true)
+    }
+    const offEditMode = () => {
+        setEditMode(false)
+    }
     const onMainPhotoSelect = (e: any) => {
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0])
@@ -30,23 +37,37 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
         <div className={obc.parentDivProfileInfo}>
             <ProfileStatusHooks status={props.status ? props.status : 'No status'}
                                 updateStatus={props.updateStatus}
-            isOwner={props.isOwner}/>
+                                isOwner={props.isOwner}/>
             {props.isOwner && <label><input type="file" onChange={onMainPhotoSelect} style={{width: '109px'}}/>
                 <span>Upload your avatar</span> </label>}
             <div className={obc.description}>
                 <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
-                <div className={obc.descriptionTextInfo}>
-                    <div><b><i>Fullname:</i></b> <b style={{color: 'blanchedalmond', fontSize: '20px'}}>{props.profile.fullName}</b></div>
-                    <div><b><i>about me:</i></b> {props.profile.aboutMe ? props.profile.aboutMe : 'not yet added'}</div>
-                    <div><b>Contacts:</b></div>
-                    <div><b><i>github:</i></b> {props.profile.contacts.github ? props.profile.contacts.instagram : 'github.com'}</div>
-                    <div><b><i>instagram:</i></b>{props.profile.contacts.instagram ? props.profile.contacts.instagram : 'instagram.com'}</div>
-                    <div><b><i>facebook:</i></b> {props.profile.contacts.facebook ? props.profile.contacts.facebook : 'facebook.com'}</div>
-                    <div><b><i>vk:</i></b> {props.profile.contacts.vk ? props.profile.contacts.vk : 'vk.com'}</div>
-                    <div><b><i>website:</i></b> {props.profile.contacts.website ? props.profile.contacts.website : 'no site'}</div>
-                    <hr/>
-                </div>
+                {props.isOwner && !editMode && <button onClick={onEditMode} style={{height: '40px', width: '80%', margin: 'auto'}}>Edit info</button>}
+                {editMode
+                    ? <ProfileDataForm setEditMode={offEditMode} profile={props.profile} />
+                    : <div className={obc.descriptionTextInfo}>
+                        <div><b><i>Fullname:</i></b><b
+                            style={{color: 'blanchedalmond', fontSize: '20px'}}>{props.profile.fullName}</b></div>
+                        <div><b><i>about me:</i></b> {props.profile.aboutMe ? props.profile.aboutMe : 'no info'}
+                        </div>
+                        <div>
+                            <b><i>Looking for a job:</i> </b> {props.profile.lookingForAJob ? 'yes' : 'no'}
+                        </div>
+                        {props.profile.lookingForAJob &&
+                            <div>
+                                <b><i>My professional skils:</i> </b> {props.profile.lookingForAJobDescription}
+                            </div>
+                        }
+                        {/*<div><b>Contacts:</b></div>*/}
+                        {/*<hr/>*/}
+                        {/*{Object.keys(props.profile.contacts).map(key => {*/}
+                        {/*    // @ts-ignore*/}
+                        {/*    return <div key={key}><b><i>{key}</i></b>: {props.profile.contacts[key] || 'info'}</div>*/}
+                        {/*})}*/}
+                        <hr/>
+                    </div>}
             </div>
         </div>
-    );
+    )
+        ;
 };
