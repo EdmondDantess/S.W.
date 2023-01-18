@@ -41,11 +41,11 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
             {props.isOwner && <label><input type="file" onChange={onMainPhotoSelect} style={{width: '109px'}}/>
                 <span>Upload your avatar</span> </label>}
             <div className={obc.description}>
-                <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px'}}/>
+                <img src={avatar ? avatar : user} alt="Users Avatar losted" style={{width: '300px', borderRadius: '10px'}}/>
                 {props.isOwner && !editMode && <button onClick={onEditMode} style={{height: '40px', width: '80%', margin: 'auto'}}>Edit info</button>}
                 {editMode
                     ? <ProfileDataForm setEditMode={offEditMode} profile={props.profile} />
-                    : <div className={obc.descriptionTextInfo}>
+                    : <div className={obc.descriptionTextInfo} style={{borderRadius: '10px'}}>
                         <div><b><i>Fullname:</i></b><b
                             style={{color: 'blanchedalmond', fontSize: '20px'}}>{props.profile.fullName}</b></div>
                         <div><b><i>about me:</i></b> {props.profile.aboutMe ? props.profile.aboutMe : 'no info'}

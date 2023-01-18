@@ -21,7 +21,7 @@ export const DialogItem = () => {
 
     return (
         <div className={obc.dialog}>
-       <span style={{color: "white"}}>Friends:</span>
+       <span style={{color: "white", fontWeight: 'bold'}}>Friends:</span>
             <hr/>
             {
                 users.map(u => {

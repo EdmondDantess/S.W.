@@ -61,35 +61,38 @@ const dispatch = useDispatch()
     }
 
     return (
-        <form style={{backgroundColor: '#4db2ef'}}>
-            <div>
-                <b>Full Name</b>: <input value={profileData.fullName} onChange={inputFullName}/>
-            </div>
-            <div>
-                <b>Looking for a job</b>:
-                <label>
-                    <input type="radio" name={'radio'} value={'true'} checked={profileData.lookingForAJob}
-                           onChange={() => radioLookingForAJob(true)}/> yes
-                    <input type="radio" name={'radio'} value={'false'} checked={!profileData.lookingForAJob}
-                           onChange={() => radioLookingForAJob(false)}/> no
-                </label>
-            </div>
-            {profileData.lookingForAJob &&
-                <div>
-                    <b>My professional skills</b>: <input value={profileData.lookingForAJobDescription}
-                                                          onChange={inputDescription}/>
+        <form style={{backgroundColor: '#4db2ef', width: '100%', borderRadius: '10px'}} >
+            <div style={{width: '70%',display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
+                <div style={{display: 'flex'}}>
+                    <b>Full Name</b>: <input  value={profileData.fullName} onChange={inputFullName}/>
                 </div>
-            }
-            <div>
-                <b>About me</b>: <input value={profileData.aboutMe} onChange={inputAboutMe}/>
-            </div>
-            <div>
+                <div>
+                    <b>Looking for a job</b>:
+                    <label style={{marginLeft: '32px'}}>
+                        <input type="radio" name={'radio'} value={'true'} checked={profileData.lookingForAJob}
+                               onChange={() => radioLookingForAJob(true)}/> yes
+                        <input   type="radio" name={'radio'} value={'false'} checked={!profileData.lookingForAJob}
+                                 onChange={() => radioLookingForAJob(false)}/> no
+                    </label>
+                </div>
+                {profileData.lookingForAJob &&
+                    <div style={{display: 'flex', justifyContent: 'end'}}>
+                        <b >My professional skills</b>: <input value={profileData.lookingForAJobDescription}
+                                                               onChange={inputDescription}/>
+                    </div>
+                }
+                <div style={{display: 'flex', justifyContent: 'end'}}>
+                    <b>About me</b>: <input value={profileData.aboutMe} onChange={inputAboutMe}/>
+                </div>
+                <div>
 
+                </div>
+                <div style={{width: '100%',display: 'flex', justifyContent: 'flex-end', marginTop: 10}}>
+                    <button onClick={onCLickHandler} style={{width: '30%'}}>Save</button>
+                    <button onClick={() => setEditMode()} style={{width: '20%'}}>X</button>
+                </div>
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: 10}}>
-                <button onClick={onCLickHandler}>Save</button>
-                  <button onClick={() => setEditMode()}>X</button>
-            </div>
+
         </form>
     );
 };
