@@ -5,7 +5,6 @@ import userPhoto from '../../../assets/images/user.png'
 import {useDispatch, useSelector} from 'react-redux';
 import {getPageSize, getUsersS} from '../../../redux/users-selectors';
 
-
 export const DialogItem = () => {
     const pageSize = useSelector(getPageSize)
     const users = useSelector(getUsersS)
@@ -21,14 +20,13 @@ export const DialogItem = () => {
 
     return (
         <div className={obc.dialog}>
-       <span style={{color: "white", fontWeight: 'bold'}}>Friends:</span>
+            <span style={{color: 'white', fontWeight: 'bold'}}>Friends:</span>
             <hr/>
             {
                 users.map(u => {
                     return (
                         <div style={{display: 'flex'}}
-                             key={u.id}
-                        >
+                             key={u.id}>
                             <img src={u.photos.small !== null ? u.photos.small : userPhoto}
                                  style={{width: '40px'}}
                                  alt="avatar"/>

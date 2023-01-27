@@ -13,6 +13,7 @@ import {Users} from './components/Users/Users';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const ChatPageContainer = React.lazy(() => import('./pages/Chat/ChatPage'))
 
 type mstd = {
     initializeApp: () => void
@@ -57,6 +58,13 @@ class App extends React.Component<AppPropsType> {
                     <Redirect from="*" to="/profile"/>
                     <Route path={'/users'} render={() => <Users/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
+                    <Route path={'/chat'} render={() => {
+                        return <React.Suspense fallback={<>
+                            <Preloader/>
+                            its component is lazy</>}>
+                            <ChatPageContainer/>
+                        </React.Suspense>
+                    }}/>
                 </div>
             </div>
         );
