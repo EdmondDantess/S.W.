@@ -37,7 +37,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnPro
                     validate={[requered]}
                     component={Input}/></div>
                 <div>
-                    <label> <Field component={Input} name={'rememberMe'} type={'checkbox'}/>remember me</label>
+                    <label style={{display: 'flex'}}> <Field component={Input} name={'rememberMe'} type={'checkbox'}/>remember me</label>
                 </div>
                 {captcha && <img src={captcha} alt="Captcha"/>}
                 {captcha && <Field
