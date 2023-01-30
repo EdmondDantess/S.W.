@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import user from '../../../src/assets/images/user.png'
-import {Preloader} from '../../common/Preloader/Preloader';
-import {ChatMessageType} from '../../api/chat-api';
+import {IChatMessageAPIType} from '../../api/chat-api';
 import {useDispatch, useSelector} from 'react-redux';
-import {sendMessage, startMessagesListening, stopMessagesListening} from '../../redux/chat-reducer';
-import {AppstateType, RootReducerType} from '../../redux/redux-store';
+import {IChatMessageType, sendMessage, startMessagesListening, stopMessagesListening} from '../../redux/chat-reducer';
+import {AppstateType} from '../../redux/redux-store';
 
 
 const ChatPage: React.FC = () => {
@@ -18,6 +17,7 @@ const ChatPage: React.FC = () => {
 const Chat: React.FC = () => {
 
     const dispatch = useDispatch()
+    const status = useSelector<AppstateType>(state => state.chat.status)
 
     useEffect(() => {
         dispatch(startMessagesListening())
@@ -29,24 +29,47 @@ const Chat: React.FC = () => {
 
     return (
         <div>
-            <div style={{height: '250px'}}>
-                     < Messages />
-            </div>
-            <AddMessageForm />
+            {status === 'error' && <div>Some error occured. Please refresh the page</div>}
+            < Messages/>
+            <AddMessageForm/>
+
         </div>
     )
 }
 
 const Messages: React.FC = () => {
-    const messages= useSelector<AppstateType, ChatMessageType[]>(state => state.chat.messages)
+    const messages = useSelector<AppstateType, IChatMessageType[]>(state => state.chat.messages)
+    const messagesAnchorRef = useRef<HTMLDivElement>(null)
+    const [autoScroll, setAutoScroll] = useState(false)
+
+    useEffect(() => {
+        if (autoScroll) {
+            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        }
+    }, [messages])
+
+    useEffect(()=>{
+        messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+    },[])
+
+    function scrollHandler(e: React.UIEvent<HTMLDivElement, UIEvent>) {
+        const element = e.currentTarget;
+        if (Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight) < 400) {
+            !autoScroll && setAutoScroll(true)
+        } else {
+            autoScroll && setAutoScroll(false)
+        }
+    }
 
     return (
-        <div style={{height: '350px', overflowY: 'auto'}}>
-            {messages.map((m: ChatMessageType) => <Message key={m.userId} message={m}/>)}
+        <div style={{height: '350px', overflowY: 'auto'}} onScroll={scrollHandler}>
+            {messages.map((m, i) => <Message key={m.id} message={m}/>)}
+            <div ref={messagesAnchorRef}></div>
         </div>
     )
 }
-const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
+const Message: React.FC<{ message: IChatMessageAPIType }> = React.memo(({message}) => {
+
     return (
         <div>
             <img src={message.photo ? message.photo : user} alt="avatar" style={{width: '30px'}}/>
@@ -56,14 +79,14 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
             <hr/>
         </div>
     )
-}
+})
 
 const AddMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const dispatch = useDispatch()
+    const status = useSelector<AppstateType>(state => state.chat.status)
 
-    function sendMessagHandler() {
+    function sendMessagHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         if (message !== '') {
             dispatch(sendMessage(message))
             setMessage('')
@@ -76,7 +99,7 @@ const AddMessageForm: React.FC = () => {
                 <textarea onChange={e => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
             <div>
-                <button                     onClick={sendMessagHandler} >Send</button>
+                <button disabled={status !== 'ready'} onClick={(e) => sendMessagHandler(e)}>Send</button>
             </div>
         </div>
     )
