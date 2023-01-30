@@ -58,12 +58,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType & ProfilePageInitialStat
                                 <b><i>My professional skils:</i> </b> {props.profile.lookingForAJobDescription}
                             </div>
                         }
-                        {/*<div><b>Contacts:</b></div>*/}
-                        {/*<hr/>*/}
-                        {/*{Object.keys(props.profile.contacts).map(key => {*/}
-                        {/*    // @ts-ignore*/}
-                        {/*    return <div key={key}><b><i>{key}</i></b>: {props.profile.contacts[key] || 'info'}</div>*/}
-                        {/*})}*/}
                         <hr/>
                     </div>}
             </div>

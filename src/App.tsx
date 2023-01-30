@@ -11,7 +11,6 @@ import {AppstateType} from './redux/redux-store';
 import {Preloader} from './common/Preloader/Preloader';
 import {Users} from './components/Users/Users';
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 const ChatPageContainer = React.lazy(() => import('./pages/Chat/ChatPage'))
 
@@ -37,15 +36,6 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavContainer/>
                 <div className="appWrapperContent">
-                    <Route
-                        path={'/dialogs'}
-                        render={() => {
-                            return <React.Suspense fallback={<>
-                                <Preloader/>
-                                its component is lazy</>}>
-                                <DialogsContainer/>
-                            </React.Suspense>
-                        }}/>
                     <Route
                         path={'/profile/:userId?'}
                         render={() => {

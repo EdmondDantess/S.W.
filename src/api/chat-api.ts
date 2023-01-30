@@ -74,7 +74,6 @@ export const chatAPI = {
 type MessagesReceivedSubscriberType = (messages: IChatMessageAPIType[]) => void
 type StatusChangedSubscriberType = (status: 'pending' | 'ready' | 'error') => void
 
-
 export interface IChatMessageAPIType {
     message: string,
     photo: string | null,

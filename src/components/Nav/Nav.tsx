@@ -19,13 +19,8 @@ export const Nav = () => {
                 </NavLink>
             </div>
             <div className={obc.item}>
-                <NavLink to="/dialogs" activeClassName={obc.activeLink}>
-                    <div className={obc.contentN}><img src={mess} alt=""/><span> Messages </span></div>
-                </NavLink>
-            </div>
-            <div className={obc.item}>
                 <NavLink to="/chat" activeClassName={obc.activeLink}>
-                    <div className={obc.contentN}><img src={mess} alt=""/><span> Chat </span></div>
+                    <div className={obc.contentN}><img src={mess} alt="Messages"/><span>Chat</span></div>
                 </NavLink>
             </div>
         </nav>

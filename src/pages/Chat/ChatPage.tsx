@@ -28,17 +28,17 @@ const Chat: React.FC = () => {
 
 
     return (
-        <div>
+        <div style={{height: '80vh', width: '60vw'}}>
             {status === 'error' && <div>Some error occured. Please refresh the page</div>}
             < Messages/>
             <AddMessageForm/>
-
         </div>
     )
 }
 
 const Messages: React.FC = () => {
     const messages = useSelector<AppstateType, IChatMessageType[]>(state => state.chat.messages)
+    const myID = useSelector<AppstateType>(state => state.profilePage.profile.userId)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
     const [autoScroll, setAutoScroll] = useState(false)
 
@@ -48,9 +48,9 @@ const Messages: React.FC = () => {
         }
     }, [messages])
 
-    useEffect(()=>{
+    useEffect(() => {
         messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
-    },[])
+    }, [])
 
     function scrollHandler(e: React.UIEvent<HTMLDivElement, UIEvent>) {
         const element = e.currentTarget;
@@ -63,20 +63,29 @@ const Messages: React.FC = () => {
 
     return (
         <div style={{height: '350px', overflowY: 'auto'}} onScroll={scrollHandler}>
-            {messages.map((m, i) => <Message key={m.id} message={m}/>)}
+            {messages.map((m, i) => myID === m.userId ?
+                <Message key={m.id} message={m} pos={'right'}/> : <Message key={m.id} message={m} pos={'left'}/>)}
             <div ref={messagesAnchorRef}></div>
         </div>
     )
 }
-const Message: React.FC<{ message: IChatMessageAPIType }> = React.memo(({message}) => {
+const Message: React.FC<{ message: IChatMessageAPIType, pos: 'left' | 'right' }> = React.memo(({message, pos}) => {
+
 
     return (
-        <div>
-            <img src={message.photo ? message.photo : user} alt="avatar" style={{width: '30px'}}/>
-            <b>{message.userName}</b>
-            <hr/>
+        <div
+            style={{
+                display: 'flex',
+                borderBottom: '1px solid white',
+                flexDirection: 'column', alignItems: pos === 'left' ? 'flex-start' : 'flex-end'
+            }}
+        >
+            <div>
+                <img src={message.photo ? message.photo : user} alt="avatar" style={{width: '30px'}}/>
+                <b>{message.userName}</b>
+
+            </div>
             {message.message}
-            <hr/>
         </div>
     )
 })
@@ -94,9 +103,11 @@ const AddMessageForm: React.FC = () => {
     }
 
     return (
-        <div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
             <div>
-                <textarea onChange={e => setMessage(e.currentTarget.value)} value={message}></textarea>
+                <textarea
+                    style={{resize: 'none', height: '60px', width: '50vw'}}
+                    onChange={e => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
             <div>
                 <button disabled={status !== 'ready'} onClick={(e) => sendMessagHandler(e)}>Send</button>
