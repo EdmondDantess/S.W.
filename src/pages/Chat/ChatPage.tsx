@@ -26,7 +26,6 @@ const Chat: React.FC = () => {
         }
     }, [])
 
-
     return (
         <div style={{height: '80vh', width: '60vw'}}>
             {status === 'error' && <div>Some error occured. Please refresh the page</div>}
