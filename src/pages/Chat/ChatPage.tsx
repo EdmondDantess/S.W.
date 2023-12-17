@@ -24,7 +24,7 @@ const Chat: React.FC = () => {
         return () => {
             dispatch(stopMessagesListening())
         }
-    }, [])
+    }, [dispatch])
 
     return (
         <div style={{height: '80vh', width: '60vw'}}>
@@ -45,7 +45,7 @@ const Messages: React.FC = () => {
         if (autoScroll) {
             messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
         }
-    }, [messages])
+    }, [autoScroll, messages])
 
     useEffect(() => {
         messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
@@ -62,21 +62,25 @@ const Messages: React.FC = () => {
 
     return (
         <div style={{height: '350px', overflowY: 'auto'}} onScroll={scrollHandler}>
-            {messages.map((m, i) => myID === m.userId ?
-                <Message key={m.id} message={m} pos={'right'}/> : <Message key={m.id} message={m} pos={'left'}/>)}
+            {
+                messages.map((m, i) => myID === m.userId
+                    ? <Message key={m.id} message={m} pos={'right'}/>
+                    : <Message key={m.id} message={m} pos={'left'}/>)
+            }
             <div ref={messagesAnchorRef}></div>
         </div>
     )
 }
-const Message: React.FC<{ message: IChatMessageAPIType, pos: 'left' | 'right' }> = React.memo(({message, pos}) => {
 
+const Message: React.FC<{ message: IChatMessageAPIType, pos: 'left' | 'right' }> = React.memo(({message, pos}) => {
 
     return (
         <div
             style={{
                 display: 'flex',
                 borderBottom: '1px solid white',
-                flexDirection: 'column', alignItems: pos === 'left' ? 'flex-start' : 'flex-end'
+                flexDirection: 'column',
+                alignItems: pos === 'left' ? 'flex-start' : 'flex-end'
             }}
         >
             <div>
@@ -94,22 +98,29 @@ const AddMessageForm: React.FC = () => {
     const dispatch = useDispatch()
     const status = useSelector<AppstateType>(state => state.chat.status)
 
-    function sendMessagHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function sendMessagHandler() {
         if (message !== '') {
             dispatch(sendMessage(message))
             setMessage('')
         }
+        setMessage('')
     }
 
     return (
         <div style={{display: 'flex', justifyContent: 'center'}}>
             <div>
-                <textarea
-                    style={{resize: 'none', height: '60px', width: '50vw'}}
-                    onChange={e => setMessage(e.currentTarget.value)} value={message}></textarea>
+                <textarea onKeyDown={e => {
+                    if (e.keyCode === 13 && message.trim() !== '') {
+                        sendMessagHandler()
+                    }
+                }}
+                          style={{resize: 'none', height: '60px', width: '50vw'}}
+                          onChange={e => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
             <div>
-                <button disabled={status !== 'ready'} onClick={(e) => sendMessagHandler(e)}>Send</button>
+                <button disabled={status !== 'ready'}
+                        onClick={() => sendMessagHandler()}>Send
+                </button>
             </div>
         </div>
     )

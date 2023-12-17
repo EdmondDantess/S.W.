@@ -3,7 +3,7 @@ import {chatAPI, IChatMessageAPIType} from '../api/chat-api';
 import {Dispatch} from 'redux';
 import {v1} from 'uuid'
 
- export interface IChatMessageType extends IChatMessageAPIType {
+export interface IChatMessageType extends IChatMessageAPIType {
     id: string
 }
 
@@ -27,6 +27,10 @@ const chatReducer = (state: ChatInitialStateType = initialState,
                 ...state,
                 status: action.payload.status
             }
+        case 'chat/DELETE_MESSAGES':
+            return {
+                ...state, messages: []
+            }
         default:
             return state
     }
@@ -36,6 +40,11 @@ export const setMessages = (messages: IChatMessageAPIType[]) => {
     return {
         type: 'chat/SET_MESSAGES',
         payload: {messages}
+    } as const
+}
+export const deleteMessages = () => {
+    return {
+        type: 'chat/DELETE_MESSAGES',
     } as const
 }
 export const setStatus = (status: 'pending' | 'ready' | 'error') => {
@@ -72,6 +81,7 @@ export const startMessagesListening = (): ThunkType => (dispatch) => {
 export const stopMessagesListening = (): ThunkType => (dispatch) => {
     chatAPI.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
     chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
+    dispatch(deleteMessages())
     chatAPI.stop()
 }
 export const sendMessage = (message: string): ThunkType => (dispatch) => {
@@ -81,6 +91,7 @@ export const sendMessage = (message: string): ThunkType => (dispatch) => {
 export type ChatInitialStateType = typeof initialState
 export type ChatActionsType =
     ReturnType<typeof setMessages> |
+    ReturnType<typeof deleteMessages> |
     ReturnType<typeof setStatus>
 
 export default chatReducer
